@@ -14,8 +14,19 @@ const db = mysql.createConnection({
 });
 
 app.post("/signup", (req, res) => {
-  const q =
-    "INSERT INTO klient (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Haslo`) VALUES (?)";
+  //console.log(req.body.userType)
+
+  //const userType = req.body.userType;
+  // if (req.body.userType !== 'user' && req.body.userType !== 'delivery') {
+  //   return res.status(400).json({ error: "Invalid userType111" });
+  // }
+
+  // const qClient =
+  //   "INSERT INTO deliveryappdb.klient (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Haslo`) VALUES (?)";
+
+  // const qDelivery =
+  //   "INSERT INTO deliveryappdb.kurier (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Haslo`) VALUES (?)";
+
   const values = [
     req.body.username,
     req.body.fName,
@@ -24,10 +35,41 @@ app.post("/signup", (req, res) => {
     req.body.email,
     req.body.password,
   ];
-  db.query(q, [values], (err, data) => {
-    if (err) return res.json("Error");
-    return res.json(data);
-  });
+
+  
+
+  let tmp = req.body.userType.value;
+
+  if ("userType" in req.body) {
+    if (req.body.userType.toString() === "user") {
+      const qClient =
+        "INSERT INTO deliveryappdb.klient (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Haslo`) VALUES (?)";
+
+      db.query(qClient, [values], (err, data) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json("Error");
+        }
+        return res.json(data);
+      });
+    } else if (req.body.userType.toString() === "delivery") {
+      const qDelivery =
+        "INSERT INTO deliveryappdb.kurier (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Hasło`) VALUES (?)";
+
+      db.query(qDelivery, [values], (err, data) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json("Error");
+        }
+        return res.json(data);
+      });
+    } else {
+      //return res.json("Invalid userType");
+      console.log(req.body.userType);
+    }
+  } else {
+    console.log("Nie ma userType");
+  }
 });
 
 app.post("/login", (req, res) => {

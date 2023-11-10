@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Validation from "./SignupValidation";
 import PhoneInput from "react-phone-number-input/input";
 import axios from "axios";
+import Form from "react-bootstrap/Form";
 
 function Signup() {
+  
   const [values, setValues] = useState({
     username: "",
     fName: "",
@@ -12,6 +14,7 @@ function Signup() {
     phoneNumber: "",
     email: "",
     password: "",
+    userType: "",
   });
 
   const navigate = useNavigate();
@@ -21,7 +24,7 @@ function Signup() {
   const handleInput = (event) => {
     setValues((prev) => ({
       ...prev,
-      [event.target.name]: [event.target.value],
+      [event.target.name]: event.target.value,
     }));
   };
 
@@ -145,6 +148,40 @@ function Signup() {
             {errors.password && (
               <span className="text-danger">{errors.password}</span>
             )}
+          </div>
+
+          <div className="mb-3">
+            <div className="d-flex justify-content-center align-items-center">
+              <div className="mx-5">
+                <Form.Check
+                  type="radio"
+                  name="userType"
+                  id="custom-radio-1"
+                  label="User"
+                  value="user"
+                  onChange={() => {
+                    handleInput({
+                      target: { name: "userType", value: "user" },
+                    });
+                  }}
+                />
+              </div>
+
+              <div className="mx-5">
+                <Form.Check
+                  type="radio"
+                  name="userType"
+                  id="custom-radio-2"
+                  label="Delivery"
+                  value="delivery"
+                  onChange={() => {
+                    handleInput({
+                      target: { name: "userType", value: "delivery" },
+                    });
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
           <button type="submit" className="btn btn-success w-100 rounded-0">
