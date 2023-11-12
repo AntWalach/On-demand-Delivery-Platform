@@ -22,6 +22,12 @@
     color: white;
 }
 
+.custom-button-log-in:active{
+    background-color: #739072 !important;
+    border-color: #739072 !important;
+    color: white !important;
+}
+
 .custom-card-login-signup{
     min-width: 340px;
 }

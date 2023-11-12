@@ -14,6 +14,11 @@ body {
   border-color: #BDCDD6;
 }
 
+.custom-button:active{
+  background-color: #BDCDD6 !important;
+  border-color: #BDCDD6 !important;
+}
+
 .typewriter h1 {
   color: #EEE9DA;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
