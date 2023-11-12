@@ -47,9 +47,15 @@ function Signup() {
   };
 
   return (
+    <div>
+       <div className="px-3 pt-2">
+        <Link to="/">
+          <div class="arrow arrow-left"></div>
+        </Link> 
+      </div>
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Sign-Up</h2>
+      <div className="bg-white p-3 rounded w-25 custom-card-login-signup">
+        <h2>Sign Up</h2>
         <form action="" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="username">
@@ -60,7 +66,7 @@ function Signup() {
               placeholder="Enter Username"
               name="username"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className="form-control"
             />
             {errors.name && <span className="text-danger">{errors.name}</span>}
           </div>
@@ -74,7 +80,7 @@ function Signup() {
               placeholder="Enter First Name"
               name="fName"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className="form-control"
             />
             {errors.name && <span className="text-danger">{errors.name}</span>}
           </div>
@@ -88,7 +94,7 @@ function Signup() {
               placeholder="Enter Last Name"
               name="lName"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className="form-control"
             />
             {errors.name && <span className="text-danger">{errors.name}</span>}
           </div>
@@ -111,7 +117,7 @@ function Signup() {
                 });
               }}
               //onChange={handleInput}
-              className="form-control rounded-0"
+              className="form-control"
             />
             {errors.phoneNumber && (
               <span className="text-danger">{errors.phoneNumber}</span>
@@ -127,7 +133,7 @@ function Signup() {
               placeholder="Enter Email"
               name="email"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className="form-control"
             />
             {errors.email && (
               <span className="text-danger">{errors.email}</span>
@@ -143,7 +149,7 @@ function Signup() {
               placeholder="Enter Password"
               name="password"
               onChange={handleInput}
-              className="form-control rounded-0"
+              className="form-control"
             />
             {errors.password && (
               <span className="text-danger">{errors.password}</span>
@@ -156,7 +162,7 @@ function Signup() {
                   type="radio"
                   name="userType"
                   id="custom-radio-1"
-                  label="User"
+                  label="Client"
                   value="user"
                   onChange={() => {
                     handleInput({
@@ -166,7 +172,7 @@ function Signup() {
                 />
               </div>
 
-              <div className="col-md-6 d-flex justify-content-end">
+              <div className="col-md-6 d-flex justify-content-end mb-3">
                 <Form.Check
                   type="radio"
                   name="userType"
@@ -182,19 +188,19 @@ function Signup() {
               </div>
             </div>
 
-          <button type="submit" className="btn btn-success w-100 rounded-0">
+          <button type="submit" className="btn btn-success w-100 mb-3 custom-button-log-in">
             <strong>Sign up</strong>
           </button>
-          <p>You agree to our terms and policies</p>
           <Link
             to="/login"
-            className="btn btn-default border w-100 bg-light rounded-0 textdecoration-none"
+            className="btn btn-outline-secondary border w-100"
           >
             Login
           </Link>
         </form>
       </div>
     </div>
+  </div>
   );
 }
 

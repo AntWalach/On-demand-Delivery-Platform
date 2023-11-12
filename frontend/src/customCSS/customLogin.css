@@ -1,0 +1,27 @@
+.arrow {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-top: 2px solid #EEE9DA;
+    border-right: 2px solid #EEE9DA;
+}
+
+.arrow-left {
+    transform: rotate(-135deg);
+}
+
+.custom-button-log-in{
+    background-color: #4F6F52;
+    border-color: #4F6F52;
+    color: white;
+  }
+
+.custom-button-log-in:hover{
+    background-color: #739072;
+    border-color: #739072;
+    color: white;
+}
+
+.custom-card-login-signup{
+    min-width: 340px;
+}
