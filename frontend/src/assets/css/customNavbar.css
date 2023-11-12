@@ -1,0 +1,30 @@
+.custom-navbar{
+    background-color: #EEE9DA !important;
+}
+
+.custom-navbar-text-color{
+    color: #537188 !important;
+    font-size: 20px !important;
+}
+
+.custom-navbar-text-color:hover{
+    color: #6096B4 !important;
+}
+
+.custom-button-home{
+    background-color: #537188 !important;
+    border-color: #537188 !important;
+    color: white !important;
+}
+  
+.custom-button-home:hover{
+    background-color: #BDCDD6 !important;
+    border-color: #BDCDD6 !important;
+    color: #537188 !important;
+}
+
+.custom-button-home:active {
+    background-color: #BDCDD6 !important;
+    border-color: #BDCDD6  !important;
+    color: #537188  !important;
+}

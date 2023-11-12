@@ -1,6 +1,6 @@
 import React from 'react'
 import QuickPackLogo from '../assets/images/QuickPackLogo.png'
-import '../assets/css/customHome.css';
+import '../assets/css/customNavbar.css';
 
 function Navbar() {
   return (
