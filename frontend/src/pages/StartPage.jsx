@@ -17,7 +17,7 @@ function StartPage() {
                 <button type="button" className="btn btn-success btn-lg custom-button mx-2 px-4">Log in</button>
             </Link>
             <Link to="/signup">
-                <button type="button" className="btn btn-success btn-lg custom-button mx-2">Sing up</button>
+                <button type="button" className="btn btn-success btn-lg custom-button mx-2">Sign up</button>
             </Link>
         </div>
     </div>
