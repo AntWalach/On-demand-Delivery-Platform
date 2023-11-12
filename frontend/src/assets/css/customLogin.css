@@ -11,15 +11,15 @@
 }
 
 .custom-button-log-in{
-    background-color: #4F6F52;
-    border-color: #4F6F52;
-    color: white;
+    background-color: #4F6F52 !important;
+    border-color: #4F6F52 !important;
+    color: white !important;
   }
 
 .custom-button-log-in:hover{
-    background-color: #739072;
-    border-color: #739072;
-    color: white;
+    background-color: #739072 !important;
+    border-color: #739072 !important;
+    color: white !important;
 }
 
 .custom-button-log-in:active{

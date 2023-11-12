@@ -4,6 +4,7 @@ import Validation from "./SignupValidation";
 import PhoneInput from "react-phone-number-input/input";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
+import './assets/css/customLogin.css';
 
 function Signup() {
   

@@ -4,7 +4,7 @@
 
 .custom-navbar-text-color{
     color: #537188 !important;
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .custom-navbar-text-color:hover{
@@ -12,15 +12,15 @@
 }
 
 .custom-button-home{
-    background-color: #537188;
-    border-color: #537188;
-    color: white;
+    background-color: #537188 !important;
+    border-color: #537188 !important;
+    color: white !important;
 }
   
 .custom-button-home:hover{
-    background-color: #BDCDD6;
-    border-color: #BDCDD6;
-    color: #537188;
+    background-color: #BDCDD6 !important;
+    border-color: #BDCDD6 !important;
+    color: #537188 !important;
 }
 
 .custom-button-home:active {

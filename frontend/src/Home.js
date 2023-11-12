@@ -1,7 +1,6 @@
 import React from 'react'
-import { Image } from 'react-bootstrap';
 import QuickPackLogo from './assets/QuickPackLogo.png'
-
+import './assets/css/customHome.css';
 
 function Home() {
   return (

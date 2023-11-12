@@ -1,17 +1,17 @@
 body {
-  background-color: #6096B4;
+  background-color: #6096B4 !important;
   font-family: 'Arial', sans-serif;
 }
 
 .custom-button{
-  background-color: #EEE9DA;
-  border-color: #EEE9DA;
-  color: #93BFCF;
+  background-color: #EEE9DA !important;
+  border-color: #EEE9DA !important;
+  color: #93BFCF !important;
 }
 
 .custom-button:hover{
-  background-color: #BDCDD6;
-  border-color: #BDCDD6;
+  background-color: #BDCDD6 !important;
+  border-color: #BDCDD6 !important;
 }
 
 .custom-button:active{
