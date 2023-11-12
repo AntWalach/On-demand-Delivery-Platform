@@ -47,7 +47,7 @@ function Signup() {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center bg-primary vh-100">
+    <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="bg-white p-3 rounded w-25">
         <h2>Sign-Up</h2>
         <form action="" onSubmit={handleSubmit}>
@@ -150,9 +150,8 @@ function Signup() {
             )}
           </div>
 
-          <div className="mb-3">
-            <div className="d-flex justify-content-center align-items-center">
-              <div className="mx-5">
+          <div className="row px-2">
+            <div className="col-md-6 d-flex justify-content-start">
                 <Form.Check
                   type="radio"
                   name="userType"
@@ -167,7 +166,7 @@ function Signup() {
                 />
               </div>
 
-              <div className="mx-5">
+              <div className="col-md-6 d-flex justify-content-end">
                 <Form.Check
                   type="radio"
                   name="userType"
@@ -182,7 +181,6 @@ function Signup() {
                 />
               </div>
             </div>
-          </div>
 
           <button type="submit" className="btn btn-success w-100 rounded-0">
             <strong>Sign up</strong>
