@@ -10,24 +10,43 @@
     transform: rotate(-135deg);
 }
 
-.custom-button-log-in{
+.custom-button-log-in {
     background-color: #4F6F52 !important;
     border-color: #4F6F52 !important;
     color: white !important;
-  }
+}
 
-.custom-button-log-in:hover{
+.custom-button-log-in:hover {
     background-color: #739072 !important;
     border-color: #739072 !important;
     color: white !important;
 }
 
-.custom-button-log-in:active{
+.custom-button-log-in:active {
     background-color: #739072 !important;
     border-color: #739072 !important;
     color: white !important;
 }
 
-.custom-card-login-signup{
+.custom-card-login-signup {
     min-width: 340px;
+}
+
+.custom-radio-outline:hover {
+    background-color: #739072 !important;
+    border-color: #739072 !important;
+    color: white !important;
+}
+
+.custom-radio-outline,
+.custom-radio-outline:not(:disabled):not(.disabled):active {
+    color: #4F6F52 !important;
+    border-color: white!important;
+}
+
+.custom-button-radio:checked+.custom-radio-outline {
+    color: white !important;
+    background-color: #4F6F52 !important;
+    border-color: #4F6F52 !important;
+    font-weight: 600;
 }

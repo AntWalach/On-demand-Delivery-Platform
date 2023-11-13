@@ -14,7 +14,6 @@ const db = mysql.createConnection({
 });
 
 app.post("/signup", (req, res) => {
-
   const values = [
     req.body.username,
     req.body.fName,
@@ -23,10 +22,6 @@ app.post("/signup", (req, res) => {
     req.body.email,
     req.body.password,
   ];
-
-  
-
-  let tmp = req.body.userType.value;
 
   if ("userType" in req.body) {
     if (req.body.userType.toString() === "user") {
@@ -52,8 +47,7 @@ app.post("/signup", (req, res) => {
         return res.json(data);
       });
     } else {
-      //return res.json("Invalid userType");
-      console.log(req.body.userType);
+      return res.json("Invalid userType");
     }
   } else {
     console.log("Nie ma userType");
@@ -61,12 +55,29 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const q = "SELECT * FROM client WHERE `Email` = ? AND `Password` = ?";
-  const values = [req.body.email, req.body.password];
-  db.query(q, [req.body.email, req.body.password], (err, data) => {
-    if (err) return res.json("Error");
+  let query;
+  let table;
+  console.log(req.body.userType);
+  if (req.body.userType.toString() === "user") {
+    query = "SELECT * FROM client WHERE Email = ? AND Password = ?";
+    table = "client";
+  } else if (req.body.userType.toString() === "delivery") {
+    query = "SELECT * FROM delivery WHERE Email = ? AND Password = ?";
+    table = "delivery";
+  } else {
+    return res.json("Invalid user type");
+  }
 
-    if (data.length > 0) return res.json("Success");
+  const values = [req.body.email, req.body.password];
+
+  db.query(query, values, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.json("Error");
+    }
+    if (data.length > 0) {
+      return res.json(`Success ${table}`);
+    }
     return res.json("Fail");
   });
 });
