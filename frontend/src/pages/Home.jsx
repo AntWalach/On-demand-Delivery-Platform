@@ -1,6 +1,11 @@
 import React from 'react'
 import '../assets/css/customHome.css';
 import Navbar from '../components/Navbar';
+import { House } from 'react-bootstrap-icons';
+import { PinAngle } from 'react-bootstrap-icons';
+import { BoxFill } from 'react-bootstrap-icons';
+import { BoxSeamFill } from 'react-bootstrap-icons';
+import { Box2Fill } from 'react-bootstrap-icons';
 
 function Home() {
 
@@ -13,10 +18,13 @@ function Home() {
             <h2 className="display-4 custom-text-color-headings">Delivery destination</h2>
           </div>
         </div>
-
+        
         <div className="row justify-content-center mt-4">
           <div className="col-2 mx-5">
-            <div className="card custom-cards-and-imputs custom-text-color">
+            <div className="card custom-cards-and-imputs custom-text-color h-100">
+              <div className="text-center">
+                <House  className="m-auto mt-5 custom-icon"/>
+              </div>
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -39,7 +47,10 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card custom-cards-and-imputs custom-text-color">
+            <div className="card custom-cards-and-imputs custom-text-color h-100">
+              <div className="text-center">
+                <PinAngle  className="m-auto mt-5 custom-icon"/>
+              </div>
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -70,7 +81,10 @@ function Home() {
 
         <div className="row justify-content-center mt-4">
           <div className="col-2 mx-5">
-            <div className="card card custom-cards-and-imputs custom-text-color">
+            <div className="card custom-cards-and-imputs custom-text-color h-100">
+              <div className="text-center">
+                <BoxFill  className="m-auto mt-5 custom-icon"/>
+              </div>
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -93,7 +107,10 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card card custom-cards-and-imputs custom-text-color">
+            <div className="card custom-cards-and-imputs custom-text-color h-100">
+              <div className="text-center">
+                <BoxSeamFill  className="m-auto mt-5 custom-icon"/>
+              </div>
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -116,7 +133,10 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card card custom-cards-and-imputs custom-text-color">
+            <div className="card custom-cards-and-imputs custom-text-color h-100">
+              <div className="text-center">
+                <Box2Fill  className="m-auto mt-5 custom-icon"/>
+              </div>
               <div className="card-body">
                 <div className="form-check">
                   <input
