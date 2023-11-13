@@ -14,18 +14,6 @@ const db = mysql.createConnection({
 });
 
 app.post("/signup", (req, res) => {
-  //console.log(req.body.userType)
-
-  //const userType = req.body.userType;
-  // if (req.body.userType !== 'user' && req.body.userType !== 'delivery') {
-  //   return res.status(400).json({ error: "Invalid userType111" });
-  // }
-
-  // const qClient =
-  //   "INSERT INTO deliveryappdb.klient (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Haslo`) VALUES (?)";
-
-  // const qDelivery =
-  //   "INSERT INTO deliveryappdb.kurier (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Haslo`) VALUES (?)";
 
   const values = [
     req.body.username,
@@ -43,7 +31,7 @@ app.post("/signup", (req, res) => {
   if ("userType" in req.body) {
     if (req.body.userType.toString() === "user") {
       const qClient =
-        "INSERT INTO deliveryappdb.klient (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Haslo`) VALUES (?)";
+        "INSERT INTO client (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
 
       db.query(qClient, [values], (err, data) => {
         if (err) {
@@ -54,7 +42,7 @@ app.post("/signup", (req, res) => {
       });
     } else if (req.body.userType.toString() === "delivery") {
       const qDelivery =
-        "INSERT INTO deliveryappdb.kurier (`Login`,`Imie`,`Nazwisko`,`NumerTelefonu`,`E-mail`,`Hasło`) VALUES (?)";
+        "INSERT INTO delivery (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
 
       db.query(qDelivery, [values], (err, data) => {
         if (err) {
@@ -73,7 +61,7 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const q = "SELECT * FROM klient WHERE `E-mail` = ? AND `Haslo` = ?";
+  const q = "SELECT * FROM client WHERE `Email` = ? AND `Password` = ?";
   const values = [req.body.email, req.body.password];
   db.query(q, [req.body.email, req.body.password], (err, data) => {
     if (err) return res.json("Error");
