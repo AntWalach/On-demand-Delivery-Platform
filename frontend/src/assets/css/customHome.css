@@ -2,3 +2,16 @@
     width: 250px;
     height: 250px;
 }
+
+.custom-text-color-headings{
+    color: #EEE9DA !important;
+}
+
+.custom-text-color{
+    color: #6096B4 !important;
+}
+
+.custom-cards-and-imputs{
+    background-color: #EEE9DA !important;
+    border-color: #EEE9DA !important;
+}

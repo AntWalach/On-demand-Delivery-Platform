@@ -10,13 +10,13 @@ function Home() {
       <div className="container-fluid">
         <div className="row mt-5">
           <div className="col-12 text-center">
-            <h2 className="display-4">Delivery destination</h2>
+            <h2 className="display-4 custom-text-color-headings">Delivery destination</h2>
           </div>
         </div>
 
         <div className="row justify-content-center mt-4">
           <div className="col-2 mx-5">
-            <div className="card">
+            <div className="card custom-cards-and-imputs custom-text-color">
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -39,7 +39,7 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card">
+            <div className="card custom-cards-and-imputs custom-text-color">
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -64,13 +64,13 @@ function Home() {
 
         <div className="row mt-5">
           <div className="col-12 text-center">
-            <h2 className="display-4">Pack size</h2>
+            <h2 className="display-4 custom-text-color-headings">Pack size</h2>
           </div>
         </div>
 
         <div className="row justify-content-center mt-4">
           <div className="col-2 mx-5">
-            <div className="card">
+            <div className="card card custom-cards-and-imputs custom-text-color">
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -93,7 +93,7 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card">
+            <div className="card card custom-cards-and-imputs custom-text-color">
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -116,7 +116,7 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card">
+            <div className="card card custom-cards-and-imputs custom-text-color">
               <div className="card-body">
                 <div className="form-check">
                   <input
@@ -141,7 +141,7 @@ function Home() {
 
         <div className="row mt-5">
           <div className="col-12 text-center">
-            <h2 className="display-4">Shipping details</h2>
+            <h2 className="display-4 custom-text-color-headings">Shipping details</h2>
           </div>
         </div>
 
@@ -152,13 +152,13 @@ function Home() {
                 <div className="mb-3">
                   <label
                     htmlFor="exampleInputPassword1"
-                    className="form-label"
+                    className="form-label custom-text-color-headings"
                   >
                     Name and surname or company name
                   </label>
                   <input
                     type="password"
-                    className="form-control"
+                    className="form-control custom-cards-and-imputs"
                     id="exampleInputPassword1"
                   />
                 </div>
@@ -171,17 +171,17 @@ function Home() {
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputEmail1"
-                          className="form-label"
+                          className="form-label custom-text-color-headings"
                         >
                           Email address
                         </label>
                         <input
                           type="email"
-                          className="form-control"
+                          className="form-control custom-cards-and-imputs"
                           id="exampleInputEmail1"
                           aria-describedby="emailHelp"
                         />
-                        <div id="emailHelp" className="form-text">
+                        <div id="emailHelp" className="form-text custom-text-color-headings">
                           We'll never share email with anyone else.
                         </div>
                       </div>
@@ -190,13 +190,13 @@ function Home() {
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputPassword2"
-                          className="form-label"
+                          className="form-label custom-text-color-headings"
                         >
                           Phone number
                         </label>
                         <input
                           type="password"
-                          className="form-control"
+                          className="form-control custom-cards-and-imputs"
                           id="exampleInputPassword2"
                         />
                       </div>
@@ -214,13 +214,13 @@ function Home() {
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputPassword1"
-                          className="form-label"
+                          className="form-label custom-text-color-headings"
                         >
                           Zip code
                         </label>
                         <input
                           type="password"
-                          className="form-control"
+                          className="form-control custom-cards-and-imputs"
                           id="exampleInputPassword1"
                         />
                       </div>
@@ -229,13 +229,13 @@ function Home() {
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputPassword2"
-                          className="form-label"
+                          className="form-label custom-text-color-headings"
                         >
                           Town
                         </label>
                         <input
                           type="password"
-                          className="form-control"
+                          className="form-control custom-cards-and-imputs"
                           id="exampleInputPassword2"
                         />
                       </div>
@@ -253,13 +253,13 @@ function Home() {
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputPassword1"
-                          className="form-label"
+                          className="form-label custom-text-color-headings"
                         >
                           Street
                         </label>
                         <input
                           type="password"
-                          className="form-control"
+                          className="form-control custom-cards-and-imputs"
                           id="exampleInputPassword1"
                         />
                       </div>
@@ -268,13 +268,13 @@ function Home() {
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputPassword2"
-                          className="form-label"
+                          className="form-label custom-text-color-headings"
                         >
                           Building number
                         </label>
                         <input
                           type="password"
-                          className="form-control"
+                          className="form-control custom-cards-and-imputs"
                           id="exampleInputPassword2"
                         />
                       </div>
@@ -283,13 +283,13 @@ function Home() {
                       <div className="mb-3">
                         <label
                           htmlFor="exampleInputPassword3"
-                          className="form-label"
+                          className="form-label custom-text-color-headings"
                         >
                           Apartment number
                         </label>
                         <input
                           type="password"
-                          className="form-control"
+                          className="form-control custom-cards-and-imputs"
                           id="exampleInputPassword3"
                         />
                       </div>
@@ -300,7 +300,7 @@ function Home() {
             </div>
 
             <div className="text-center">
-              <button type="submit" className="btn btn-primary btn-lg">
+              <button type="submit" className="btn btn-primary btn-lg custom-button-home">
                 Send
               </button>
             </div>
