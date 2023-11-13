@@ -20,9 +20,7 @@ function Home() {
         <div className="row justify-content-center mt-4">
           <div className="col-2 mx-5">
             <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
-              <div className="text-center">
                 <House  className="m-auto mt-5 custom-icon"/>
-              </div>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
@@ -46,9 +44,7 @@ function Home() {
 
           <div className="col-2 mx-5">
             <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
-              <div className="text-center">
                 <PinAngle  className="m-auto mt-5 custom-icon"/>
-              </div>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
@@ -80,9 +76,7 @@ function Home() {
         <div className="row justify-content-center mt-4">
           <div className="col-2 mx-5">
             <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
-              <div className="text-center">
                 <BoxFill  className="m-auto mt-5 custom-icon"/>
-              </div>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
@@ -106,9 +100,7 @@ function Home() {
 
           <div className="col-2 mx-5">
             <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
-              <div className="text-center">
                 <BoxSeamFill  className="m-auto mt-5 custom-icon"/>
-              </div>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
@@ -132,9 +124,7 @@ function Home() {
 
           <div className="col-2 mx-5">
             <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
-              <div className="text-center">
                 <Box2Fill  className="m-auto mt-5 custom-icon"/>
-              </div>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
