@@ -165,7 +165,7 @@ function Home() {
                     Name and surname or company name
                   </label>
                   <input
-                    type="password"
+                    type="text"
                     className="form-control custom-imputs"
                     id="exampleInputPassword1"
                   />
@@ -203,7 +203,7 @@ function Home() {
                           Phone number
                         </label>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control custom-imputs"
                           id="exampleInputPassword2"
                         />
@@ -227,7 +227,7 @@ function Home() {
                           Zip code
                         </label>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control custom-imputs"
                           id="exampleInputPassword1"
                         />
@@ -242,7 +242,7 @@ function Home() {
                           Town
                         </label>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control custom-imputs"
                           id="exampleInputPassword2"
                         />
@@ -266,7 +266,7 @@ function Home() {
                           Street
                         </label>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control custom-imputs"
                           id="exampleInputPassword1"
                         />
@@ -281,7 +281,7 @@ function Home() {
                           Building number
                         </label>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control custom-imputs"
                           id="exampleInputPassword2"
                         />
@@ -296,7 +296,7 @@ function Home() {
                           Apartment number
                         </label>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control custom-imputs"
                           id="exampleInputPassword3"
                         />
