@@ -1,6 +1,7 @@
 .custom-card{
-    width: 250px;
-    height: 250px;
+    max-width: 240px;
+    background-color: #EEE9DA !important;
+    border-color: #EEE9DA !important;
 }
 
 .custom-text-color-headings{
@@ -11,7 +12,7 @@
     color: #6096B4 !important;
 }
 
-.custom-cards-and-imputs{
+.custom-imputs{
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
 }

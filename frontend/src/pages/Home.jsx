@@ -17,9 +17,9 @@ function Home() {
             <h2 className="display-4 custom-text-color-headings">Delivery destination</h2>
           </div>
         
-        <div className="row justify-content-center mt-4">
+        <div className="row justify-content-center mt-4  p-0">
           <div className="col-2 mx-5">
-            <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
+            <div className="card custom-card custom-text-color h-100 text-center">
                 <House  className="m-auto mt-5 custom-icon"/>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
@@ -43,7 +43,7 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
+            <div className="card custom-card custom-text-color h-100 text-center">
                 <PinAngle  className="m-auto mt-5 custom-icon"/>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
@@ -73,9 +73,9 @@ function Home() {
           </div>
         </div>
 
-        <div className="row justify-content-center mt-4">
+        <div className="row justify-content-center mt-4 p-0">
           <div className="col-2 mx-5">
-            <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
+            <div className="card custom-card custom-text-color h-100 text-center">
                 <BoxFill  className="m-auto mt-5 custom-icon"/>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
@@ -99,7 +99,7 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
+            <div className="card custom-card custom-text-color h-100 text-center">
                 <BoxSeamFill  className="m-auto mt-5 custom-icon"/>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
@@ -123,7 +123,7 @@ function Home() {
           </div>
 
           <div className="col-2 mx-5">
-            <div className="card custom-cards-and-imputs custom-text-color h-100 text-center">
+            <div className="card custom-card custom-text-color h-100 text-center">
                 <Box2Fill  className="m-auto mt-5 custom-icon"/>
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
@@ -166,7 +166,7 @@ function Home() {
                   </label>
                   <input
                     type="password"
-                    className="form-control custom-cards-and-imputs"
+                    className="form-control custom-imputs"
                     id="exampleInputPassword1"
                   />
                 </div>
@@ -185,7 +185,7 @@ function Home() {
                         </label>
                         <input
                           type="email"
-                          className="form-control custom-cards-and-imputs"
+                          className="form-control custom-imputs"
                           id="exampleInputEmail1"
                           aria-describedby="emailHelp"
                         />
@@ -204,7 +204,7 @@ function Home() {
                         </label>
                         <input
                           type="password"
-                          className="form-control custom-cards-and-imputs"
+                          className="form-control custom-imputs"
                           id="exampleInputPassword2"
                         />
                       </div>
@@ -228,7 +228,7 @@ function Home() {
                         </label>
                         <input
                           type="password"
-                          className="form-control custom-cards-and-imputs"
+                          className="form-control custom-imputs"
                           id="exampleInputPassword1"
                         />
                       </div>
@@ -243,7 +243,7 @@ function Home() {
                         </label>
                         <input
                           type="password"
-                          className="form-control custom-cards-and-imputs"
+                          className="form-control custom-imputs"
                           id="exampleInputPassword2"
                         />
                       </div>
@@ -267,7 +267,7 @@ function Home() {
                         </label>
                         <input
                           type="password"
-                          className="form-control custom-cards-and-imputs"
+                          className="form-control custom-imputs"
                           id="exampleInputPassword1"
                         />
                       </div>
@@ -282,7 +282,7 @@ function Home() {
                         </label>
                         <input
                           type="password"
-                          className="form-control custom-cards-and-imputs"
+                          className="form-control custom-imputs"
                           id="exampleInputPassword2"
                         />
                       </div>
@@ -297,7 +297,7 @@ function Home() {
                         </label>
                         <input
                           type="password"
-                          className="form-control custom-cards-and-imputs"
+                          className="form-control custom-imputs"
                           id="exampleInputPassword3"
                         />
                       </div>
