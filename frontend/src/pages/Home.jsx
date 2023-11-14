@@ -156,21 +156,22 @@ function Home() {
         <div className="row justify-content-center mt-3 mb-5">
           <form className="w-50">
             <div className="container">
-              <div className="row">
+            <div className="row">
                 <div className="mb-3">
-                  <label
-                    htmlFor="exampleInputPassword1"
-                    className="form-label custom-text-color-headings"
-                  >
+                  <div class="form-floating mb-3">
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="floatingInput"
+                      placeholder="Name and surname or company name"
+                    />
+                    <label for="floatingInput"
+                    className="custom-text-color">
                     Name and surname or company name
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control custom-imputs"
-                    id="exampleInputPassword1"
-                  />
+                    </label>
+                  </div>
                 </div>
-              </div>
+            </div>
 
               <div className="row justify-content-center">
                 <div className="col">
