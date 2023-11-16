@@ -41,6 +41,7 @@ function Home() {
               </div>
             </div>
           </div>
+          
 
           <div className="col-2 mx-5">
             <div className="card custom-card custom-text-color h-100 text-center">
