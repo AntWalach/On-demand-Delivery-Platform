@@ -1,32 +1,33 @@
-import React from 'react'
-import '../assets/css/customHome.css';
-import Navbar from '../components/Navbar';
-import { House } from 'react-bootstrap-icons';
-import { PinAngle } from 'react-bootstrap-icons';
-import { BoxFill } from 'react-bootstrap-icons';
-import { BoxSeamFill } from 'react-bootstrap-icons';
-import { Box2Fill } from 'react-bootstrap-icons';
+import React from "react";
+import "../assets/css/customHome.css";
+import Navbar from "../components/Navbar";
+import { House } from "react-bootstrap-icons";
+import { PinAngle } from "react-bootstrap-icons";
+import { BoxFill } from "react-bootstrap-icons";
+import { BoxSeamFill } from "react-bootstrap-icons";
+import { Box2Fill } from "react-bootstrap-icons";
 
 function Home() {
-
   return (
     <div>
       <Navbar />
-        <div className="row mt-5">
-          <div className="col-12 text-center">
-            <h2 className="display-4 custom-text-color-headings">Delivery destination</h2>
-          </div>
-        
-        <div className="row justify-content-center mt-4  p-0">
+      <div className="row mt-5">
+        <div className="col-12 text-center">
+          <h2 className="display-4 custom-text-color-headings">
+            Delivery destination
+          </h2>
+        </div>
+
+        <div className="row justify-content-center mt-4 p-0">
           <div className="col-2 mx-5">
             <div className="card custom-card custom-text-color h-100 text-center">
-                <House  className="m-auto mt-5 custom-icon"/>
+              <House className="m-auto mt-5 custom-icon" />
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
                     className="form-check-input stretched-link"
-                    type="checkbox"
-                    value=""
+                    type="radio"
+                    name="deliveryOption"
                     id="defaultCheck1"
                   />
                   <label
@@ -41,17 +42,16 @@ function Home() {
               </div>
             </div>
           </div>
-          
 
           <div className="col-2 mx-5">
             <div className="card custom-card custom-text-color h-100 text-center">
-                <PinAngle  className="m-auto mt-5 custom-icon"/>
+              <PinAngle className="m-auto mt-5 custom-icon" />
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
                     className="form-check-input stretched-link"
-                    type="checkbox"
-                    value=""
+                    type="radio"
+                    name="deliveryOption"
                     id="defaultCheck2"
                   />
                   <label
@@ -77,12 +77,13 @@ function Home() {
         <div className="row justify-content-center mt-4 p-0">
           <div className="col-2 mx-5">
             <div className="card custom-card custom-text-color h-100 text-center">
-                <BoxFill  className="m-auto mt-5 custom-icon"/>
+              <BoxFill className="m-auto mt-5 custom-icon" />
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
                     className="form-check-input stretched-link"
-                    type="checkbox"
+                    type="radio"
+                    name="packageOption"
                     value=""
                     id="defaultCheck3"
                   />
@@ -101,12 +102,13 @@ function Home() {
 
           <div className="col-2 mx-5">
             <div className="card custom-card custom-text-color h-100 text-center">
-                <BoxSeamFill  className="m-auto mt-5 custom-icon"/>
+              <BoxSeamFill className="m-auto mt-5 custom-icon" />
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
                     className="form-check-input stretched-link"
-                    type="checkbox"
+                    type="radio"
+                    name="packageOption"
                     value=""
                     id="defaultCheck4"
                   />
@@ -125,12 +127,13 @@ function Home() {
 
           <div className="col-2 mx-5">
             <div className="card custom-card custom-text-color h-100 text-center">
-                <Box2Fill  className="m-auto mt-5 custom-icon"/>
+              <Box2Fill className="m-auto mt-5 custom-icon" />
               <div className="card-body d-flex flex-column align-items-center">
                 <div className="form-check">
                   <input
                     className="form-check-input stretched-link"
-                    type="checkbox"
+                    type="radio"
+                    name="packageOption"
                     value=""
                     id="defaultCheck5"
                   />
@@ -150,14 +153,16 @@ function Home() {
 
         <div className="row mt-5">
           <div className="col-12 text-center">
-            <h2 className="display-4 custom-text-color-headings">Shipping details</h2>
+            <h2 className="display-4 custom-text-color-headings">
+              Shipping details
+            </h2>
           </div>
         </div>
 
         <div className="row justify-content-center mt-3 mb-5">
           <form className="w-50">
             <div className="container">
-            <div className="row">
+              <div className="row">
                 <div className="mb-3">
                   <div class="form-floating mb-3">
                     <input
@@ -166,151 +171,133 @@ function Home() {
                       id="floatingInput"
                       placeholder="Name and surname or company name"
                     />
-                    <label for="floatingInput"
-                    className="custom-text-color">
-                    Name and surname or company name
+                    <label for="floatingInput" className="custom-text-color">
+                      Name and surname or company name
                     </label>
                   </div>
                 </div>
-            </div>
-
-              <div className="row justify-content-center">
-                <div className="col">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputEmail1"
-                          className="form-label custom-text-color-headings"
-                        >
-                          Email address
-                        </label>
-                        <input
-                          type="email"
-                          className="form-control custom-imputs"
-                          id="exampleInputEmail1"
-                          aria-describedby="emailHelp"
-                        />
-                        <div id="emailHelp" className="form-text custom-text-color-headings">
-                          We'll never share email with anyone else.
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword2"
-                          className="form-label custom-text-color-headings"
-                        >
-                          Phone number
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control custom-imputs"
-                          id="exampleInputPassword2"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
 
             <div className="container">
-              <div className="row justify-content-center">
-                <div className="col">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword1"
-                          className="form-label custom-text-color-headings"
-                        >
-                          Zip code
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control custom-imputs"
-                          id="exampleInputPassword1"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword2"
-                          className="form-label custom-text-color-headings"
-                        >
-                          Town
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control custom-imputs"
-                          id="exampleInputPassword2"
-                        />
-                      </div>
-                    </div>
+              <div className=" row justify-content-center ">
+                <div className="col-md-4 custom-container rounded">
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputZipCode1"
+                      className="form-label custom-text-color-headings"
+                    >
+                      Zip code
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputZipCode1"
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputStreet1"
+                      className="form-label custom-text-color-headings"
+                    >
+                      Street
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputStreet1"
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputBuildingNumber1"
+                      className="form-label custom-text-color-headings"
+                    >
+                      Building number
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputBuildingNumber1"
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputApartmentNumber1"
+                      className="form-label custom-text-color-headings text-nowrap"
+                    >
+                      Apartment number
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputApartmentNumber1"
+                    />
+                  </div>
+                </div>
+
+                <div className="col-md-4 offset-md-1 custom-container rounded">
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputZipCode2"
+                      className="form-label custom-text-color-headings"
+                    >
+                      Zip code
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputZipCode2"
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputStreet2"
+                      className="form-label custom-text-color-headings"
+                    >
+                      Street
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputStreet2"
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputBuildingNumber2"
+                      className="form-label custom-text-color-headings"
+                    >
+                      Building number
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputBuildingNumber2"
+                    />
+                  </div>
+                  <div className="mb-2">
+                    <label
+                      htmlFor="InputApartmentNumber2"
+                      className="form-label custom-text-color-headings text-nowrap"
+                    >
+                      Apartment number
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control custom-imputs"
+                      id="InputApartmentNumber2"
+                    />
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="container">
-              <div className="row justify-content-center">
-                <div className="col">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword1"
-                          className="form-label custom-text-color-headings"
-                        >
-                          Street
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control custom-imputs"
-                          id="exampleInputPassword1"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-3">
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword2"
-                          className="form-label custom-text-color-headings"
-                        >
-                          Building number
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control custom-imputs"
-                          id="exampleInputPassword2"
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-3">
-                      <div className="mb-3">
-                        <label
-                          htmlFor="exampleInputPassword3"
-                          className="form-label custom-text-color-headings"
-                        >
-                          Apartment number
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control custom-imputs"
-                          id="exampleInputPassword3"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <button type="submit" className="btn btn-primary btn-lg custom-button-home">
+            <div className="text-center mt-2">
+              <button
+                type="submit"
+                className="btn btn-primary btn-lg custom-button-home"
+              >
                 Send
               </button>
             </div>
@@ -318,8 +305,7 @@ function Home() {
         </div>
       </div>
     </div>
-  )
-  
+  );
 }
 
-export default Home
+export default Home;
