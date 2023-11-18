@@ -82,6 +82,33 @@ app.post("/login", (req, res) => {
   });
 });
 
+app.post("/home", (req, res) => {
+  const values = [
+    req.body.InputZipCode1.toString() +
+      req.body.InputStreet1.toString() +
+      req.body.InputBuildingNumber1.toString() +
+      req.body.InputApartmentNumber1.toString(),
+    req.body.InputZipCode2.toString() +
+      req.body.InputStreet2.toString() +
+      req.body.InputBuildingNumber2.toString() +
+      req.body.InputApartmentNumber2.toString(),
+    req.body.packageOption.toString(),
+  ];
+
+  const q =
+    "INSERT INTO `order` (`SenderAddress`, `RecipentAddress`,`OrderDetailsName`) VALUES (?)";
+
+  console.log(req.body.packageOption.toString());
+
+  db.query(q, [values], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Error");
+    }
+    return res.json(data);
+  });
+});
+
 app.listen(8081, () => {
   console.log("Backend");
 });
