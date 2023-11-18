@@ -46,7 +46,7 @@ function Home() {
         </div>
         <form className="w-50 mx-auto " action="" onSubmit={handleSubmit}>
           <div className="row justify-content-center mt-4 p-0">
-            <div className="col-2 mx-5">
+            <div className="col-3 mx-4">
               <div className="card custom-card custom-text-color h-100 text-center">
                 <House className="m-auto mt-5 custom-icon" />
                 <div className="card-body d-flex flex-column align-items-center">
@@ -64,14 +64,13 @@ function Home() {
                   </div>
                   <h5 className="card-title">Address</h5>
                   <p className="card-text">
-                    The courier will deliver the parcel directly to the
-                    address
+                    The courier will deliver the parcel directly to the address
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="col-2 mx-5">
+            <div className="col-3 mx-5">
               <div className="card custom-card custom-text-color h-100 text-center">
                 <PinAngle className="m-auto mt-5 custom-icon" />
                 <div className="card-body d-flex flex-column align-items-center">
@@ -105,7 +104,7 @@ function Home() {
           </div>
 
           <div className="row justify-content-center mt-4 p-0">
-            <div className="col-2 mx-5">
+            <div className="col-3 mx-4">
               <div className="card custom-card custom-text-color h-100 text-center">
                 <BoxFill className="m-auto mt-5 custom-icon" />
                 <div className="card-body d-flex flex-column align-items-center">
@@ -135,7 +134,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="col-2 mx-5">
+            <div className="col-3 mx-4">
               <div className="card custom-card custom-text-color h-100 text-center">
                 <BoxSeamFill className="m-auto mt-5 custom-icon" />
                 <div className="card-body d-flex flex-column align-items-center">
@@ -165,7 +164,7 @@ function Home() {
               </div>
             </div>
 
-            <div className="col-2 mx-5">
+            <div className="col-3 mx-4">
               <div className="card custom-card custom-text-color h-100 text-center">
                 <Box2Fill className="m-auto mt-5 custom-icon" />
                 <div className="card-body d-flex flex-column align-items-center">

@@ -94,7 +94,7 @@ app.post("/home", (req, res) => {
       req.body.InputApartmentNumber2.toString(),
     req.body.packageOption.toString(),
   ];
-
+  //You need to edit no null options in database for date etc.
   const q =
     "INSERT INTO `order` (`SenderAddress`, `RecipentAddress`,`OrderDetailsName`) VALUES (?)";
 
