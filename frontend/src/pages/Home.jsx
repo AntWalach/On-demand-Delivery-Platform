@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../assets/css/customHome.css";
 import Navbar from "../components/Navbar";
 import { House } from "react-bootstrap-icons";
@@ -8,6 +8,7 @@ import { BoxSeamFill } from "react-bootstrap-icons";
 import { Box2Fill } from "react-bootstrap-icons";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [values, setValues] = useState({
@@ -32,12 +33,30 @@ function Home() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:8081/home", values);
+    axios.post("http://localhost:8081", values);
   };
+
+  axios.defaults.withCredentials = true; //tu sie zapamietuje logowanie, cookies
+
+  const [name,setName] = useState('')
+  const navigate = useNavigate()
+  useEffect(()=>{
+    axios.get('http://localhost:8081') //czy tu nie bylo cos waznego?
+    .then( res => {
+      if(res.data.valid) {
+          setName(res.data.username);
+      }
+      else {
+          navigate('/login')
+      }
+    })
+    .catch(err => console.log(err))
+  }, [navigate])
 
   return (
     <div>
       <Navbar />
+      <div><h1>Hello {name}</h1></div>
       <div className="row mt-5">
         <div className="col-12 text-center">
           <h2 className="display-4 custom-text-color-headings">

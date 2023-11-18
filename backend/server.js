@@ -1,10 +1,28 @@
 const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["POST", "GET"],
+  credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(session({
+    secret: 'secret', //key used to encrypt the session cookie
+    resave: false,
+    saveUninitialized: false,
+    cookie:{
+      secure:false,
+      maxAge: 1000 * 60 * 60 * 24
+    } //cookie properties
+}))
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -12,6 +30,15 @@ const db = mysql.createConnection({
   password: "1234",
   database: "deliveryappdb",
 });
+
+app.get('/', (req,res) => {
+    if(req.session.username) {
+      return res.json({valid:true, username: req.session.username})
+    }
+    else{
+      return res.json({valid:false})
+    }
+})
 
 app.post("/signup", (req, res) => {
   const values = [
@@ -76,7 +103,9 @@ app.post("/login", (req, res) => {
       return res.json("Error");
     }
     if (data.length > 0) {
-      return res.json(`Success ${table}`);
+      req.session.username = data[0].Login;
+      //return res.json(`Success ${table}`);
+      return res.json({Login: true, username: req.session.username, userType: table})
     }
     return res.json("Fail");
   });
