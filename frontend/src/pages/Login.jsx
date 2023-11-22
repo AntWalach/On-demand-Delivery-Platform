@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Validation from "../utils/loginValidation";
 import axios from "axios";
@@ -22,6 +22,21 @@ function Login() {
     }));
   };
 
+  axios.defaults.withCredentials = true;
+
+  useEffect(()=>{
+    axios.get('http://localhost:8081') //czy tu nie bylo cos waznego?
+    .then( res => {
+      if(res.data.valid) {
+          navigate('/home')
+      }
+      else {
+          navigate('/login')
+      }
+    })
+    .catch(err => console.log(err))
+  }, [navigate])
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(Validation(values));
@@ -29,9 +44,9 @@ function Login() {
       axios
         .post("http://localhost:8081/login", values)
         .then((res) => {
-          if (res.data === "Success client") {
+          if (res.data.userType === "client") {
             navigate("/home");
-          } else if (res.data === "Success delivery") {
+          } else if (res.data.userType === "delivery") {
             navigate("/delivery");
           } else {
             //console.log(res.data)
