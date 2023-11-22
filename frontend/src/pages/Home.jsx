@@ -12,7 +12,6 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 //import Validation from "../utils/orderValidation";
 import { useNavigate } from "react-router-dom";
 
-
 function Home() {
   const [values, setValues] = useState({
     //deliveryOption: "",
@@ -56,30 +55,39 @@ function Home() {
     axios.post("http://localhost:8081/home", values);
     //     .catch((err) => console.log(err));
     // }
-
   };
 
-  axios.defaults.withCredentials = true; //tu sie zapamietuje logowanie, cookies
+  axios.defaults.withCredentials = true;
 
-  const [name,setName] = useState('')
-  const navigate = useNavigate()
-  useEffect(()=>{
-    axios.get('http://localhost:8081') //czy tu nie bylo cos waznego?
-    .then( res => {
-      if(res.data.valid) {
+  const [auth, setAuth] = useState(false);
+  const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
+  //const [clientID, setClientID] = useState(null)
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081")
+      .then((res) => {
+        if (res.data.valid) {
+          setAuth(true);
           setName(res.data.username);
-      }
-      else {
-          navigate('/login')
-      }
-    })
-    .catch(err => console.log(err))
-  }, [navigate])
+        } else {
+          setAuth(false);
+          navigate("/login");
+          setMessage(res.data.Error);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [navigate]);
 
   return (
     <div>
       <Navbar />
-      <div><h1>Hello {name}</h1></div>
+      <div>
+        <h1>Hello {name}</h1>
+      </div>
       <div className="row mt-5">
         <div className="col-12 text-center">
           <h2 className="display-4 custom-text-color-headings">
