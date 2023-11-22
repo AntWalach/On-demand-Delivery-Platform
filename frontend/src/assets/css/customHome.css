@@ -1,23 +1,24 @@
-.custom-card{
+.custom-card {
     max-width: 240px;
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
+    flex: 1
 }
 
-.custom-text-color-headings{
+.custom-text-color-headings {
     color: #EEE9DA !important;
 }
 
-.custom-text-color{
+.custom-text-color {
     color: #6096B4 !important;
 }
 
-.custom-imputs{
+.custom-inputs {
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
 }
 
-.custom-icon{
+.custom-icon {
     width: 50px;
     height: 50px;
     transform: scale(1);
@@ -29,7 +30,15 @@
     transition: transform 0.3s;
 }
 
-.custom-container{
+.custom-container {
     background-color: #537188 !important;
     border-color: #537188 !important;
+}
+
+.custom-label {
+
+    color: #EEE9DA !important;
+    display: block;
+    margin: 0 auto;
+    font-size: 18px;
 }

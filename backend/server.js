@@ -85,10 +85,12 @@ app.post("/login", (req, res) => {
 app.post("/home", (req, res) => {
   const values = [
     req.body.InputZipCode1.toString() +
+      req.body.InputCity1.toString() +
       req.body.InputStreet1.toString() +
       req.body.InputBuildingNumber1.toString() +
       req.body.InputApartmentNumber1.toString(),
     req.body.InputZipCode2.toString() +
+      req.body.InputCity2.toString() +
       req.body.InputStreet2.toString() +
       req.body.InputBuildingNumber2.toString() +
       req.body.InputApartmentNumber2.toString(),

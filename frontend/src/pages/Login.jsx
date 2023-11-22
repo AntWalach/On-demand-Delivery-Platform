@@ -50,7 +50,7 @@ function Login() {
     >
       <div className="px-3 pt-2">
         <Link to="/">
-          <div class="arrow arrow-left"></div>
+          <div className="arrow arrow-left"></div>
         </Link>
       </div>
 
