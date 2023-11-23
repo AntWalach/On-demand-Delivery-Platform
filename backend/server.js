@@ -45,19 +45,25 @@ const verifyUser = (req, res, next) => {
   } else {
     jwt.verify(token, "jwt-secret-key", (err, decoded) => {
       if (err) {
-        return res.json({ Error: "Token is not okey" });
+        return res.json({ Error: "Token is not okay" });
       } else {
-        req.name = decoded.name;
+        req.user = {
+          name: decoded.name,
+          id: decoded.id,
+        };
         next();
       }
     });
   }
 };
 
-
 app.get("/", verifyUser, (req, res) => {
-  if (req.session.username) {
-    return res.json({ valid: true, username: req.session.username });
+  if (req.user.name) {
+    return res.json({
+      valid: true,
+      name: req.user.name,
+      id: req.user.id.toString(),
+    });
   } else {
     return res.json({ valid: false });
   }
@@ -108,20 +114,21 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  let query;
-  let table;
-  console.log(req.body.userType);
-  if (req.body.userType.toString() === "user") {
+  const { userType, email, password } = req.body;
+
+  let query, table;
+
+  if (userType === "user") {
     query = "SELECT * FROM client WHERE Email = ?";
     table = "client";
-  } else if (req.body.userType.toString() === "delivery") {
+  } else if (userType === "delivery") {
     query = "SELECT * FROM delivery WHERE Email = ?";
     table = "delivery";
   } else {
-    return res.json("Invalid user type");
+    return res.json({ login: false, message: "Invalid user type" });
   }
 
-  const values = [req.body.email];
+  const values = [email];
 
   db.query(query, values, (err, data) => {
     if (err) {
@@ -130,44 +137,49 @@ app.post("/login", (req, res) => {
     }
 
     if (data.length > 0) {
-      bcrypt.compare(
-        req.body.password.toString(),
-        data[0].Password,
-        (err, response) => {
-          if (err)
-            return res.status(500).json({ Error: "Internal Server Error" });
-
-          if (response) {
-            const name = data[0].Login;
-            const token = jwt.sign({ name }, "jwt-secret-key", {
-              expiresIn: "1d",
-            });
-            res.cookie("token", token);
-            req.session.username = data[0].Login;
-            return res.json({
-              login: true,
-              username: req.session.username,
-              userType: table,
-            });
-          } else {
-            return res.json({ login: false, message: "Password not matched" });
-          }
+      bcrypt.compare(password.toString(), data[0].Password, (err, response) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ Error: "Internal Server Error" });
         }
-      );
+
+        if (response) {
+          const { Login, ID } = data[0];
+          const token = jwt.sign({ name: Login, id: ID }, "jwt-secret-key", {
+            expiresIn: "1d",
+          });
+
+          res.cookie("token", token);
+
+          req.session.username = Login;
+          req.session.id = ID;
+
+          return res.json({
+            login: true,
+            username: req.session.username,
+            id: req.session.id,
+            userType: table,
+          });
+        } else {
+          return res.json({ login: false, message: "Password not matched" });
+        }
+      });
     } else {
       return res.json({ login: false, message: "Fail" });
     }
   });
 });
 
-
-app.get("/logout", (req,res) =>{
+app.get("/logout", (req, res) => {
   res.clearCookie("token");
-  return res.json({Status: "Success"})
-})
+  return res.json({ Status: "Success" });
+});
 
+app.post("/home", verifyUser, (req, res) => {
+  const clientId = req.user.id;
 
-app.post("/home", (req, res) => {
+  console.log(clientId.toString());
+
   const values = [
     req.body.InputZipCode1.toString() +
       req.body.InputCity1.toString() +
@@ -180,10 +192,11 @@ app.post("/home", (req, res) => {
       req.body.InputBuildingNumber2.toString() +
       req.body.InputApartmentNumber2.toString(),
     req.body.packageOption.toString(),
+    clientId.toString(),
   ];
-  //You need to edit no null options in database for date etc.
+
   const q =
-    "INSERT INTO `order` (`SenderAddress`, `RecipentAddress`,`OrderDetailsName`) VALUES (?)";
+    "INSERT INTO `order` (`SenderAddress`, `RecipentAddress`,`OrderDetailsName`,`ClientID`) VALUES (?)";
 
   console.log(req.body.packageOption.toString());
 
@@ -195,11 +208,6 @@ app.post("/home", (req, res) => {
     return res.json(data);
   });
 });
-
-
-
-
-
 app.listen(8081, () => {
   console.log("Backend");
 });

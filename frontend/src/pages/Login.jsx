@@ -26,7 +26,7 @@ function Login() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/") //czy tu nie bylo cos waznego?
+      .get("http://localhost:8081/") 
       .then((res) => {
         if (res.data.valid) {
           navigate("/home");

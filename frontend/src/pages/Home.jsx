@@ -62,7 +62,7 @@ function Home() {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
-  //const [clientID, setClientID] = useState(null)
+
 
   const navigate = useNavigate();
 
@@ -70,9 +70,10 @@ function Home() {
     axios
       .get("http://localhost:8081")
       .then((res) => {
+        console.log("API Response:", res.data);
         if (res.data.valid) {
           setAuth(true);
-          setName(res.data.username);
+          setName(res.data.login);
         } else {
           setAuth(false);
           navigate("/login");
