@@ -208,6 +208,21 @@ app.post("/home", verifyUser, (req, res) => {
     return res.json(data);
   });
 });
+
+app.get("/myorders", verifyUser, (req, res) => {
+  const clientId = req.user.id;
+
+  const q = "SELECT * FROM `order` WHERE `ClientID` = ?";
+
+  db.query(q, [clientId], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Error");
+    }
+    return res.json(data);
+  });
+});
+
 app.listen(8081, () => {
   console.log("Backend");
 });
