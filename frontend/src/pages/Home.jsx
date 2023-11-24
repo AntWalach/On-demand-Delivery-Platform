@@ -9,13 +9,13 @@ import { Box2Fill } from "react-bootstrap-icons";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-//import Validation from "../utils/orderValidation";
+import Validation from "../utils/orderValidation";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [values, setValues] = useState({
     //deliveryOption: "",
-    packageOption: "",
+    packageOption: "Small",
     InputZipCode1: "",
     InputCity1: "",
     InputStreet1: "",
@@ -28,7 +28,7 @@ function Home() {
     InputApartmentNumber2: "",
   });
 
-  //const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   const handleInput = (event) => {
     setValues((prev) => ({
@@ -37,24 +37,26 @@ function Home() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // setErrors(Validation(values));
-    // if (
-    //   errors.InputZipCode1 === "" &&
-    //   errors.InputZipCode2 === "" &&
-    //   errors.InputCity1 === "" &&
-    //   errors.InputCity2 === "" &&
-    //   errors.InputStreet1 === "" &&
-    //   errors.InputStreet2 === "" &&
-    //   errors.InputBuildingNumber1 === "" &&
-    //   errors.InputBuildingNumber2 === "" &&
-    //   errors.InputApartmentNumber1 === "" &&
-    //   errors.InputApartmentNumber2 === ""
-    // ) {
-    axios.post("http://localhost:8081/home", values);
-    //     .catch((err) => console.log(err));
-    // }
+    const validationErrors = Validation(values);
+    setErrors(validationErrors);
+
+    console.log("Validation Errors:", validationErrors);
+    if (
+      !validationErrors.InputZipCode1 &&
+      !validationErrors.InputZipCode2 &&
+      !validationErrors.InputCity1 &&
+      !validationErrors.InputCity2 &&
+      !validationErrors.InputStreet1 &&
+      !validationErrors.InputStreet2 &&
+      !validationErrors.InputBuildingNumber1 &&
+      !validationErrors.InputBuildingNumber2
+    ) {
+      await axios
+        .post("http://localhost:8081/home", values)
+        .catch((err) => console.log(err));
+    }
   };
 
   axios.defaults.withCredentials = true;
@@ -62,7 +64,6 @@ function Home() {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
-
 
   const navigate = useNavigate();
 
@@ -177,6 +178,7 @@ function Home() {
                             target: { name: "packageOption", value: "Small" },
                           });
                         }}
+                        defaultChecked
                       />
                       <label
                         className="form-check-label stretched-link"
@@ -281,6 +283,11 @@ function Home() {
                               name="InputZipCode1"
                               onChange={handleInput}
                             />
+                            {errors.InputZipCode1 && (
+                              <span className="text-danger">
+                                {errors.InputZipCode1}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>
@@ -295,6 +302,11 @@ function Home() {
                               name="InputCity1"
                               onChange={handleInput}
                             />
+                            {errors.InputCity1 && (
+                              <span className="text-danger">
+                                {errors.InputCity1}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>
@@ -311,6 +323,11 @@ function Home() {
                               name="InputStreet1"
                               onChange={handleInput}
                             />
+                            {errors.InputStreet1 && (
+                              <span className="text-danger">
+                                {errors.InputStreet1}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>
@@ -325,6 +342,11 @@ function Home() {
                               name="InputBuildingNumber1"
                               onChange={handleInput}
                             />
+                            {errors.InputBuildingNumber1 && (
+                              <span className="text-danger">
+                                {errors.InputBuildingNumber1}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>
@@ -363,6 +385,11 @@ function Home() {
                               name="InputZipCode2"
                               onChange={handleInput}
                             />
+                            {errors.InputZipCode2 && (
+                              <span className="text-danger">
+                                {errors.InputZipCode2}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>
@@ -377,6 +404,11 @@ function Home() {
                               name="InputCity2"
                               onChange={handleInput}
                             />
+                            {errors.InputCity2 && (
+                              <span className="text-danger">
+                                {errors.InputCity2}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>
@@ -393,6 +425,11 @@ function Home() {
                               name="InputStreet2"
                               onChange={handleInput}
                             />
+                            {errors.InputStreet2 && (
+                              <span className="text-danger">
+                                {errors.InputStreet2}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>
@@ -407,6 +444,11 @@ function Home() {
                               name="InputBuildingNumber2"
                               onChange={handleInput}
                             />
+                            {errors.InputBuildingNumber2 && (
+                              <span className="text-danger">
+                                {errors.InputBuildingNumber2}
+                              </span>
+                            )}
                           </FloatingLabel>
                         </div>
                       </div>

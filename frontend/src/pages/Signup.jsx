@@ -32,7 +32,9 @@ function Signup() {
     event.preventDefault();
     setErrors(Validation(values));
     if (
-      errors.name === "" &&
+      errors.username === "" &&
+      errors.fName === "" &&
+      errors.lName === "" &&
       errors.phoneNumber === "" &&
       errors.email === "" &&
       errors.password === ""
@@ -68,8 +70,8 @@ function Signup() {
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.name && (
-                <span className="text-danger">{errors.name}</span>
+              {errors.username && (
+                <span className="text-danger">{errors.username}</span>
               )}
             </div>
 
@@ -84,8 +86,8 @@ function Signup() {
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.name && (
-                <span className="text-danger">{errors.name}</span>
+              {errors.fName && (
+                <span className="text-danger">{errors.fName}</span>
               )}
             </div>
 
@@ -100,8 +102,8 @@ function Signup() {
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.name && (
-                <span className="text-danger">{errors.name}</span>
+              {errors.lName && (
+                <span className="text-danger">{errors.lName}</span>
               )}
             </div>
 

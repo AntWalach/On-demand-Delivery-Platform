@@ -2,12 +2,25 @@ function Validation(values) {
   let error = {};
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const PASSWORD_PATTERN = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
-  const PHONE_NUMBER_PATTERN = /^(\+\d{1,3}[-.\s]?)?(\d{3,4}[-.\s]?)?\d{3,4}[-.\s]?\d{4}$/;
+  const PHONE_NUMBER_PATTERN =
+    /^(\+\d{1,3}[-.\s]?)?(\d{3,4}[-.\s]?)?\d{3,4}[-.\s]?\d{4}$/;
 
-  if (values.name === "") {
-    error.name = "Name should not be empty.";
+  if (values.username === "") {
+    error.username = "Username should not be empty.";
   } else {
-    error.name = "";
+    error.username = "";
+  }
+
+  if (values.fName === "") {
+    error.fName = "First Name should not be empty.";
+  } else {
+    error.fName = "";
+  }
+
+  if (values.lName === "") {
+    error.lName = "Last Name should not be empty.";
+  } else {
+    error.lName = "";
   }
 
   if (values.phoneNumber === "") {

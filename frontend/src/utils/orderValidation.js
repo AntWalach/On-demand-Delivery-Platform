@@ -1,66 +1,44 @@
-function Validation(values) {
-  let error = {};
-  // const ZIPCODE_PATTERN = /^[0-9]{2}-[0-9]{3}$/
+const Validation = (values) => {
+  let errors = {};
+  const ZIPCODE_PATTERN = /^\d{5}$/;
 
-  if (values.InputZipCode1 === "") {
-    error.InputZipCode1 = "Name should not be empty.";
-  } else {
-    error.InputZipCode1 = "";
+  if (!values.InputZipCode1.trim()) {
+    errors.InputZipCode1 = "Zip Code is required";
+  } else if (!ZIPCODE_PATTERN.test(values.InputZipCode1.trim())) {
+    errors.InputZipCode1 = "Invalid ZIP Code format";
   }
 
-  if (values.InputCity1 === "") {
-    error.InputCity1 = "Name should not be empty.";
-  } else {
-    error.InputCity1 = "";
+  if (!values.InputZipCode2.trim()) {
+    errors.InputZipCode2 = "Zip Code is required";
+  } else if (!ZIPCODE_PATTERN.test(values.InputZipCode2.trim())) {
+    errors.InputZipCode2 = "Invalid ZIP Code format";
   }
 
-  if (values.InputStreet1 === "") {
-    error.InputStreet1 = "Name should not be empty.";
-  } else {
-    error.InputStreet1 = "";
+  if (!values.InputCity1.trim()) {
+    errors.InputCity1 = "City is required";
   }
 
-  if (values.InputBuildingNumber1 === "") {
-    error.InputBuildingNumber1 = "Name should not be empty.";
-  } else {
-    error.InputBuildingNumber1 = "";
+  if (!values.InputCity2.trim()) {
+    errors.InputCity2 = "City is required";
   }
 
-  if (values.InputApartmentNumber1 === "") {
-    error.InputApartmentNumber1 = "Name should not be empty.";
-  } else {
-    error.InputApartmentNumber1 = "";
+  if (!values.InputStreet1.trim()) {
+    errors.InputStreet1 = "Street is required";
   }
 
-  if (values.InputZipCode2 === "") {
-    error.InputZipCode2 = "Name should not be empty.";
-  } else {
-    error.InputZipCode2 = "";
+  if (!values.InputStreet2.trim()) {
+    errors.InputStreet2 = "Street is required";
   }
 
-  if (values.InputCity2 === "") {
-    error.InputCity2 = "Name should not be empty.";
-  } else {
-    error.InputCity2 = "";
+  if (!values.InputBuildingNumber1.trim()) {
+    errors.InputBuildingNumber1 = "Building Number is required";
   }
 
-  if (values.InputStreet2 === "") {
-    error.InputStreet2 = "Name should not be empty.";
-  } else {
-    error.InputStreet2 = "";
+  if (!values.InputBuildingNumber2.trim()) {
+    errors.InputBuildingNumber2 = "Building Number is required";
   }
 
-  if (values.InputBuildingNumber2 === "") {
-    error.InputBuildingNumber2 = "Name should not be empty.";
-  } else {
-    error.InputBuildingNumber2 = "";
-  }
+  return errors;
+};
 
-  if (values.InputApartmentNumber2 === "") {
-    error.InputApartmentNumber2 = "Name should not be empty.";
-  } else {
-    error.InputApartmentNumber2 = "";
-  }
-
-}
 export default Validation;
