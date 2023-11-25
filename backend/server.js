@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const cors = require("cors");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -31,12 +31,39 @@ app.use(
   })
 );
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  database: "deliveryappdb",
+// const db = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "1234",
+//   database: "deliveryappdb",
+// });
+
+const db = mysql.createPool({
+  host: "sql.freedb.tech",
+  user: "freedb_baanma",
+  password: "@$ZUya6*hUJTs89",
+  database: "freedb_deliveryappdb",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  authPlugins: {
+    mysql_native_password: () =>
+      require("mysql2/lib/auth/mysql_native_password"),
+  },
 });
+
+const retryConnection = () => {
+  db.query("SELECT 1 + 1 AS solution", (error, results, fields) => {
+    if (error) {
+      console.error(error);
+      console.log("Retrying connection...");
+      setTimeout(retryConnection, 5000);
+      return;
+    }
+  });
+};
+
+retryConnection();
 
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
@@ -177,7 +204,7 @@ app.get("/logout", (req, res) => {
 
 app.post("/home", verifyUser, (req, res) => {
   const clientId = req.user.id;
-
+  let date = new Date();
   console.log(clientId.toString());
 
   const values = [
@@ -191,12 +218,13 @@ app.post("/home", verifyUser, (req, res) => {
       req.body.InputStreet2.toString() +
       req.body.InputBuildingNumber2.toString() +
       req.body.InputApartmentNumber2.toString(),
-    req.body.packageOption.toString(),
+    date.toISOString().slice(0, 19).replace("T", " "),
     clientId.toString(),
+    req.body.packageOption.toString(),
   ];
 
   const q =
-    "INSERT INTO `order` (`SenderAddress`, `RecipentAddress`,`OrderDetailsName`,`ClientID`) VALUES (?)";
+    "INSERT INTO `order` (`SenderAddress`, `RecipentAddress`,`Date`,`ClientID`,`OrderDetailsName`) VALUES (?)"; //change Date data type to DATETIME in DataBase
 
   console.log(req.body.packageOption.toString());
 
