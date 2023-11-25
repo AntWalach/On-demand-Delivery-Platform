@@ -39,7 +39,7 @@ function MyOrders() {
             <li key={order.id}>
               Order ID: {order.ID},
               Sender Address: {order.SenderAddress},
-              Recipient Address: {order.RecipentAddress}  {/*Error in DB 'Recipient' not recipent*/}
+              Recipient Address: {order.RecipientAddress} 
               
             </li>
           ))}
