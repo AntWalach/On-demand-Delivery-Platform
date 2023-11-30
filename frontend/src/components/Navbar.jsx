@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import QuickPackLogo from "../assets/images/QuickPackLogo.png";
 import "../assets/css/customNavbar.css";
 import axios from "axios";
@@ -12,6 +13,23 @@ function Navbar() {
       })
       .catch((err) => console.log(err));
   };
+
+  const [user, setUser] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081")
+      .then((res) => {
+        console.log("API Response:", res.data);
+        if (res.data.valid) {
+          setUser(res.data.name);
+        } else {
+          console.log('Error')
+        }
+      })
+      .catch((err) => console.log(err));
+  }, [navigate]);
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
@@ -54,7 +72,7 @@ function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                My profile
+                {user}
               </a>
               <ul className="dropdown-menu">
                 <li>
@@ -93,7 +111,7 @@ function Navbar() {
             </button>
           </form>
           <button
-            className="btn btn-danger custom-button-home"
+            className="btn btn-danger custom-button-home mx-2"
             onClick={handleDelete}
           >
             Logout

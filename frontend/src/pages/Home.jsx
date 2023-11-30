@@ -63,7 +63,7 @@ function Home() {
 
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
-  const [name, setName] = useState("");
+  const [user, setUser] = useState("");
 
   const navigate = useNavigate();
 
@@ -74,7 +74,7 @@ function Home() {
         console.log("API Response:", res.data);
         if (res.data.valid) {
           setAuth(true);
-          setName(res.data.login);
+          setUser(res.data.name);
         } else {
           setAuth(false);
           navigate("/login");
@@ -87,9 +87,6 @@ function Home() {
   return (
     <div>
       <Navbar />
-      <div>
-        <h1>Hello {name}</h1>
-      </div>
       <div className="row mt-5">
         <div className="col-12 text-center">
           <h2 className="display-4 custom-text-color-headings">
@@ -102,8 +99,8 @@ function Home() {
             action=""
             onSubmit={handleSubmit}
           >
-            <div className="row justify-content-center mt-4 ">
-              <div className="col-3 mx-5 d-flex justify-content-center">
+            <div className="row justify-content-center mt-4 w-75 mx-auto">
+              <div className="col-3 mx-5 d-flex justify-content-center custom-col-width mb-3">
                 <div className="card custom-card custom-text-color h-100 text-center">
                   <House className="m-auto mt-5 custom-icon" />
                   <div className="card-body d-flex flex-column align-items-center">
@@ -128,8 +125,8 @@ function Home() {
                 </div>
               </div>
 
-              <div className="col-3 mx-5 d-flex justify-content-center">
-                <div className="card custom-card custom-text-color h-100 text-center">
+              <div className="col-3 mx-5 d-flex justify-content-center custom-col-width mb-3">
+                <div className="card custom-card custom-text-color h-100 text-center ">
                   <PinAngle className="m-auto mt-5 custom-icon" />
                   <div className="card-body d-flex flex-column align-items-center">
                     <div className="form-check">
@@ -161,8 +158,8 @@ function Home() {
               </div>
             </div>
 
-            <div className="row justify-content-center mt-4 p-0">
-              <div className="col-3 mx-4 d-flex justify-content-center">
+            <div className="row justify-content-center mt-4 p-0 w-75 mx-auto">
+              <div className="col-3 mx-4 d-flex justify-content-center custom-col-width mb-3">
                 <div className="card custom-card custom-text-color h-100 text-center">
                   <BoxFill className="m-auto mt-5 custom-icon" />
                   <div className="card-body d-flex flex-column align-items-center">
@@ -193,7 +190,7 @@ function Home() {
                 </div>
               </div>
 
-              <div className="col-3 mx-4 d-flex justify-content-center">
+              <div className="col-3 mx-4 d-flex justify-content-center custom-col-width mb-3">
                 <div className="card custom-card custom-text-color h-100 text-center">
                   <BoxSeamFill className="m-auto mt-5 custom-icon" />
                   <div className="card-body d-flex flex-column align-items-center">
@@ -223,7 +220,7 @@ function Home() {
                 </div>
               </div>
 
-              <div className="col-3 mx-4 d-flex justify-content-center">
+              <div className="col-3 mx-4 d-flex justify-content-center custom-col-width mb-3">
                 <div className="card custom-card custom-text-color h-100 text-center">
                   <Box2Fill className="m-auto mt-5 custom-icon" />
                   <div className="card-body d-flex flex-column align-items-center">

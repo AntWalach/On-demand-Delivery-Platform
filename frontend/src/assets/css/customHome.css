@@ -2,7 +2,7 @@
     max-width: 240px;
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
-    flex: 1
+    flex: 1;
 }
 
 .custom-text-color-headings {
@@ -36,9 +36,16 @@
 }
 
 .custom-label {
-
     color: #EEE9DA !important;
     display: block;
     margin: 0 auto;
     font-size: 18px;
+}
+
+.custom-greeting{
+    font-size: small;
+}
+
+.custom-col-width{
+    min-width: 20rem;
 }
