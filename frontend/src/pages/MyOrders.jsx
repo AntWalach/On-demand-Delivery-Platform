@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import "../assets/css/customMyOrders.css";
+import Order from "../components/Order";
 import { useNavigate } from "react-router-dom";
-
-function formatDate(dateString) {
-  const options = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  };
-  const formattedDate = new Date(dateString).toLocaleString("pl-PL", options);
-  return formattedDate;
-}
 
 function MyOrders() {
   axios.defaults.withCredentials = true;
@@ -44,28 +34,22 @@ function MyOrders() {
   return (
     <div>
       <Navbar />
-      <h1>My Orders</h1>
-      {orders.length > 0 ? (
-        <div>
-          {orders.map((order) => (
-            <div className="container mt-5">
-              <div className="mx-auto bg-white rounded" key={order.id}>
-                <div className="mb-3 text-center">
-                  <strong>Sender Address:</strong> {order.SenderAddress}
-                </div>
-                <div className="mb-3 text-center">
-                  <strong>Recipient Address:</strong> {order.RecipientAddress}
-                </div>
-                <div className="mb-3 text-center">
-                  <strong>Order Date:</strong> {formatDate(order.Date)}
-                </div>
-              </div>
-            </div>
-          ))}
+      <div className="row">
+        <div className="col-md-12 text-center mt-5">
+          <h1 className="display-6 custom-text-color-header">Orders</h1>
         </div>
-      ) : (
-        <p>You don't have any orders.</p>
-      )}
+      </div>
+      <div className="row mt-4 justify-content-center w-100 mx-auto">
+        {orders.length > 0 ? (
+          orders.map((order) => (
+            <React.Fragment key={order.id}>
+              <Order order={order} />
+            </React.Fragment>
+          ))
+        ) : (
+          <p>You don't have any orders.</p>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/customHome.css";
 import Navbar from "../components/Navbar";
-import { House } from "react-bootstrap-icons";
-import { PinAngle } from "react-bootstrap-icons";
-import { BoxFill } from "react-bootstrap-icons";
-import { BoxSeamFill } from "react-bootstrap-icons";
-import { Box2Fill } from "react-bootstrap-icons";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Validation from "../utils/orderValidation";
 import { useNavigate } from "react-router-dom";
+import { House } from "react-bootstrap-icons";
+import { PinAngle } from "react-bootstrap-icons";
+import { BoxFill } from "react-bootstrap-icons";
+import { BoxSeamFill } from "react-bootstrap-icons";
+import { Box2Fill } from "react-bootstrap-icons";
 
 function Home() {
   const [values, setValues] = useState({
