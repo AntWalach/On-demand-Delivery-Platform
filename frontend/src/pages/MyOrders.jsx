@@ -3,6 +3,18 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+function formatDate(dateString) {
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  const formattedDate = new Date(dateString).toLocaleString("pl-PL", options);
+  return formattedDate;
+}
+
 function MyOrders() {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
@@ -34,16 +46,23 @@ function MyOrders() {
       <Navbar />
       <h1>My Orders</h1>
       {orders.length > 0 ? (
-        <ul>
+        <div>
           {orders.map((order) => (
-            <li key={order.id}>
-              Order ID: {order.ID},
-              Sender Address: {order.SenderAddress},
-              Recipient Address: {order.RecipientAddress} 
-              
-            </li>
+            <div className="container mt-5">
+              <div className="mx-auto bg-white rounded" key={order.id}>
+                <div className="mb-3 text-center">
+                  <strong>Sender Address:</strong> {order.SenderAddress}
+                </div>
+                <div className="mb-3 text-center">
+                  <strong>Recipient Address:</strong> {order.RecipientAddress}
+                </div>
+                <div className="mb-3 text-center">
+                  <strong>Order Date:</strong> {formatDate(order.Date)}
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>You don't have any orders.</p>
       )}
