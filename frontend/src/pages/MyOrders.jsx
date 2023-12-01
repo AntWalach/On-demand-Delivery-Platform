@@ -39,7 +39,7 @@ function MyOrders() {
           <h1 className="display-6 custom-text-color-header">Orders</h1>
         </div>
       </div>
-      <div className="row mt-4 justify-content-center w-100 mx-auto">
+      <div className="row mt-4 justify-content-center w-50 mx-auto">
         {orders.length > 0 ? (
           orders.map((order) => (
             <React.Fragment key={order.id}>
@@ -47,7 +47,11 @@ function MyOrders() {
             </React.Fragment>
           ))
         ) : (
-          <p>You don't have any orders.</p>
+          <div className="col-md-12 text-center mt-5">
+            <h1 className="display-6 custom-text-color-header">
+              You don't have any orders.
+            </h1>
+          </div>
         )}
       </div>
     </div>
