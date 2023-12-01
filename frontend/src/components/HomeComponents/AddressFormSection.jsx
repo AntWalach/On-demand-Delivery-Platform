@@ -17,7 +17,7 @@ const AddressFormSection = ({
   handleInput,
 }) => {
   return (
-    <div className="col-md-4 custom-container rounded mx-3">
+    <div className="col-md-4 custom-container rounded mx-3 custom-shipping-form mb-2">
       <div className="d-flex justify-content-center">
         <label className="custom-label center-label mt-2">
           <strong>{label}</strong>

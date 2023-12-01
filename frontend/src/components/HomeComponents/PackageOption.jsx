@@ -1,5 +1,3 @@
-// PackageOption.js
-
 import React from "react";
 import { Form } from "react-bootstrap"; // Zaimportuj komponent Form z react-bootstrap
 

@@ -6,10 +6,10 @@ import { BoxFill } from "react-bootstrap-icons";
 import { BoxSeamFill } from "react-bootstrap-icons";
 import { Box2Fill } from "react-bootstrap-icons";
 import axios from "axios";
-import Navbar from "../components/Navbar";
-import DeliveryOption from "../components/DeliveryOption";
-import PackageOption from "../components/PackageOption";
-import AddressFormSection from "../components/AddressFormSection";
+import Navbar from "../components/Layouts/Navbar";
+import DeliveryOption from "../components/HomeComponents/DeliveryOption";
+import PackageOption from "../components/HomeComponents/PackageOption";
+import AddressFormSection from "../components/HomeComponents/AddressFormSection";
 import Validation from "../utils/orderValidation";
 import "../assets/css/customHome.css";
 

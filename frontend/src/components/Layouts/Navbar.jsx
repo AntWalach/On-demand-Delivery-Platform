@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import QuickPackLogo from "../assets/images/QuickPackLogo.png";
-import "../assets/css/customNavbar.css";
+import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
+import "../../assets/css/customNavbar.css";
 import axios from "axios";
 
 function Navbar() {
@@ -32,7 +32,7 @@ function Navbar() {
   }, [navigate]);
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
+    <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
         <a className="navbar-brand" href="/home">
           <img
