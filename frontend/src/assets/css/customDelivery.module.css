@@ -1,55 +1,55 @@
-.custom-card {
+.customCard {
     max-width: 240px;
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
     flex: 1;
 }
 
-.custom-text-color-headings {
+.customTextColorHeadings {
     color: #994D1C !important;
 }
 
-.custom-text-color {
+.customTextColor {
     color: #994D1C !important;
 }
 
-.custom-inputs {
+.customInputs {
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
 }
 
-.custom-icon {
+.customIcon {
     width: 50px;
     height: 50px;
     transform: scale(1);
     transition: transform 0.3s;
 }
 
-.card:hover .custom-icon {
+.card:hover .customIcon {
     transform: scale(1.3);
     transition: transform 0.3s;
 }
 
-.custom-container {
+.customContainer {
     background-color: #F5CCA0 !important;
     border-color: #F5CCA0 !important;
 }
 
-.custom-label {
+.customLabel {
     color: #EEE9DA !important;
     display: block;
     margin: 0 auto;
     font-size: 18px;
 }
 
-.custom-greeting{
+.customGreeting {
     font-size: small;
 }
 
-.custom-col-width{
+.customColWidth {
     min-width: 20rem;
 }
 
-.custom-shipping-form{
+.customShippingForm {
     min-width: 28rem;
 }

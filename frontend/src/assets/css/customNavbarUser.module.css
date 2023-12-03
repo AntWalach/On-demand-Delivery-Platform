@@ -1,29 +1,29 @@
-.custom-navbar{
+.customNavbar{
     background-color: #EEE9DA !important;
 }
 
-.custom-navbar-text-color{
+.customNavbarTextColor{
     color: #537188 !important;
     font-size: 20px !important;
 }
 
-.custom-navbar-text-color:hover{
+.customNavbarTextColor:hover{
     color: #6096B4 !important;
 }
 
-.custom-button-home{
+.customButtonHome{
     background-color: #537188 !important;
     border-color: #537188 !important;
     color: white !important;
 }
   
-.custom-button-home:hover{
+.customButtonHome:hover{
     background-color: #BDCDD6 !important;
     border-color: #BDCDD6 !important;
     color: #537188 !important;
 }
 
-.custom-button-home:active {
+.customButtonHome:active {
     background-color: #BDCDD6 !important;
     border-color: #BDCDD6  !important;
     color: #537188  !important;

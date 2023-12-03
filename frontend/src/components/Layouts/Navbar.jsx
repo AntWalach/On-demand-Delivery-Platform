@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
-import "../../assets/css/customNavbar.css";
+import customNavbar from"../../assets/css/customNavbarUser.module.css";
 import axios from "axios";
 
 function Navbar() {
@@ -32,7 +32,7 @@ function Navbar() {
   }, [navigate]);
 
   return (
-    <nav className="navbar navbar-expand-lg custom-navbar">
+    <nav className={`${customNavbar.customNavbar} navbar navbar-expand-lg`}>
       <div className="container-fluid">
         <a className="navbar-brand" href="/home">
           <img
@@ -58,7 +58,7 @@ function Navbar() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <a
-                className="nav-link custom-navbar-text-color"
+                className={`${customNavbar.customNavbarTextColor} nav-link`}
                 href="/home/myorders"
               >
                 My orders
@@ -66,7 +66,7 @@ function Navbar() {
             </li>
             <li className="nav-item dropdown">
               <a
-                className="nav-link dropdown-toggle  custom-navbar-text-color"
+                className={`${customNavbar.customNavbarTextColor} nav-link dropdown-toggle`}
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -104,14 +104,14 @@ function Navbar() {
               aria-label="Search"
             />
             <button
-              className="btn btn-outline-success custom-button-home"
+              className={`${customNavbar.customButtonHome} btn btn-outline-success`}
               type="submit"
             >
               Search
             </button>
           </form>
           <button
-            className="btn btn-danger custom-button-home mx-2"
+            className={`${customNavbar.customButtonHome} btn btn-danger mx-2`}
             onClick={handleDelete}
           >
             Logout
