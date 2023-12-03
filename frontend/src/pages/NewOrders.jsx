@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Layouts/NavbarDelivery";
 import axios from "axios";
-import "../assets/css/customDelivery.css";
-import Order from "../components/MyOrdersComponents/Order";
+import "../assets/css/newOrders.css";
+import Order from "../components/MyOrdersComponents/NewOrder";
 import { useNavigate } from "react-router-dom";
 
-function Delivery() {
+function NewOrders() {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ function Delivery() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/delivery")
+      .get("http://localhost:8081/delivery/neworders")
       .then((res) => {
         console.log("API:", res.data);
 
@@ -56,8 +56,8 @@ function Delivery() {
         )}
       </div>
       </div>
-    </div>
+      </div>
   );
 }
 
-export default Delivery;
+export default NewOrders;

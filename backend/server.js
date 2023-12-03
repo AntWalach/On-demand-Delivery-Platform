@@ -251,6 +251,34 @@ app.get("/myorders", verifyUser, (req, res) => {
   });
 });
 
+app.get("/delivery", verifyUser, (req, res) => {
+  const clientId = req.user.id;
+
+  const q = "SELECT * FROM `order` WHERE `DeliveryID` = ?";
+
+  db.query(q, [clientId], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Error");
+    }
+    return res.json(data);
+  });
+});
+
+app.get("/delivery/neworders", verifyUser, (req, res) => {
+  const clientId = req.user.id;
+
+  const q = "SELECT * FROM `order` WHERE `DeliveryID` IS NULL";
+
+  db.query(q, [clientId], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Error");
+    }
+    return res.json(data);
+  });
+});
+
 app.listen(8081, () => {
   console.log("Backend");
 });
