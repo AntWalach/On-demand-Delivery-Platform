@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Layouts/NavbarDelivery";
 import axios from "axios";
-import "../assets/css/newOrders.css";
+import "../assets/css/customNewOrders.css";
 import Order from "../components/MyOrdersComponents/NewOrder";
 import { useNavigate } from "react-router-dom";
 
