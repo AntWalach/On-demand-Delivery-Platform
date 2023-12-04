@@ -3,7 +3,7 @@ import Navbar from "../components/Layouts/Navbar";
 import axios from "axios";
 import Order from "../components/MyOrdersComponents/Order";
 import { useNavigate } from "react-router-dom";
-import customMyOrders from "../assets/css/customMyOrders.module.css";
+import customMyOrders from "../assets/css/MyOrders.module.css";
 
 function MyOrders() {
   axios.defaults.withCredentials = true;

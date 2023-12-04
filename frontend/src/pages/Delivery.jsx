@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Layouts/NavbarDelivery";
 import axios from "axios";
-import customDelivery from "../assets/css/customDelivery.module.css";
+import customDelivery from "../assets/css/Delivery.module.css";
 import Order from "../components/MyOrdersComponents/Order";
 import { useNavigate } from "react-router-dom";
 import NavbarDelivery from "../components/Layouts/NavbarDelivery";

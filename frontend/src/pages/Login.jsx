@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Validation from "../utils/loginValidation";
 import axios from "axios";
-import customLogin from "../assets/css/customLogin.module.css";
+import customLogin from "../assets/css/Login.module.css";
+
 
 function Login() {
   const [values, setValues] = useState({
@@ -15,19 +16,23 @@ function Login() {
 
   const [errors, setErrors] = useState({});
 
+ 
+  axios.defaults.withCredentials = true;
+
+  
   const handleInput = (event) => {
     setValues((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
+    console.log("UserType:", values.userType);
   };
-
-  axios.defaults.withCredentials = true;
-
+  
   useEffect(() => {
     axios
       .get("http://localhost:8081/")
       .then((res) => {
+        console.log("Response from server:", res.data);
         if (res.data.valid) {
           navigate("/home");
         } else {
@@ -36,27 +41,27 @@ function Login() {
       })
       .catch((err) => console.log(err));
   }, [navigate]);
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(Validation(values));
+    console.log("Errors:", errors); // Dodaj console.log
     if (errors.email === "" && errors.password === "") {
       axios
         .post("http://localhost:8081/login", values)
         .then((res) => {
+          console.log("Login Response:", res.data);
           if (res.data.userType === "client") {
             navigate("/home");
           } else if (res.data.userType === "delivery") {
             navigate("/delivery");
           } else {
-            //console.log(res.data)
             alert("No record existed.");
           }
         })
         .catch((err) => console.log(err));
     }
   };
-
   return (
     <div
       className={`${customLogin.loginContainer} ${
@@ -68,7 +73,7 @@ function Login() {
           <div className={`${customLogin.arrow} ${customLogin.arrowLeft}`}></div>
         </Link>
       </div>
-
+      
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className={`${customLogin.customCardLoginSignup} bg-white p-3 rounded w-25`}>
           <div className="d-flex justify-content-between align-items-center vh-20">

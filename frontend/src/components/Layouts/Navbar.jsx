@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
-import customNavbar from"../../assets/css/customNavbarUser.module.css";
+import customNavbar from"../../assets/css/NavbarUser.module.css";
 import axios from "axios";
 
 function Navbar() {

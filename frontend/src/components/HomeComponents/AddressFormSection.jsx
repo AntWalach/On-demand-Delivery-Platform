@@ -1,6 +1,6 @@
 import React from 'react';
 import { FloatingLabel, Form } from 'react-bootstrap';
-import customHome from "../../assets/css/customHome.module.css";
+import customHome from "../../assets/css/Home.module.css";
 
 const AddressFormSection = ({
   label,

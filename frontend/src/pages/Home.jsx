@@ -11,7 +11,7 @@ import DeliveryOption from "../components/HomeComponents/DeliveryOption";
 import PackageOption from "../components/HomeComponents/PackageOption";
 import AddressFormSection from "../components/HomeComponents/AddressFormSection";
 import Validation from "../utils/orderValidation";
-import customHome from "../assets/css/customHome.module.css";
+import customHome from "../assets/css/Home.module.css";
 
 
 function Home() {

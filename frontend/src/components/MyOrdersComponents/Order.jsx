@@ -1,7 +1,7 @@
 import React from "react";
 import { Box2HeartFill } from "react-bootstrap-icons";
-import customHome from "../../assets/css/customHome.module.css";
-import customMyOrders from "../../assets/css/customMyOrders.module.css";
+import customHome from "../../assets/css/Home.module.css";
+import customMyOrders from "../../assets/css/MyOrders.module.css";
 
 function formatDate(dateString) {
   const options = {

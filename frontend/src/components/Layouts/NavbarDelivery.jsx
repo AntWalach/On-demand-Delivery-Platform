@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
-import customNavbarDelivery from "../../assets/css/customNavbarDelivery.module.css";
+import customNavbarDelivery from "../../assets/css/NavbarDelivery.module.css";
 import axios from "axios";
 
 function NavbarDelivery() {
@@ -34,7 +34,7 @@ function NavbarDelivery() {
   return (
     <nav className={`${customNavbarDelivery.customNavbar} navbar navbar-expand-lg`}>
       <div className="container-fluid">
-        <a className="navbar-brand" href="/home">
+        <a className="navbar-brand" href="/delivery">
           <img
             src={QuickPackLogo}
             className="App-logo"
@@ -59,9 +59,9 @@ function NavbarDelivery() {
             <li className="nav-item">
               <a
                 className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
-                href="/home/myorders"
+                href="/delivery/neworders"
               >
-                My orders
+                New orders
               </a>
             </li>
             <li className="nav-item dropdown">

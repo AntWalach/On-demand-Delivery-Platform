@@ -57,6 +57,6 @@
     transition: background-color 0.5s;
 }
 
-.loginContainerDelivery {
+.loginContainer.delivery {
     background-color: #b37b3b;
 }

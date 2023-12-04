@@ -4,7 +4,7 @@ import Validation from "../utils/signupValidation";
 import PhoneInput from "react-phone-number-input/input";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import customLogin from "../assets/css/customLogin.module.css";
+import customLogin from "../assets/css/Login.module.css";
 
 function Signup() {
   const [values, setValues] = useState({

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import QuickPackLogoV2 from "../assets/images/QuickPackageLogoV2.png";
-import customStartPage from "../assets/css/customStartPage.module.css";
+import customStartPage from "../assets/css/StartPage.module.css";
 
 function StartPage() {
   return (

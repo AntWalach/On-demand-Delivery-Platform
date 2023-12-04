@@ -1,6 +1,6 @@
 import React from "react";
 import { Box2HeartFill } from "react-bootstrap-icons";
-import customNewOrders from "../../assets/css/customNewOrders.module.css";
+import customNewOrders from "../../assets/css/NewOrders.module.css";
 
 function formatDate(dateString) {
   const options = {

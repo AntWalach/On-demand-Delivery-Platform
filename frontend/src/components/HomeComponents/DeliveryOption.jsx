@@ -1,5 +1,5 @@
 import React from 'react';
-import customHome from "../../assets/css/customHome.module.css";
+import customHome from "../../assets/css/Home.module.css";
 
 const DeliveryOption = ({ icon, title, description }) => {
     return (
