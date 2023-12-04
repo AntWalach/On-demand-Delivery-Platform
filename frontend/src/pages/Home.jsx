@@ -12,9 +12,11 @@ import PackageOption from "../components/HomeComponents/PackageOption";
 import AddressFormSection from "../components/HomeComponents/AddressFormSection";
 import Validation from "../utils/orderValidation";
 import customHome from "../assets/css/Home.module.css";
-
+import "../assets/css/Home.module.css";
 
 function Home() {
+
+  axios.defaults.withCredentials = true;
   const [values, setValues] = useState({
     //deliveryOption: "",
     packageOption: "Small",

@@ -1,3 +1,7 @@
+/* body {
+    background-color:#F5CCA0 !important;
+} */
+
 .customCard {
     max-width: 240px;
     background-color: #EEE9DA !important;
@@ -31,6 +35,7 @@
 }
 
 .customContainer {
+    min-height: 100vh;
     background-color: #F5CCA0 !important;
     border-color: #F5CCA0 !important;
 }

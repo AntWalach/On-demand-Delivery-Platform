@@ -4,7 +4,6 @@ import Validation from "../utils/loginValidation";
 import axios from "axios";
 import customLogin from "../assets/css/Login.module.css";
 
-
 function Login() {
   const [values, setValues] = useState({
     email: "",
@@ -12,27 +11,15 @@ function Login() {
     userType: "user",
   });
 
-  const navigate = useNavigate();
-
-  const [errors, setErrors] = useState({});
-
- 
   axios.defaults.withCredentials = true;
 
-  
-  const handleInput = (event) => {
-    setValues((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-    console.log("UserType:", values.userType);
-  };
-  
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     axios
       .get("http://localhost:8081/")
       .then((res) => {
-        console.log("Response from server:", res.data);
         if (res.data.valid) {
           navigate("/home");
         } else {
@@ -41,16 +28,25 @@ function Login() {
       })
       .catch((err) => console.log(err));
   }, [navigate]);
-  
+
+  const handleInput = (event) => {
+    setValues((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  useEffect(() => {
+    console.log("UserType:", values.userType);
+  }, [values.userType]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(Validation(values));
-    console.log("Errors:", errors); // Dodaj console.log
     if (errors.email === "" && errors.password === "") {
       axios
         .post("http://localhost:8081/login", values)
         .then((res) => {
-          console.log("Login Response:", res.data);
           if (res.data.userType === "client") {
             navigate("/home");
           } else if (res.data.userType === "delivery") {
@@ -62,6 +58,7 @@ function Login() {
         .catch((err) => console.log(err));
     }
   };
+
   return (
     <div
       className={`${customLogin.loginContainer} ${
@@ -70,12 +67,16 @@ function Login() {
     >
       <div className="px-3 pt-2">
         <Link to="/">
-          <div className={`${customLogin.arrow} ${customLogin.arrowLeft}`}></div>
+          <div
+            className={`${customLogin.arrow} ${customLogin.arrowLeft}`}
+          ></div>
         </Link>
       </div>
-      
+
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className={`${customLogin.customCardLoginSignup} bg-white p-3 rounded w-25`}>
+        <div
+          className={`${customLogin.customCardLoginSignup} bg-white p-3 rounded w-25`}
+        >
           <div className="d-flex justify-content-between align-items-center vh-20">
             <h2 className="mb-3">Log In</h2>
             <div
@@ -95,7 +96,10 @@ function Login() {
                   });
                 }}
               />
-              <label className={`${customLogin.customRadioOutline} btn`}htmlFor="btnradio1">
+              <label
+                className={`${customLogin.customRadioOutline} btn`}
+                htmlFor="btnradio1"
+              >
                 Client
               </label>
 
@@ -111,7 +115,10 @@ function Login() {
                   });
                 }}
               />
-              <label className={`${customLogin.customRadioOutline} btn`} htmlFor="btnradio2">
+              <label
+                className={`${customLogin.customRadioOutline} btn`}
+                htmlFor="btnradio2"
+              >
                 Delivery
               </label>
             </div>
