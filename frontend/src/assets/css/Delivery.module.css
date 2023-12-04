@@ -1,8 +1,3 @@
-body {
-    background-color: #F5CCA0;
-    font-family: 'Arial', sans-serif;
-}
-
 .customCard {
     max-width: 240px;
     background-color: #EEE9DA !important;
@@ -38,6 +33,7 @@ body {
 .customContainer {
     background-color: #F5CCA0 !important;
     border-color: #F5CCA0 !important;
+    height: 100vh;
 }
 
 .customLabel {
