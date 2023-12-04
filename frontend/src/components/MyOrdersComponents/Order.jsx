@@ -39,7 +39,7 @@ function parseAddress(inputString) {
 
 function Order({ order }) {
   return (
-    <div className={`${customMyOrders.customCardsOrders} col-md-3 mb-4`}>
+    <div className={`${customMyOrders.customCardsOrders} col-md-6 mb-4`}>
       <div
         className={`${customHome.customCard} ${customHome.customTextColor} ${customHome.card} card h-100 text-center mx-auto`}
         key={order.id}

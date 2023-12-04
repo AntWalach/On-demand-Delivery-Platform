@@ -1,5 +1,5 @@
 .customCard {
-    max-width: 240px;
+    max-width: 240px !important;
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
     flex: 1;

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Layouts/NavbarDelivery";
 import axios from "axios";
-import Order from "../components/MyOrdersComponents/NewOrder";
+import Order from "../components/MyOrdersComponents/NewOrderComponent";
 import { useNavigate } from "react-router-dom";
 import customNewOrders from "../assets/css/NewOrders.module.css";
+
 
 function NewOrders() {
   axios.defaults.withCredentials = true;
