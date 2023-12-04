@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
-import "../../assets/css/customNavbarDelivery.css";
+import customNavbarDelivery from "../../assets/css/customNavbarDelivery.module.css";
 import axios from "axios";
 
 function NavbarDelivery() {
@@ -32,7 +32,7 @@ function NavbarDelivery() {
   }, [navigate]);
 
   return (
-    <nav className="navbar navbar-expand-lg custom-navbar">
+    <nav className={`${customNavbarDelivery.customNavbar} display-4`}>
       <div className="container-fluid">
         <a className="navbar-brand" href="/delivery">
           <img
@@ -58,7 +58,7 @@ function NavbarDelivery() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <a
-                className="nav-link custom-navbar-text-color"
+                className={`${customNavbarDelivery.customNavbarTextColor} nav-link `}
                 href="/delivery"
               >
                 My deliveries
@@ -66,7 +66,7 @@ function NavbarDelivery() {
             </li>
             <li className="nav-item">
               <a
-                className="nav-link custom-navbar-text-color"
+                className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
                 href="/delivery/neworders"
               >
                 New orders
@@ -74,7 +74,7 @@ function NavbarDelivery() {
             </li>
             <li className="nav-item dropdown">
               <a
-                className="nav-link dropdown-toggle  custom-navbar-text-color"
+                className={`${customNavbarDelivery.customNavbarTextColor} nav-link dropdown-toggle`}
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -112,14 +112,14 @@ function NavbarDelivery() {
               aria-label="Search"
             />
             <button
-              className="btn btn-outline-success custom-button-home"
+              className={`${customNavbarDelivery.customButtonHome} btn btn-outline-success`}
               type="submit"
             >
               Search
             </button>
           </form>
           <button
-            className="btn btn-danger custom-button-home mx-2"
+            className={`${customNavbarDelivery.customButtonHome} btn btn-danger mx-2`}
             onClick={handleDelete}
           >
             Logout

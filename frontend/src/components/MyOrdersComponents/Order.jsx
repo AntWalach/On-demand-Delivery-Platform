@@ -1,5 +1,7 @@
 import React from "react";
 import { Box2HeartFill } from "react-bootstrap-icons";
+import customHome from "../../assets/css/customHome.module.css";
+import customMyOrders from "../../assets/css/customMyOrders.module.css";
 
 function formatDate(dateString) {
   const options = {
@@ -37,12 +39,12 @@ function parseAddress(inputString) {
 
 function Order({ order }) {
   return (
-    <div className="col-md-3 mb-4 custom-cards-orders">
+    <div className={`${customMyOrders.customCardsOrders} col-md-3 mb-4`}>
       <div
-        className="card custom-card custom-text-color h-100 text-center mx-auto"
+        className={`${customHome.customCard} ${customHome.customTextColor} ${customHome.card} card h-100 text-center mx-auto`}
         key={order.id}
       >
-        <Box2HeartFill className="m-auto mt-5 custom-icon" />
+        <Box2HeartFill className={`${customHome.customIcon} m-auto mt-5`}/>
         <div className="card-body">
           <h5 className="card-title mb-3">Shipment details</h5>
           <p className="card-text">

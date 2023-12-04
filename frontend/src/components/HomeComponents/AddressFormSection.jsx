@@ -1,5 +1,6 @@
 import React from 'react';
 import { FloatingLabel, Form } from 'react-bootstrap';
+import customHome from "../../assets/css/customHome.module.css";
 
 const AddressFormSection = ({
   label,
@@ -17,9 +18,9 @@ const AddressFormSection = ({
   handleInput,
 }) => {
   return (
-    <div className="col-md-4 custom-container rounded mx-3 custom-shipping-form mb-2">
+    <div className={`${customHome.customContainer} col-md-4 rounded mx-3 mb-2 ${customHome.customShippingForm}`}>
       <div className="d-flex justify-content-center">
-        <label className="custom-label center-label mt-2">
+        <label className={`${customHome.customLabel} center-label mt-2`}>
           <strong>{label}</strong>
         </label>
       </div>
@@ -29,7 +30,7 @@ const AddressFormSection = ({
           <div className="mb-2">
             <FloatingLabel label="Zip Code" className="mb-3">
               <Form.Control
-                className="custom-inputs"
+                className={`${customHome.customInputs}`}
                 type="text"
                 id={zipCodeId}
                 name={zipCodeId}
@@ -47,7 +48,7 @@ const AddressFormSection = ({
           <div className="mb-2">
             <FloatingLabel label="City" className="mb-3">
               <Form.Control
-                className="custom-inputs"
+                className={`${customHome.customInputs}`}
                 type="text"
                 id={cityId}
                 name={cityId}
@@ -67,7 +68,7 @@ const AddressFormSection = ({
           <div className="mb-2">
             <FloatingLabel label="Street" className="mb-3">
               <Form.Control
-                className="custom-inputs"
+                className={`${customHome.customInputs}`}
                 type="text"
                 id={streetId}
                 name={streetId}
@@ -85,7 +86,7 @@ const AddressFormSection = ({
           <div className="mb-2">
             <FloatingLabel label="Building" className="mb-3">
               <Form.Control
-                className="custom-inputs"
+                className={`${customHome.customInputs}`}
                 type="text"
                 id={buildingNumberId}
                 name={buildingNumberId}
@@ -103,7 +104,7 @@ const AddressFormSection = ({
           <div className="mb-3">
             <FloatingLabel label="Apartment" className="mb-3">
               <Form.Control
-                className="custom-inputs"
+                className={`${customHome.customInputs}`}
                 type="text"
                 id={apartmentNumberId}
                 name={apartmentNumberId}

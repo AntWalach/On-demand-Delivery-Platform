@@ -4,7 +4,7 @@ import Validation from "../utils/signupValidation";
 import PhoneInput from "react-phone-number-input/input";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import "../assets/css/customLogin.css";
+import customLogin from "../assets/css/customLogin.module.css";
 
 function Signup() {
   const [values, setValues] = useState({
@@ -52,11 +52,11 @@ function Signup() {
     <div>
       <div className="px-3 pt-2">
         <Link to="/">
-          <div class="arrow arrow-left"></div>
+          <div className={`${customLogin.arrow} ${customLogin.arrowLeft}`}></div>
         </Link>
       </div>
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="bg-white p-3 rounded w-25 custom-card-login-signup">
+        <div className={`${customLogin.customCardLoginSignup} bg-white p-3 rounded w-25`}>
           <h2>Sign Up</h2>
           <form action="" onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -198,7 +198,7 @@ function Signup() {
 
             <button
               type="submit"
-              className="btn btn-success w-100 mb-3 custom-button-log-in"
+              className={`${customLogin.customButtonLogIn} btn btn-success w-100 mb-3`}
             >
               <strong>Sign up</strong>
             </button>

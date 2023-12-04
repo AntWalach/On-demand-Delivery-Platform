@@ -3,18 +3,18 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
-.custom-button{
+.customButton{
   background-color: #EEE9DA !important;
   border-color: #EEE9DA !important;
   color: #93BFCF !important;
 }
 
-.custom-button:hover{
+.customButton:hover{
   background-color: #BDCDD6 !important;
   border-color: #BDCDD6 !important;
 }
 
-.custom-button:active{
+.customButton:active{
   background-color: #BDCDD6 !important;
   border-color: #BDCDD6 !important;
 }

@@ -1,8 +1,9 @@
 import React from 'react';
+import customHome from "../../assets/css/customHome.module.css";
 
 const DeliveryOption = ({ icon, title, description }) => {
     return (
-      <div className="card custom-card custom-text-color h-100 text-center">
+      <div className={`${customHome.customTextColor} ${customHome.card} card h-100 text-center ${customHome.customCard}`}>
         {icon && <div>{icon}</div>}
         <div className="card-body d-flex flex-column align-items-center">
           <div className="form-check">

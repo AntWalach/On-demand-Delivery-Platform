@@ -6,57 +6,57 @@
     border-right: 2px solid #EEE9DA;
 }
 
-.arrow-left {
+.arrowLeft {
     transform: rotate(-135deg);
 }
 
-.custom-button-log-in {
+.customButtonLogIn {
     background-color: #4F6F52 !important;
     border-color: #4F6F52 !important;
     color: white !important;
 }
 
-.custom-button-log-in:hover {
+.customButtonLogIn:hover {
     background-color: #739072 !important;
     border-color: #739072 !important;
     color: white !important;
 }
 
-.custom-button-log-in:active {
+.customButtonLogIn:active {
     background-color: #739072 !important;
     border-color: #739072 !important;
     color: white !important;
 }
 
-.custom-card-login-signup {
+.customCardLoginSignup {
     min-width: 340px;
 }
 
-.custom-radio-outline:hover {
+.customRadioOutline:hover {
     background-color: #739072 !important;
     border-color: #739072 !important;
     color: white !important;
 }
 
-.custom-radio-outline,
-.custom-radio-outline:not(:disabled):not(.disabled):active {
+.customRadioOutline,
+.customRadioOutline:not(:disabled):not(.disabled):active {
     color: #4F6F52 !important;
     border-color: white !important;
 }
 
-.custom-button-radio:checked+.custom-radio-outline {
+.customButtonRadio:checked+.customRadioOutline {
     color: white !important;
     background-color: #4F6F52 !important;
     border-color: #4F6F52 !important;
     font-weight: 600;
 }
 
-.login-container {
+.loginContainer {
     background-color: #6096B4;
     min-height: 100vh;
     transition: background-color 0.5s;
 }
 
-.login-container.delivery {
+.loginContainerDelivery {
     background-color: #b37b3b;
 }

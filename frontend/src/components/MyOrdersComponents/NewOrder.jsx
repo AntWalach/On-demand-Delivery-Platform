@@ -1,5 +1,6 @@
 import React from "react";
 import { Box2HeartFill } from "react-bootstrap-icons";
+import customNewOrders from "../../assets/css/customNewOrders.module.css";
 
 function formatDate(dateString) {
   const options = {
@@ -37,7 +38,7 @@ function parseAddress(inputString) {
 
 function Order({ order }) {
   return (
-    <div className="col-md-3 mb-4 custom-cards-orders">
+    <div className={`${customNewOrders.customCardsOrders} col-md-3 mb-4`}>
       <div
         className="card custom-card custom-text-color h-100 text-center mx-auto"
         key={order.id}

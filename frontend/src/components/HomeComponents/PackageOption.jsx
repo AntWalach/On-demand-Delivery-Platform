@@ -1,5 +1,6 @@
 import React from "react";
-import { Form } from "react-bootstrap"; // Zaimportuj komponent Form z react-bootstrap
+import { Form } from "react-bootstrap";
+import customHome from "../../assets/css/customHome.module.css";
 
 const PackageOption = ({
   icon,
@@ -11,7 +12,7 @@ const PackageOption = ({
   onChange,
 }) => {
   return (
-    <div className="card custom-card custom-text-color h-100 text-center">
+    <div className={`${customHome.customTextColor} ${customHome.card} card h-100 text-center ${customHome.customCard}`}>
       {icon && <div>{icon}</div>}
       <div className="card-body d-flex flex-column align-items-center">
         <div className="form-check">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Validation from "../utils/loginValidation";
 import axios from "axios";
-import "../assets/css/customLogin.css";
+import customLogin from "../assets/css/customLogin.module.css";
 
 function Login() {
   const [values, setValues] = useState({
@@ -26,7 +26,7 @@ function Login() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/") 
+      .get("http://localhost:8081/")
       .then((res) => {
         if (res.data.valid) {
           navigate("/home");
@@ -59,18 +59,18 @@ function Login() {
 
   return (
     <div
-      className={`login-container ${
+      className={`${customLogin.loginContainer} ${
         values.userType === "delivery" ? "delivery" : ""
       }`}
     >
       <div className="px-3 pt-2">
         <Link to="/">
-          <div className="arrow arrow-left"></div>
+          <div className={`${customLogin.arrow} ${customLogin.arrowLeft}`}></div>
         </Link>
       </div>
 
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="bg-white p-3 rounded w-25 custom-card-login-signup">
+        <div className={`${customLogin.customCardLoginSignup} bg-white p-3 rounded w-25`}>
           <div className="d-flex justify-content-between align-items-center vh-20">
             <h2 className="mb-3">Log In</h2>
             <div
@@ -80,7 +80,7 @@ function Login() {
             >
               <input
                 type="radio"
-                className="btn-check custom-button-radio"
+                className={`${customLogin.customButtonRadio} btn-check`}
                 name="userType"
                 id="btnradio1"
                 defaultChecked
@@ -90,13 +90,13 @@ function Login() {
                   });
                 }}
               />
-              <label className="btn custom-radio-outline" htmlFor="btnradio1">
+              <label className={`${customLogin.customRadioOutline} btn`}htmlFor="btnradio1">
                 Client
               </label>
 
               <input
                 type="radio"
-                className="btn-check custom-button-radio"
+                className={`${customLogin.customButtonRadio} btn-check`}
                 name="userType"
                 id="btnradio2"
                 autoComplete="off"
@@ -106,7 +106,7 @@ function Login() {
                   });
                 }}
               />
-              <label className="btn custom-radio-outline" htmlFor="btnradio2">
+              <label className={`${customLogin.customRadioOutline} btn`} htmlFor="btnradio2">
                 Delivery
               </label>
             </div>
@@ -146,13 +146,13 @@ function Login() {
 
             <button
               type="submit"
-              className="btn btn-success w-100 custom-button-log-in mb-3"
+              className={`${customLogin.customButtonLogIn} btn btn-success w-100 mb-3`}
             >
               <strong>Log in</strong>
             </button>
             <Link
               to="/signup"
-              className="btn btn-outline-secondary border w-100 custom-button-create-account"
+              className={`${customLogin.customButtonCreateAccount} btn btn-outline-secondary border w-100`}
             >
               Create Account
             </Link>

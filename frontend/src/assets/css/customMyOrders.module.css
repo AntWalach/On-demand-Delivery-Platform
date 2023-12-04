@@ -1,8 +1,8 @@
-.custom-text-color-header{
+.customTextColorHeader {
     color: #EEE9DA;
     font-weight: bold;
 }
 
-.custom-cards-orders{
+.customCardsOrders {
     min-width: 25rem;
 }

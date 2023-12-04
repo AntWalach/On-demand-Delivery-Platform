@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Layouts/Navbar";
 import axios from "axios";
-import "../assets/css/customMyOrders.css";
 import Order from "../components/MyOrdersComponents/Order";
 import { useNavigate } from "react-router-dom";
+import customMyOrders from "../assets/css/customMyOrders.module.css";
 
 function MyOrders() {
   axios.defaults.withCredentials = true;
@@ -36,7 +36,7 @@ function MyOrders() {
       <Navbar />
       <div className="row">
         <div className="col-md-12 text-center mt-5">
-          <h1 className="display-6 custom-text-color-header">Orders</h1>
+          <h1 className={`${customMyOrders.customTextColorHeader} display-6`}>Orders</h1>
         </div>
       </div>
       <div className="row mt-4 justify-content-center w-50 mx-auto">
@@ -48,7 +48,7 @@ function MyOrders() {
           ))
         ) : (
           <div className="col-md-12 text-center mt-5">
-            <h1 className="display-6 custom-text-color-header">
+            <h1 className={`${customMyOrders.customTextColorHeader} display-6`}>
               You don't have any orders.
             </h1>
           </div>

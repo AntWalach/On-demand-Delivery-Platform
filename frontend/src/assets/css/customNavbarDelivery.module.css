@@ -1,0 +1,30 @@
+.customNavbar {
+    background-color: #FAF8F1 !important;
+}
+
+.customNavbarTextColor {
+    color: #6B240C !important;
+    fontSize: 20px !important;
+}
+
+.customNavbarTextColor:hover {
+    color: #994D1C !important;
+}
+
+.customButtonHome {
+    background-color: #6B240C !important;
+    borderColor: #6B240C !important;
+    color: white !important;
+}
+
+.customButtonHome:hover {
+    background-color: #994D1C !important;
+    borderColor: #994D1C !important;
+    color: white !important;
+}
+
+.customButtonHomeActive {
+    background-color: #BDCDD6 !important;
+    borderColor: #BDCDD6 !important;
+    color: #537188 !important;
+}

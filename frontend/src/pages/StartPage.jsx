@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../assets/css/customStartPage.css";
 import QuickPackLogoV2 from "../assets/images/QuickPackageLogoV2.png";
+import customStartPage from "../assets/css/customStartPage.module.css";
 
 function StartPage() {
   return (
@@ -15,14 +15,14 @@ function StartPage() {
           height="120"
         />
       </div>
-      <div className="typewriter">
+      <div className={`${customStartPage.typewriter}`}>
         <h1> Pack. Send. Collect. </h1>
       </div>
       <div className="text-center mt-3">
         <Link to="/login">
           <button
             type="button"
-            className="btn btn-success btn-lg custom-button mx-2 px-4"
+            className={`${customStartPage.customButton} btn btn-success btn-lg custom-button mx-2 px-4`}
           >
             Log in
           </button>
@@ -30,7 +30,7 @@ function StartPage() {
         <Link to="/signup">
           <button
             type="button"
-            className="btn btn-success btn-lg custom-button mx-2"
+            className={`${customStartPage.customButton} btn btn-success btn-lg mx-2`}
           >
             Sign up
           </button>
