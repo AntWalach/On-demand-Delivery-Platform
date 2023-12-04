@@ -62,7 +62,7 @@ function Login() {
   return (
     <div
       className={`${customLogin.loginContainer} ${
-        values.userType === "delivery" ? "delivery" : ""
+        values.userType === "delivery" ? customLogin.delivery : ""
       }`}
     >
       <div className="px-3 pt-2">

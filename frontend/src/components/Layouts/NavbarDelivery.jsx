@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
+import QuickPackLogo from "../../assets/images/QuickPackLogoV3.png";
 import customNavbarDelivery from "../../assets/css/NavbarDelivery.module.css";
 import axios from "axios";
 

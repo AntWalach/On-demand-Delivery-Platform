@@ -41,6 +41,7 @@ function NewOrders() {
     } catch (error) {
       console.error("Error updating order:", error);
     }
+    window.location.reload();
   };
 
   return (
