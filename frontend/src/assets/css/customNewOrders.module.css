@@ -1,7 +1,7 @@
 .customCard {
     max-width: 240px;
     background-color: #EEE9DA !important;
-    borderColor: #EEE9DA !important;
+    border-color: #EEE9DA !important;
     flex: 1;
 }
 
@@ -15,7 +15,7 @@
 
 .customInputs {
     background-color: #EEE9DA !important;
-    borderColor: #EEE9DA !important;
+    border-color: #EEE9DA !important;
 }
 
 .customIcon {
@@ -32,18 +32,18 @@
 
 .customContainer {
     background-color: #F5CCA0 !important;
-    borderColor: #F5CCA0 !important;
+    border-color: #F5CCA0 !important;
 }
 
 .customLabel {
     color: #EEE9DA !important;
     display: block;
     margin: 0 auto;
-    fontSize: 18px;
+    font-size: 18px;
 }
 
 .customGreeting {
-    fontSize: small;
+    font-size: small;
 }
 
 .customColWidth {
@@ -55,13 +55,13 @@
 }
 
 .customButton {
-    backgroundColor: #6B240C !important;
-    borderColor: #6B240C !important;
+    background-color: #6B240C !important;
+    border-color: #6B240C !important;
     color: white !important;
 }
 
 .customButton:hover {
-    backgroundColor: #994D1C !important;
-    borderColor: #994D1C !important;
+    background-color: #994D1C !important;
+    border-color: #994D1C !important;
     color: white !important;
 }

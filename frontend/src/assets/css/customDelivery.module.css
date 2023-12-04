@@ -1,3 +1,8 @@
+body {
+    background-color: #F5CCA0 !important;
+    font-family: 'Arial', sans-serif;
+}
+
 .customCard {
     max-width: 240px;
     background-color: #EEE9DA !important;

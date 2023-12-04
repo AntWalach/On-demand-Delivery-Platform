@@ -25,16 +25,16 @@ function NavbarDelivery() {
         if (res.data.valid) {
           setUser(res.data.name);
         } else {
-          console.log('Error')
+          console.log("Error");
         }
       })
       .catch((err) => console.log(err));
   }, [navigate]);
 
   return (
-    <nav className={`${customNavbarDelivery.customNavbar} display-4`}>
+    <nav className={`${customNavbarDelivery.customNavbar} navbar navbar-expand-lg`}>
       <div className="container-fluid">
-        <a className="navbar-brand" href="/delivery">
+        <a className="navbar-brand" href="/home">
           <img
             src={QuickPackLogo}
             className="App-logo"
@@ -58,18 +58,10 @@ function NavbarDelivery() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <a
-                className={`${customNavbarDelivery.customNavbarTextColor} nav-link `}
-                href="/delivery"
-              >
-                My deliveries
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
                 className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
-                href="/delivery/neworders"
+                href="/home/myorders"
               >
-                New orders
+                My orders
               </a>
             </li>
             <li className="nav-item dropdown">
