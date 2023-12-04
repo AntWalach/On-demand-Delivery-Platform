@@ -12,7 +12,7 @@ const salt = 10;
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["POST", "GET"],
+    methods: ["POST", "GET", "PUT"],
     credentials: true,
   })
 );
@@ -252,11 +252,11 @@ app.get("/myorders", verifyUser, (req, res) => {
 });
 
 app.get("/delivery", verifyUser, (req, res) => {
-  const clientId = req.user.id;
+  const deliveryId = req.user.id;
 
   const q = "SELECT * FROM `order` WHERE `DeliveryID` = ?";
 
-  db.query(q, [clientId], (err, data) => {
+  db.query(q, [deliveryId], (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).json("Error");
@@ -266,17 +266,44 @@ app.get("/delivery", verifyUser, (req, res) => {
 });
 
 app.get("/delivery/neworders", verifyUser, (req, res) => {
-  const clientId = req.user.id;
+  const deliveryId = req.user.id;
 
   const q = "SELECT * FROM `order` WHERE `DeliveryID` IS NULL";
 
-  db.query(q, [clientId], (err, data) => {
+  db.query(q, [deliveryId], (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).json("Error");
     }
     return res.json(data);
   });
+});
+
+app.put("/delivery/neworders/:orderId", verifyUser, async (req, res) => {
+  const { orderId } = req.params;
+  console.log("Received orderId:", orderId);
+  const deliveryId = req.user.id;
+  console.log("DELIVERY", deliveryId);
+
+  try {
+    const orderQuery =
+      "SELECT * FROM `order` WHERE `ID` = ? AND `DeliveryID` IS NULL";
+    const [order] = await db.promise().query(orderQuery, [orderId]);
+
+    if (!order || order.length === 0) {
+      return res.status(404).json({
+        error: "Order not found or already assigned to a delivery person",
+      });
+    }
+
+    const updateQuery = "UPDATE `order` SET `DeliveryID` = ? WHERE `ID` = ?";
+    await db.promise().query(updateQuery, [deliveryId, orderId]);
+
+    return res.status(200).json({ message: "Order updated successfully" });
+  } catch (error) {
+    console.error("Error updating order:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.listen(8081, () => {

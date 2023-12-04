@@ -2,7 +2,6 @@ import React from "react";
 import { Box2HeartFill } from "react-bootstrap-icons";
 import customNewOrders from "../../assets/css/NewOrders.module.css";
 
-
 function formatDate(dateString) {
   const options = {
     year: "numeric",
@@ -25,7 +24,6 @@ function parseAddress(inputString) {
     const street = match[3];
     const number = match[4];
 
-
     console.log(postalCode);
     console.log(city);
     console.log(street);
@@ -37,38 +35,47 @@ function parseAddress(inputString) {
   return inputString;
 }
 
-function Order({ order }) {
+function NewOrderComponent({ order, handleClick }) {
   return (
     <div className={`${customNewOrders.customCardsOrders} col-md-6 mb-4`}>
       <div
         className={`${customNewOrders.customCard} ${customNewOrders.customTextColor} ${customNewOrders.card} card h-100 text-center mx-auto`}
         key={order.id}
       >
-        <Box2HeartFill className={`${customNewOrders.customIcon} m-auto mt-5`}/>
+        <Box2HeartFill
+          className={`${customNewOrders.customIcon} m-auto mt-5`}
+        />
         <div className="card-body">
           <h5 className="card-title mb-3">Shipment details</h5>
           <p className="card-text">
-            <p className="m-0"><strong>Sender Address</strong></p>
+            <p className="m-0">
+              <strong>Sender Address</strong>
+            </p>
             <p>{parseAddress(order.SenderAddress)}</p>
           </p>
           <p className="card-text">
-            <p className="m-0"><strong>Recipient Address</strong></p>
+            <p className="m-0">
+              <strong>Recipient Address</strong>
+            </p>
             <p>{parseAddress(order.RecipientAddress)}</p>
           </p>
           <p className="card-text">
-            <p className="m-0"><strong>Order Date</strong></p>
+            <p className="m-0">
+              <strong>Order Date</strong>
+            </p>
             <p className="m-0">{formatDate(order.Date)}</p>
           </p>
           <button
-              className={`${customNewOrders.customButton} btn btn-outline-success`}
-              type="submit"
-            >
-              Accept order
-            </button>
+            className={`${customNewOrders.customButton} btn btn-outline-success`}
+            type="submit"
+            onClick={() => handleClick(order.ID)}
+          >
+            Accept order
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export default Order;
+export default NewOrderComponent;
