@@ -41,7 +41,7 @@ function Order({ order }) {
   return (
     <div className={`${customNewOrders.customCardsOrders} col-md-6 mb-4`}>
       <div
-        className={`${customNewOrders.customCard} ${customNewOrders.customTextColor} card h-100 text-center mx-auto`}
+        className={`${customNewOrders.customCard} ${customNewOrders.customTextColor} ${customNewOrders.card} card h-100 text-center mx-auto`}
         key={order.id}
       >
         <Box2HeartFill className={`${customNewOrders.customIcon} m-auto mt-5`}/>
