@@ -7,7 +7,8 @@ import Login from "./pages/Login";
 import Delivery from "./pages/Delivery";
 import MyOrders from "./pages/MyOrders";
 import NewOrders from "./pages/NewOrders";
-
+import HomeAccountSettings from "./settings/HomeAccountSettings";
+import DeliveryAccountSettings from "./settings/DeliveryAccountSettings";
 function App() {
   return (
     <div>
@@ -20,6 +21,9 @@ function App() {
           <Route path="/delivery" element={<Delivery />}></Route>
           <Route path="/home/myorders" element={<MyOrders />}></Route>
           <Route path="/delivery/neworders" element={<NewOrders />}></Route>
+          <Route path="/home/account" element={<HomeAccountSettings userType="home" />} />
+          <Route path="/delivery/account" element={<DeliveryAccountSettings userType="delivery"/>} />
+
         </Routes>
       </BrowserRouter>
     </div>

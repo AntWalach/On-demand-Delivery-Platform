@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Layouts/NavbarDelivery";
+import NavbarDelivery from "../components/Layouts/NavbarDelivery";
 import axios from "axios";
 import NewOrderComponent from "../components/MyOrdersComponents/NewOrderComponent";
 import customNewOrders from "../assets/css/NewOrders.module.css";
@@ -46,7 +46,8 @@ function NewOrders() {
 
   return (
     <div>
-      <Navbar />
+      <NavbarDelivery />
+
       <div className={`${customNewOrders.customContainer}`}>
         <div className="row">
           <div className="col-md-12 text-center mt-5">

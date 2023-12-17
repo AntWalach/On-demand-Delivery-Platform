@@ -74,10 +74,7 @@ const verifyUser = (req, res, next) => {
       if (err) {
         return res.json({ Error: "Token is not okay" });
       } else {
-        req.user = {
-          name: decoded.name,
-          id: decoded.id,
-        };
+        req.user = decoded; // Cały obiekt zdekodowany z tokena będzie dostępny jako req.user
         next();
       }
     });
@@ -85,11 +82,15 @@ const verifyUser = (req, res, next) => {
 };
 
 app.get("/", verifyUser, (req, res) => {
-  if (req.user.name) {
+  if (req.user.username) {
     return res.json({
       valid: true,
-      name: req.user.name,
+      username: req.user.username,
       id: req.user.id.toString(),
+      fName: req.user.fName,         
+      lName: req.user.lName,         
+      phoneNumber: req.user.phoneNumber, 
+      email: req.user.email,         
     });
   } else {
     return res.json({ valid: false });
@@ -171,21 +172,26 @@ app.post("/login", (req, res) => {
         }
 
         if (response) {
-          const { Login, ID } = data[0];
-          const token = jwt.sign({ name: Login, id: ID }, "jwt-secret-key", {
-            expiresIn: "1d",
-          });
+          const { Login, ID, FirstName, LastName, Email ,PhoneNumber } = data[0];
+          const token = jwt.sign(
+            { username: Login, id: ID, fName: FirstName, lName: LastName,  email: Email, phoneNumber: PhoneNumber },
+            "jwt-secret-key",
+            { expiresIn: "1d" }
+          );
 
           res.cookie("token", token);
 
-          req.session.username = Login;
-          req.session.id = ID;
-
           return res.json({
             login: true,
-            username: req.session.username,
-            id: req.session.id,
+            username: Login,
+            id: ID,
             userType: table,
+            fName: FirstName,
+            lName: LastName,
+            email: Email,
+            phoneNumber: PhoneNumber,
+            
+            // Dodaj inne informacje o użytkowniku, jeśli są dostępne w danych z bazy
           });
         } else {
           return res.json({ login: false, message: "Password not matched" });
@@ -196,6 +202,7 @@ app.post("/login", (req, res) => {
     }
   });
 });
+
 
 app.get("/logout", (req, res) => {
   res.clearCookie("token");

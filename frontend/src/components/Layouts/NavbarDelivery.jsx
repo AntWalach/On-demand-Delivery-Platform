@@ -4,7 +4,7 @@ import QuickPackLogo from "../../assets/images/QuickPackLogoV3.png";
 import customNavbarDelivery from "../../assets/css/NavbarDelivery.module.css";
 import axios from "axios";
 
-function NavbarDelivery() {
+function NavbarDelivery({userType}) {
   const handleDelete = () => {
     axios
       .get("http://localhost:8081/logout")
@@ -23,7 +23,7 @@ function NavbarDelivery() {
       .then((res) => {
         console.log("API Response:", res.data);
         if (res.data.valid) {
-          setUser(res.data.name);
+          setUser(res.data.username);
         } else {
           console.log("Error");
         }
@@ -31,8 +31,13 @@ function NavbarDelivery() {
       .catch((err) => console.log(err));
   }, [navigate]);
 
+  const handleAccountSettingsClick = () => {
+    navigate(`/delivery/account?source=delivery`);
+  };
   return (
-    <nav className={`${customNavbarDelivery.customNavbar} navbar navbar-expand-lg`}>
+    <nav
+      className={`${customNavbarDelivery.customNavbar} navbar navbar-expand-lg`}
+    >
       <div className="container-fluid">
         <a className="navbar-brand" href="/delivery">
           <img
@@ -56,7 +61,7 @@ function NavbarDelivery() {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
+            <li className="nav-item">
               <a
                 className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
                 href="/delivery"
@@ -89,7 +94,12 @@ function NavbarDelivery() {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  {/* Link do ustawień konta */}
+                  <a
+                    className="dropdown-item"
+                    href="/delivery/account"
+                    onClick={handleAccountSettingsClick}
+                  >
                     Account Settings
                   </a>
                 </li>

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
-import customNavbar from"../../assets/css/NavbarUser.module.css";
+import customNavbar from "../../assets/css/NavbarUser.module.css";
 import axios from "axios";
 
-function Navbar() {
+function Navbar({userType}) {
   const handleDelete = () => {
     axios
       .get("http://localhost:8081/logout")
@@ -21,15 +21,21 @@ function Navbar() {
     axios
       .get("http://localhost:8081")
       .then((res) => {
-        console.log("API Response:", res.data);
+        //console.log("API Response:", res.data);
         if (res.data.valid) {
-          setUser(res.data.name);
+          setUser(res.data.username);
         } else {
-          console.log('Error')
+          console.log("Error");
         }
       })
       .catch((err) => console.log(err));
   }, [navigate]);
+
+  
+
+  const handleAccountSettingsClick = () => {
+    navigate(`/home/account?source=home`);
+  };
 
   return (
     <nav className={`${customNavbar.customNavbar} navbar navbar-expand-lg`}>
@@ -81,7 +87,12 @@ function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  
+                  <a
+                    className="dropdown-item"
+                    href="/home/account"
+                    onClick={handleAccountSettingsClick}
+                  >
                     Account Settings
                   </a>
                 </li>
