@@ -30,6 +30,7 @@
 
 .customCardLoginSignup {
     min-width: 340px;
+    background: #eee9da;
 }
 
 .customRadioOutline:hover {
@@ -41,7 +42,7 @@
 .customRadioOutline,
 .customRadioOutline:not(:disabled):not(.disabled):active {
     color: #4F6F52 !important;
-    border-color: white !important;
+    border-color: #eee9da !important;
 }
 
 .customButtonRadio:checked+.customRadioOutline {

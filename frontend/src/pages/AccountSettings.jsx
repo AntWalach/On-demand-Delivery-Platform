@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Layouts/Navbar";
 import NavbarDelivery from "../components/Layouts/NavbarDelivery";
 import axios from "axios";
 import customLogin from "../assets/css/Login.module.css";
-
+import PhoneInput from "react-phone-number-input/input";
+import customAS from "../assets/css/AccountSettings.module.css";
 
 function AccountSettings({ userType }) {
   axios.defaults.withCredentials = true;
@@ -16,10 +17,8 @@ function AccountSettings({ userType }) {
     email: "",
   });
   const navigate = useNavigate();
-
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const source = queryParams.get("source");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     axios
@@ -43,66 +42,187 @@ function AccountSettings({ userType }) {
       })
       .catch((err) => console.log(err));
   }, [navigate]);
-  console.log(userType);
-  console.log(source);
 
+  const handlePhoneChange = async () => {
+    try {
+      const response = await axios.put(
+        "http://localhost:8081/updatePhoneNumber",
+        {
+          phoneNumber: userData.phoneNumber,
+        }
+      );
+
+      console.log("Phone number updated:", response.data);
+
+      setUserData({ ...userData, phoneNumber: response.data.phoneNumber });
+    } catch (error) {
+      console.error("Błąd podczas aktualizacji numeru telefonu", error);
+    }
+  };
+
+  const handleEmailChange = async () => {
+    try {
+      const response = await axios.put("http://localhost:8081/updateEmail", {
+        email: userData.email,
+      });
+
+      console.log("Email updated:", response.data);
+      setUserData({ ...userData, email: response.data.email });
+    } catch (error) {
+      console.error("Błąd podczas aktualizacji adresu email", error);
+    }
+  };
+
+  const handlePasswordChange = async () => {
+    try {
+      const response = await axios.put("http://localhost:8081/updatePassword", {
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      });
+
+      console.log("Password updated:", response.data);
+    } catch (error) {
+      console.error("Error updating password", error);
+    }
+  };
   return (
     <div
       className={`${customLogin.loginContainer} ${
         userType === "delivery" ? customLogin.delivery : ""
-      }`}
+      } `}
     >
       {userType === "home" ? (
         <Navbar userType={userType} />
       ) : (
         <NavbarDelivery userType={userType} />
       )}
-      <div className="container mt-4">
-        <h1>Account Settings</h1>
+      <div className="col-md-12 text-center mt-5">
+        <h1 className="display-6">Account Settings</h1>
+      </div>
+      <div className={`container mt-4 ${customAS.containerFlex}`}>
+        <div className="container mt-4">
+          <div className={`${customAS.bgdata} p-3 rounded`}>
+            <h2>Current Data</h2>
 
-        <div className="bg-white p-3 rounded">
-          <h2>Current Data</h2>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="username">
+                Username:
+              </label>
+              <div className="form-text">{userData.username}</div>
+            </div>
 
-          <div className="mb-3">
-            <label className="form-label" htmlFor="username">
-              Username:
-            </label>
-            <div className="form-text">{userData.username}</div>
-          </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="fName">
+                First Name:
+              </label>
+              <div className="form-text">{userData.fName}</div>
+            </div>
 
-          <div className="mb-3">
-            <label className="form-label" htmlFor="fName">
-              First Name:
-            </label>
-            <div className="form-text">{userData.fName}</div>
-          </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="lName">
+                Last Name:
+              </label>
+              <div className="form-text">{userData.lName}</div>
+            </div>
 
-          <div className="mb-3">
-            <label className="form-label" htmlFor="lName">
-              Last Name:
-            </label>
-            <div className="form-text">{userData.lName}</div>
-          </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="phoneNumber">
+                Phone Number:
+              </label>
+              <div className="form-text">{userData.phoneNumber}</div>
+            </div>
 
-          <div className="mb-3">
-            <label className="form-label" htmlFor="phoneNumber">
-              Phone Number:
-            </label>
-            <div className="form-text">{userData.phoneNumber}</div>
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label" htmlFor="email">
-              Email:
-            </label>
-            <div className="form-text">{userData.email}</div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="email">
+                Email:
+              </label>
+              <div className="form-text">{userData.email}</div>
+            </div>
           </div>
         </div>
 
-        <div>
-          <h2>Edit Profile</h2>
+        <div className="container mt-4">
+          <div className={`${customAS.bgdata} p-3 rounded`}>
+            <h2>Edit Profile</h2>
+            <strong>Phone Number</strong>
+            <div className="input-group mb-3">
+              <PhoneInput
+                type="text"
+                placeholder="Enter Phone Number"
+                name="phoneNumber"
+                country="PL"
+                international={true}
+                className="form-control"
+                value={userData.phoneNumber}
+                onChange={(value) =>
+                  setUserData({ ...userData, phoneNumber: value })
+                }
+              />
+              <div className="input-group-append">
+                <button
+                  className="btn btn-outline-secondary"
+                  type="button"
+                  onClick={handlePhoneChange}
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+            <strong>Email</strong>
+            <div className="input-group mb-3">
+              <input
+                type="email"
+                placeholder="Enter Email"
+                name="email"
+                className="form-control"
+                value={userData.email}
+                onChange={(e) =>
+                  setUserData({ ...userData, email: e.target.value })
+                }
+              />
+              <div className="input-group-append">
+                <button
+                  className="btn btn-outline-secondary"
+                  type="button"
+                  onClick={handleEmailChange}
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+            <strong>Old Password</strong>
+            <div className="input-group mb-3">
+              <input
+                type="password"
+                placeholder="Enter Old Password"
+                name="oldPassword"
+                className="form-control"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
+            </div>
+            <strong>Password</strong>
+            <div className="input-group mb-3">
+              <input
+                type="password"
+                placeholder="Enter Password"
+                name="password"
+                className="form-control"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+              <div className="input-group-append">
+                <button
+                  className="btn btn-outline-secondary"
+                  type="button"
+                  onClick={handlePasswordChange}
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
   );

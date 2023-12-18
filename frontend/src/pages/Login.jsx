@@ -75,7 +75,7 @@ function Login() {
 
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div
-          className={`${customLogin.customCardLoginSignup} bg-white p-3 rounded w-25`}
+          className={`${customLogin.customCardLoginSignup}  p-3 rounded w-25`}
         >
           <div className="d-flex justify-content-between align-items-center vh-20">
             <h2 className="mb-3">Log In</h2>

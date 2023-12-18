@@ -1,0 +1,13 @@
+.containerFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.containerFlex>div {
+  width: 48%;
+  box-sizing: border-box;
+}
+
+.bgdata {
+  background-color: #eee9da;
+}

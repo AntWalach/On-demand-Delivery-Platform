@@ -56,7 +56,7 @@ function Signup() {
         </Link>
       </div>
       <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className={`${customLogin.customCardLoginSignup} bg-white p-3 rounded w-25`}>
+        <div className={`${customLogin.customCardLoginSignup} p-3 rounded w-25`}>
           <h2>Sign Up</h2>
           <form action="" onSubmit={handleSubmit}>
             <div className="mb-3">
