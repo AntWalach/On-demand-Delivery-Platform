@@ -142,65 +142,6 @@ app.post("/signup", (req, res) => {
   });
 });
 
-// app.post("/login", (req, res) => {
-//   const { userType, email, password } = req.body;
-
-//   let query, table;
-
-//   if (userType === "user") {
-//     query = "SELECT * FROM client WHERE Email = ?";
-//     table = "client";
-//   } else if (userType === "delivery") {
-//     query = "SELECT * FROM delivery WHERE Email = ?";
-//     table = "delivery";
-//   } else {
-//     return res.json({ login: false, message: "Invalid user type" });
-//   }
-
-//   const values = [email];
-
-//   db.query(query, values, (err, data) => {
-//     if (err) {
-//       console.error(err);
-//       return res.status(500).json({ Error: "Internal Server Error" });
-//     }
-
-//     if (data.length > 0) {
-//       bcrypt.compare(password.toString(), data[0].Password, (err, response) => {
-//         if (err) {
-//           console.error(err);
-//           return res.status(500).json({ Error: "Internal Server Error" });
-//         }
-
-//         if (response) {
-//           const { Login, ID, FirstName, LastName, Email ,PhoneNumber} = data[0];
-//           const token = jwt.sign(
-//             { username: Login, id: ID, fName: FirstName, lName: LastName,  email: Email, phoneNumber: PhoneNumber },
-//             "jwt-secret-key",
-//             { expiresIn: "1d" }
-//           );
-
-//           res.cookie("token", token);
-
-//           return res.json({
-//             login: true,
-//             username: Login,
-//             id: ID,
-//             userType: table,
-//             fName: FirstName,
-//             lName: LastName,
-//             email: Email,
-//             phoneNumber: PhoneNumber,
-//           });
-//         } else {
-//           return res.json({ login: false, message: "Password not matched" });
-//         }
-//       });
-//     } else {
-//       return res.json({ login: false, message: "Fail" });
-//     }
-//   });
-// });
 app.post("/login", (req, res) => {
   const { userType, email, password } = req.body;
 
@@ -476,30 +417,43 @@ app.put("/updatePassword", verifyUser, async (req, res) => {
 
     const oldHashedPassword = result[0].Password;
 
-    bcrypt.compare(oldPassword.toString(), oldHashedPassword, async (err, response) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: "Internal Server Error" });
-      }
-
-      if (response) {
-        const newHashedPassword = await bcrypt.hash(newPassword.toString(), salt);
-
-        let updatePasswordQuery;
-        if (userType === "client") {
-          updatePasswordQuery = "UPDATE `client` SET `Password` = ? WHERE `ID` = ?";
-        } else if (userType === "delivery") {
-          updatePasswordQuery = "UPDATE `delivery` SET `Password` = ? WHERE `ID` = ?";
-        } else {
-          return res.status(400).json({ error: "Invalid user type" });
+    bcrypt.compare(
+      oldPassword.toString(),
+      oldHashedPassword,
+      async (err, response) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: "Internal Server Error" });
         }
 
-        await db.promise().query(updatePasswordQuery, [newHashedPassword, userId]);
-        return res.status(200).json({ message: "Password updated successfully" });
-      } else {
-        return res.status(401).json({ error: "Incorrect old password" });
+        if (response) {
+          const newHashedPassword = await bcrypt.hash(
+            newPassword.toString(),
+            salt
+          );
+
+          let updatePasswordQuery;
+          if (userType === "client") {
+            updatePasswordQuery =
+              "UPDATE `client` SET `Password` = ? WHERE `ID` = ?";
+          } else if (userType === "delivery") {
+            updatePasswordQuery =
+              "UPDATE `delivery` SET `Password` = ? WHERE `ID` = ?";
+          } else {
+            return res.status(400).json({ error: "Invalid user type" });
+          }
+
+          await db
+            .promise()
+            .query(updatePasswordQuery, [newHashedPassword, userId]);
+          return res
+            .status(200)
+            .json({ message: "Password updated successfully" });
+        } else {
+          return res.status(401).json({ error: "Incorrect old password" });
+        }
       }
-    });
+    );
   } catch (error) {
     console.error("Error updating password:", error);
     return res.status(500).json({ error: "Internal server error" });
