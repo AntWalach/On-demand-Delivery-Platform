@@ -1,0 +1,26 @@
+.customTextColorHeader {
+    color: #EEE9DA;
+    font-weight: bold;
+}
+
+.customCardsOrders {
+    min-width: 25rem;
+}
+
+.customButtonWallet{
+    background-color: #537188 !important;
+    border-color: #537188 !important;
+    color: white !important;
+}
+  
+.customButtonWallet:hover{
+    background-color: #BDCDD6 !important;
+    border-color: #BDCDD6 !important;
+    color: #537188 !important;
+}
+
+.customButtonWallet:active {
+    background-color: #BDCDD6 !important;
+    border-color: #BDCDD6  !important;
+    color: #537188  !important;
+}
