@@ -8,6 +8,8 @@ function Admin() {
     <div>
       <NavbarAdmin />
 
+      <div className={`${customAdmin.customContainer}`}>
+
       <div className="row">
         <div className="col-md-12 text-center mt-5">
           <h1 className={`${customAdmin.customTextColorHeader} display-6`}>
@@ -53,6 +55,7 @@ function Admin() {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 }

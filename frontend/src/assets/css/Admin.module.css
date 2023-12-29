@@ -1,5 +1,12 @@
-body {
+/*body {
     background-color:#86A789 !important;
+}*/
+
+.customContainer {
+    min-height: 100vh;
+    background-color: #86A789 !important;
+    border-color: #86A789 !important;
+    height: 100% !important;
 }
 
 .customTextColorHeader {
