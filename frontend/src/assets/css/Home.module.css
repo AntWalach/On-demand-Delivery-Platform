@@ -1,14 +1,18 @@
 body {
     background-color:#6096B4 !important;
+    margin: 0;
+    padding: 0;
+    
 }
 
 .homeConteiner{
     background-color: #537188 !important;
+    
 }
 
 
 .customCard {
-    max-width: 240px;
+    max-width: 280px;
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
     flex: 1;

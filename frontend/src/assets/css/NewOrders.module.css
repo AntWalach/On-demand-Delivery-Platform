@@ -1,5 +1,6 @@
 .customCard {
-    max-width: 240px !important;
+    max-width: 280px !important;
+    min-height: 450px;
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
     flex: 1;

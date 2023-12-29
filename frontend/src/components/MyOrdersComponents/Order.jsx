@@ -2,6 +2,7 @@ import React from "react";
 import { Box2HeartFill } from "react-bootstrap-icons";
 import customHome from "../../assets/css/Home.module.css";
 import customMyOrders from "../../assets/css/MyOrders.module.css";
+import customNewOrders from "../../assets/css/NewOrders.module.css";
 
 function formatDate(dateString) {
   const options = {
@@ -25,7 +26,6 @@ function parseAddress(inputString) {
     const street = match[3];
     const number = match[4];
 
-
     console.log(postalCode);
     console.log(city);
     console.log(street);
@@ -37,28 +37,58 @@ function parseAddress(inputString) {
   return inputString;
 }
 
-function Order({ order }) {
+function Order({ order, userType }) {
+  const textColorClass =
+    userType === "client"
+      ? customHome.customTextColor
+      : customNewOrders.customTextColor;
+
   return (
     <div className={`${customMyOrders.customCardsOrders} col-md-6 mb-4`}>
       <div
-        className={`${customHome.customCard} ${customHome.customTextColor} ${customHome.card} card h-100 text-center mx-auto`}
+        className={`${customNewOrders.customCard} ${textColorClass} ${customHome.card} card h-100 text-center mx-auto`}
         key={order.id}
       >
-        <Box2HeartFill className={`${customHome.customIcon} m-auto mt-5`}/>
-        <div className="card-body">
+        <Box2HeartFill className={`${customHome.customIcon} m-auto mt-5`} />
+        <div className="card-body d-flex flex-column">
           <h5 className="card-title mb-3">Shipment details</h5>
-          <p className="card-text">
-            <p className="m-0"><strong>Sender Address</strong></p>
-            <p>{parseAddress(order.SenderAddress)}</p>
-          </p>
-          <p className="card-text">
-            <p className="m-0"><strong>Recipient Address</strong></p>
-            <p>{parseAddress(order.RecipientAddress)}</p>
-          </p>
-          <p className="card-text">
-            <p className="m-0"><strong>Order Date</strong></p>
-            <p className="m-0">{formatDate(order.Date)}</p>
-          </p>
+          <div className="d-flex flex-column flex-grow-1">
+            <div className="card-text">
+              <p className="m-0">
+                <strong>Sender Address</strong>
+              </p>
+              <p>{parseAddress(order.SenderAddress)}</p>
+            </div>
+            <div className="card-text">
+              <p className="m-0">
+                <strong>Recipient Address</strong>
+              </p>
+              <p>{parseAddress(order.RecipientAddress)}</p>
+            </div>
+            <div className="card-text">
+              <p className="m-0">
+                <strong>Order Date</strong>
+              </p>
+              <p className="m-0">{formatDate(order.Date)}</p>
+            </div>
+          </div>
+          {userType === "delivery" ? (
+            <div class="mt-auto input-group">
+              <select
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+              >
+                <option selected>Status...</option>
+                <option value="1">On way</option>
+                <option value="2">To destination</option>
+                <option value="3">Delivered</option>
+              </select>
+              <button class="btn btn-outline-secondary" type="button">
+                Button
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

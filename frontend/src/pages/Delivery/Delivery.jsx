@@ -32,24 +32,30 @@ function Delivery() {
   }, [navigate]);
 
   return (
-    <div>
-      <NavbarDelivery />
-      <div className={`${customDelivery.customContainer}`}>
+    <div className={`${customDelivery.customContainer}`}>
+     <NavbarDelivery />
+      <div>
         <div className="row">
           <div className="col-md-12 text-center mt-5">
-            <h1 className={`${customDelivery.customTextColorHeadings} display-6`}>Orders</h1>
+            <h1
+              className={`${customDelivery.customTextColorHeadings} display-6`}
+            >
+              Orders
+            </h1>
           </div>
         </div>
-        <div className="row mt-4 justify-content-center w-50 mx-auto">
+        <div className="row mt-4 justify-content-center ">
           {orders.length > 0 ? (
             orders.map((order) => (
-              <React.Fragment key={order.id}>
-                <Order order={order} />
-              </React.Fragment>
+              <div key={order.id} className="col-sm-6 col-lg-3">
+                <Order order={order} userType="delivery" />
+              </div>
             ))
           ) : (
             <div className="col-md-12 text-center mt-5">
-              <h1 className={`${customDelivery.customTextColorHeadings} display-6`}>
+              <h1
+                className={`${customDelivery.customTextColorHeadings} display-6`}
+              >
                 You don't have any orders.
               </h1>
             </div>

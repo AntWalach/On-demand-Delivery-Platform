@@ -92,7 +92,7 @@ function Home() {
       <div>
         <Navbar />
         <div className="row mt-5">
-          <div className="col-12 text-center">
+          <div className="text-center">
             <h2 className={`${customHome.customTextColorHeadings} display-4`}>
               Delivery destination
             </h2>

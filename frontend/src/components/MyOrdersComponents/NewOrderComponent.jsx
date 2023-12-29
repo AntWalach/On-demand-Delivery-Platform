@@ -45,33 +45,37 @@ function NewOrderComponent({ order, handleClick }) {
         <Box2HeartFill
           className={`${customNewOrders.customIcon} m-auto mt-5`}
         />
-        <div className="card-body">
+        <div className="card-body d-flex flex-column">
           <h5 className="card-title mb-3">Shipment details</h5>
-          <p className="card-text">
-            <p className="m-0">
-              <strong>Sender Address</strong>
-            </p>
-            <p>{parseAddress(order.SenderAddress)}</p>
-          </p>
-          <p className="card-text">
-            <p className="m-0">
-              <strong>Recipient Address</strong>
-            </p>
-            <p>{parseAddress(order.RecipientAddress)}</p>
-          </p>
-          <p className="card-text">
-            <p className="m-0">
-              <strong>Order Date</strong>
-            </p>
-            <p className="m-0">{formatDate(order.Date)}</p>
-          </p>
-          <button
-            className={`${customNewOrders.customButton} btn btn-outline-success`}
-            type="submit"
-            onClick={() => handleClick(order.ID)}
-          >
-            Accept order
-          </button>
+          <div className="d-flex flex-column flex-grow-1">
+            <div className="card-text">
+              <p className="m-0">
+                <strong>Sender Address</strong>
+              </p>
+              <p>{parseAddress(order.SenderAddress)}</p>
+            </div>
+            <div className="card-text">
+              <p className="m-0">
+                <strong>Recipient Address</strong>
+              </p>
+              <p>{parseAddress(order.RecipientAddress)}</p>
+            </div>
+            <div className="card-text">
+              <p className="m-0">
+                <strong>Order Date</strong>
+              </p>
+              <p className="m-0">{formatDate(order.Date)}</p>
+            </div>
+          </div>
+          <div className="mt-auto">
+            <button
+              className={`${customNewOrders.customButton} btn btn-outline-success`}
+              type="submit"
+              onClick={() => handleClick(order.ID)}
+            >
+              Accept order
+            </button>
+          </div>
         </div>
       </div>
     </div>

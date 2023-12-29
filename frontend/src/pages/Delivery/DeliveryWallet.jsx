@@ -3,6 +3,7 @@ import NavbarDelivery from "../../components/Layouts/NavbarDelivery";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import customDelivery from "../../assets/css/Delivery.module.css";
+
 function DeliveryWallet() {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
@@ -31,7 +32,17 @@ function DeliveryWallet() {
   return (
     <div>
       <NavbarDelivery />
-      <div className={`${customDelivery.customContainer}`}>DeliveryWallet</div>
+      <div className={`${customDelivery.customContainer}`}>
+      <div className="row">
+        <div className="col-md-12 text-center mt-5">
+          <h1 className={`${customDelivery.customTextColorHeadings} display-6`}>Wallet</h1>
+          
+        </div>
+      </div>
+
+
+
+      </div>
     </div>
   );
 }
