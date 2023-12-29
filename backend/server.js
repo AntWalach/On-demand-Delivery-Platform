@@ -460,6 +460,52 @@ app.put("/updatePassword", verifyUser, async (req, res) => {
   }
 });
 
+app.get("/admin/client", async (req, res) => {
+  try {
+    const q = "SELECT * FROM client";
+    const data = await db.promise().query(q);
+    const clients = data[0];
+
+    // Wypisanie danych w konsoli
+    console.log("Dane klientów:", clients);
+    console.log("TESTSTST")
+    return res.json({ clients });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: `Error fetching data: ${error.message}` });
+  }
+});
+
+
+app.get("/admin/delivery", async (req, res) => {
+  try {
+    const q = "SELECT * FROM delivery";
+    const data = await db.promise().query(q);
+    const delivery = data[0];
+
+    // Wypisanie danych w konsoli
+    console.log("Dane klientów:", delivery);
+    console.log("TESTSTST")
+    return res.json({ delivery });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: `Error fetching data: ${error.message}` });
+  }
+});
+
+
+app.get("/admin/orders", async (req, res) => {
+  try {
+    const q = "SELECT * FROM `order`";
+    const data = await db.promise().query(q);
+    const orders = data[0];
+    return res.json({ orders });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error fetching order data" });
+  }
+});
+
 app.listen(8081, () => {
   console.log("Backend");
 });

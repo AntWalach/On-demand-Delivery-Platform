@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarDelivery from "../components/Layouts/NavbarDelivery";
+import NavbarDelivery from "../../components/Layouts/NavbarDelivery";
 import axios from "axios";
-import NewOrderComponent from "../components/MyOrdersComponents/NewOrderComponent";
-import customNewOrders from "../assets/css/NewOrders.module.css";
+import NewOrderComponent from "../../components/MyOrdersComponents/NewOrderComponent";
+import customNewOrders from "../../assets/css/NewOrders.module.css";
 
 function NewOrders() {
   axios.defaults.withCredentials = true;

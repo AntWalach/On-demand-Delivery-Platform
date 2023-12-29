@@ -71,6 +71,12 @@ function Order({ order, userType }) {
               </p>
               <p className="m-0">{formatDate(order.Date)}</p>
             </div>
+            <div className="card-text">
+              <p className="m-0">
+                <strong>Status</strong>
+              </p>
+              <p className="m-0">testtesttesttest</p>
+            </div>
           </div>
           {userType === "delivery" ? (
             <div class="mt-auto input-group">
