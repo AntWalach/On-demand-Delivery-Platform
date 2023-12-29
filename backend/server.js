@@ -75,7 +75,7 @@ const verifyUser = (req, res, next) => {
         return res.json({ Error: "Token is not okay" });
       } else {
         req.user = decoded;
-        console.log("User - " + req.user.userType); // Upewnij się, że userType jest ustawione
+        console.log("User - " + req.user.userType);
         next();
       }
     });
@@ -175,7 +175,7 @@ app.post("/login", (req, res) => {
         if (response) {
           const { Login, ID, FirstName, LastName, Email, PhoneNumber } =
             data[0];
-          const userType = table; // Dodaj linijkę, aby ustawić userType
+          const userType = table;
 
           const token = jwt.sign(
             {
@@ -185,7 +185,7 @@ app.post("/login", (req, res) => {
               lName: LastName,
               email: Email,
               phoneNumber: PhoneNumber,
-              userType: userType, // Dodaj userType do tokena
+              userType: userType,
             },
             "jwt-secret-key",
             { expiresIn: "1d" }
@@ -197,7 +197,7 @@ app.post("/login", (req, res) => {
             login: true,
             username: Login,
             id: ID,
-            userType: userType, // Ustaw userType w odpowiedzi
+            userType: userType,
             fName: FirstName,
             lName: LastName,
             email: Email,

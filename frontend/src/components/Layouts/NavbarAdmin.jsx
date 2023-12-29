@@ -1,39 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import QuickPackLogo from "../../assets/images/QuickPackLogoV3.png";
+import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
 import customNavbarDelivery from "../../assets/css/NavbarDelivery.module.css";
+
 import axios from "axios";
 
-function NavbarDelivery() {
-  const handleDelete = () => {
-    axios
-      .get("http://localhost:8081/logout")
-      .then((res) => {
-        window.location.reload(true);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const [user, setUser] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8081")
-      .then((res) => {
-        console.log("API Response:", res.data);
-        if (res.data.valid) {
-          setUser(res.data.username);
-        } else {
-          console.log("Error");
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [navigate]);
-
-  const handleAccountSettingsClick = () => {
-    navigate(`/delivery/account?source=delivery`);
-  };
+function NavbarAdmin() {
   return (
     <nav
       className={`${customNavbarDelivery.customNavbar} navbar navbar-expand-lg`}
@@ -64,7 +36,7 @@ function NavbarDelivery() {
             <li className="nav-item">
               <a
                 className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
-                href="/delivery"
+                href="#"
               >
                 My orders
               </a>
@@ -72,7 +44,7 @@ function NavbarDelivery() {
             <li className="nav-item">
               <a
                 className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
-                href="/delivery/neworders"
+                href="#"
               >
                 New orders
               </a>
@@ -84,30 +56,24 @@ function NavbarDelivery() {
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
-              >
-                {user}
-              </a>
+              ></a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="/delivery/wallet">
+                  <a className="dropdown-item" href="#">
                     Wallet
                   </a>
                 </li>
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="/delivery/account"
-                    onClick={handleAccountSettingsClick}
-                  >
-                    Account Settings
+                  <a className="dropdown-item" href="#">
+                    Settings
                   </a>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a className="dropdown-item" href="/delivery/history">
-                    History of orders
+                  <a className="dropdown-item" href="#">
+                    Orders
                   </a>
                 </li>
               </ul>
@@ -129,7 +95,6 @@ function NavbarDelivery() {
           </form>
           <button
             className={`${customNavbarDelivery.customButtonHome} btn btn-danger mx-2`}
-            onClick={handleDelete}
           >
             Logout
           </button>
@@ -139,4 +104,4 @@ function NavbarDelivery() {
   );
 }
 
-export default NavbarDelivery;
+export default NavbarAdmin;

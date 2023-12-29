@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import customDelivery from "../assets/css/Delivery.module.css";
-import Order from "../components/MyOrdersComponents/Order";
-
-import NavbarDelivery from "../components/Layouts/NavbarDelivery";
+import customDelivery from "../../assets/css/Delivery.module.css";
+import Order from "../../components/MyOrdersComponents/Order";
+import NavbarDelivery from "../../components/Layouts/NavbarDelivery";
 
 function Delivery() {
   axios.defaults.withCredentials = true;

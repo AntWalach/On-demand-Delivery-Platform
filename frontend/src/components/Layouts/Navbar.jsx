@@ -4,7 +4,7 @@ import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
 import customNavbar from "../../assets/css/NavbarUser.module.css";
 import axios from "axios";
 
-function Navbar({userType}) {
+function Navbar() {
   const handleDelete = () => {
     axios
       .get("http://localhost:8081/logout")
@@ -82,7 +82,7 @@ function Navbar({userType}) {
               </a>
               <ul className="dropdown-menu">
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="/home/wallet">
                     Wallet
                   </a>
                 </li>
@@ -100,7 +100,7 @@ function Navbar({userType}) {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="/home/history">
                     History of orders
                   </a>
                 </li>
