@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import QuickPackLogo from "../../assets/images/QuickPackLogo.png";
-import customNavbarDelivery from "../../assets/css/NavbarDelivery.module.css";
+import QuickPackLogo from "../../assets/images/QuickPackLogoAdmin.png";
+import customNavbarDelivery from "../../assets/css/NavbarAdmin.module.css";
 
 import axios from "axios";
 
@@ -11,7 +11,7 @@ function NavbarAdmin() {
       className={`${customNavbarDelivery.customNavbar} navbar navbar-expand-lg`}
     >
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/admin">
           <img
             src={QuickPackLogo}
             className="App-logo"
@@ -32,53 +32,7 @@ function NavbarAdmin() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a
-                className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
-                href="#"
-              >
-                My orders
-              </a>
-            </li>
-            <li className="nav-item">
-              <a
-                className={`${customNavbarDelivery.customNavbarTextColor} nav-link`}
-                href="#"
-              >
-                New orders
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className={`${customNavbarDelivery.customNavbarTextColor} nav-link dropdown-toggle`}
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              ></a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Wallet
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Orders
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0"></ul>
           <form className="d-flex" role="search">
             <input
               className="form-control me-2"

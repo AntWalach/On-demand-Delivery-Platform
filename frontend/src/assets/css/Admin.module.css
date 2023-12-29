@@ -1,0 +1,37 @@
+/*body {
+    background-color:#86A789 !important;
+}*/
+
+.customContainer {
+    min-height: 100vh;
+    background-color: #86A789 !important;
+    border-color: #86A789 !important;
+    height: 100% !important;
+}
+
+.customTextColorHeader {
+    color: #D2E3C8;
+    font-weight: bold;
+}
+
+.customCardsOrders {
+    min-width: 25rem;
+}
+
+.customButtonWallet{
+    background-color: #4F6F52 !important;
+    border-color: #4F6F52 !important;
+    color: white !important;
+}
+  
+.customButtonWallet:hover{
+    background-color: #739072 !important;
+    border-color: #739072 !important;
+    color: white !important;
+}
+
+.customButtonWallet:active {
+    background-color: #BDCDD6 !important;
+    border-color: #BDCDD6  !important;
+    color: white  !important;
+}

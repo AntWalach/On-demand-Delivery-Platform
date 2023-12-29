@@ -9,11 +9,14 @@ import MyOrders from "./pages/MyOrders";
 import NewOrders from "./pages/NewOrders";
 import HomeAccountSettings from "./settings/HomeAccountSettings";
 import DeliveryAccountSettings from "./settings/DeliveryAccountSettings";
-import Admin from "./pages/Admin";
+import Admin from "./pages/Admin/Admin";
 import ClientWallet from "./pages/Client/ClientWallet";
 import HistoryClient from "./pages/Client/HistoryCllient";
 import DeliveryWallet from "./pages/Delivery/DeliveryWallet";
 import HistoryDelivery from "./pages/Delivery/HistoryDelivery";
+import AdminClient from "./pages/Admin/AdminClient";
+import AdminDelivery from "./pages/Admin/AdminDelivery";
+import AdminOrders from "./pages/Admin/AdminOrders";
 function App() {
   return (
     <div>
@@ -33,6 +36,9 @@ function App() {
           <Route path="/home/history" element={<HistoryClient/>}/>
           <Route path="/delivery/wallet" element={<DeliveryWallet/>}/>
           <Route path="/delivery/history" element={<HistoryDelivery/>}/>
+          <Route path="/admin/client" element={<AdminClient/>}/>
+          <Route path="/admin/delivery" element={<AdminDelivery/>}/>
+          <Route path="/admin/orders" element={<AdminOrders/>}/>
           
         </Routes>
       </BrowserRouter>
