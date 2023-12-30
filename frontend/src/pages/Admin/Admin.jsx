@@ -9,7 +9,7 @@ function Admin() {
     <div>
       <NavbarAdmin />
 
-       <div className={`${customAdmin.customContainer}`}>
+      <div className={`${customAdmin.customContainer}`}>
         <div className="row mx-auto">
           <div className="col-md-12 text-center mt-5">
             <h1 className={`${customAdmin.customTextColorHeader} display-6`}>
@@ -22,7 +22,7 @@ function Admin() {
           <div className="text-center mt-5">
           <Link to="/admin/client">
             <button
-              className={`${customAdmin.customButtonWallet} btn btn-lg`}
+              className={`${customAdmin.customButton} btn btn-lg`}
               style={{
                 width: "350px",
                 height: "80px",
@@ -36,7 +36,7 @@ function Admin() {
           <div className="text-center mt-5">
           <Link to="/admin/delivery">
             <button
-              className={`${customAdmin.customButtonWallet} btn btn-lg`}
+              className={`${customAdmin.customButton} btn btn-lg`}
               style={{
                 width: "350px",
                 height: "80px",
@@ -50,7 +50,7 @@ function Admin() {
           <div className="text-center mt-5">
           <Link to="/admin/orders">
             <button
-              className={`${customAdmin.customButtonWallet} btn btn-lg`}
+              className={`${customAdmin.customButton} btn btn-lg`}
               style={{
                 width: "350px",
                 height: "80px",

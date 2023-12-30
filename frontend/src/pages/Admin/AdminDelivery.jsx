@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import NavbarAdmin from "../../components/Layouts/NavbarAdmin";
 import "../../assets/css/Admin.module.css";
 import customAdmin from "../../assets/css/Admin.module.css";
-import test from "../../assets/css/Wallet.module.css";
 import axios from "axios";
 
 const AdminDelivery = () => {
   const [delivery, setDelivery] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-
 
   const fetchData = async () => {
     try {
@@ -58,7 +56,7 @@ const AdminDelivery = () => {
     <div className={`${customAdmin.customContainer}`}>
       <NavbarAdmin />
 
-      <div className="container mt-4" >
+      <div className="container mt-4">
         <div className="container mt-4">
           <input
             type="text"
@@ -98,6 +96,8 @@ const AdminDelivery = () => {
                   {/* Dodaj inne informacje o kliencie */}
                   {`ID: ${delivery.ID}, Email: ${delivery.Email}`}
                 </div>
+                <button>Delete</button>
+                <button>Edit</button>
               </div>
             </div>
           ))}

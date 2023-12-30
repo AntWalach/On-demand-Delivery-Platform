@@ -11,7 +11,7 @@ function NavbarAdmin() {
       className={`${customNavbarDelivery.customNavbar} navbar navbar-expand-lg`}
     >
       <div className="container-fluid">
-        <a className="navbar-brand" href="/admin">
+        <a className="navbar-brand" href="/admin/home">
           <img
             src={QuickPackLogo}
             className="App-logo"

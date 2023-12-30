@@ -7,10 +7,12 @@ import axios from "axios";
 const AdminOrder = () => {
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [idSortOrder, setIdSortOrder] = useState("asc");
+  const [addressSortOrder, setAddressSortOrder] = useState("asc");
   const [loading, setLoading] = useState(true);
   const [openOrderId, setOpenOrderId] = useState(null);
   const [orderSortBy, setOrderSortBy] = useState("id");
+
   const handleAccordion = (orderId) => {
     setOpenOrderId((prevId) => (prevId === orderId ? null : orderId));
   };
@@ -72,36 +74,30 @@ const AdminOrder = () => {
         .includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
-      if (sortOrder === "asc") {
-        if (orderSortBy === "id") {
-          return a.ID - b.ID;
-        } else {
-          const addressA =
-            `${a.SenderAddress} ${a.RecipientAddress}`.toLowerCase();
-          const addressB =
-            `${b.SenderAddress} ${b.RecipientAddress}`.toLowerCase();
-          return addressA.localeCompare(addressB);
-        }
+      if (orderSortBy === "id") {
+        return idSortOrder === "asc" ? a.ID - b.ID : b.ID - a.ID;
       } else {
-        if (orderSortBy === "id") {
-          return b.ID - a.ID;
-        } else {
-          const addressA =
-            `${a.SenderAddress} ${a.RecipientAddress}`.toLowerCase();
-          const addressB =
-            `${b.SenderAddress} ${b.RecipientAddress}`.toLowerCase();
-          return addressB.localeCompare(addressA);
-        }
+        const addressA =
+          `${a.SenderAddress} ${a.RecipientAddress}`.toLowerCase();
+        const addressB =
+          `${b.SenderAddress} ${b.RecipientAddress}`.toLowerCase();
+        return addressSortOrder === "asc"
+          ? addressA.localeCompare(addressB)
+          : addressB.localeCompare(addressA);
       }
     });
 
   const handleSortOrderId = () => {
-    setSortOrder((prevSortOrder) => (prevSortOrder === "asc" ? "desc" : "asc"));
+    setIdSortOrder((prevSortOrder) =>
+      prevSortOrder === "asc" ? "desc" : "asc"
+    );
     setOrderSortBy("id");
   };
 
   const handleSortOrderAddress = () => {
-    setSortOrder((prevSortOrder) => (prevSortOrder === "asc" ? "desc" : "asc"));
+    setAddressSortOrder((prevSortOrder) =>
+      prevSortOrder === "asc" ? "desc" : "asc"
+    );
     setOrderSortBy("address");
   };
 
@@ -121,10 +117,11 @@ const AdminOrder = () => {
             onChange={handleSearchChange}
           />
           <button onClick={handleSortOrderId}>
-            Sort by ID ({sortOrder === "asc" ? "Ascending" : "Descending"})
+            Sort by ID ({idSortOrder === "asc" ? "Ascending" : "Descending"})
           </button>
           <button onClick={handleSortOrderAddress}>
-            Sort by Address ({sortOrder === "asc" ? "Ascending" : "Descending"})
+            Sort by Address (
+            {addressSortOrder === "asc" ? "Ascending" : "Descending"})
           </button>
         </div>
 
@@ -166,6 +163,7 @@ const AdminOrder = () => {
                     <p>Date: {formatDate(order.Date)}</p>
                     {/* Inne informacje do wyświetlenia */}
                   </div>
+                  <button> Delete </button>
                 </div>
               </div>
             ))}

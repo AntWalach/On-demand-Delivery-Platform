@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Home from "./pages/Client/Home";
@@ -17,12 +17,14 @@ import HistoryDelivery from "./pages/Delivery/HistoryDelivery";
 import AdminClient from "./pages/Admin/AdminClient";
 import AdminDelivery from "./pages/Admin/AdminDelivery";
 import AdminOrders from "./pages/Admin/AdminOrders";
+import AdminLogin from "./pages/Admin/AdminLogin";
 function App() {
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<StartPage />}></Route>
+          <Route path="/" element={<StartPage />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/home" element={<Home />}></Route>
@@ -35,13 +37,14 @@ function App() {
           <Route path="/delivery/wallet" element={<DeliveryWallet/>}/>
           <Route path="/delivery/history" element={<HistoryDelivery/>}/>
           <Route path="/delivery/account" element={<DeliveryAccountSettings userType="delivery"/>} />
-          <Route path="/admin" element={<Admin />}/>
+          <Route path="/admin/home" element={<Admin />}/>
+          <Route path="/admin" element={<AdminLogin/>}/>
           <Route path="/admin/client" element={<AdminClient/>}/>
           <Route path="/admin/delivery" element={<AdminDelivery/>}/>
           <Route path="/admin/orders" element={<AdminOrders/>}/>
-          
         </Routes>
       </BrowserRouter>
+
     </div>
   );
 }

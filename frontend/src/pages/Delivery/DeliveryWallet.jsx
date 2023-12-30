@@ -3,6 +3,7 @@ import NavbarDelivery from "../../components/Layouts/NavbarDelivery";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import customDelivery from "../../assets/css/Delivery.module.css";
+import customWallet from "../../assets/css/Wallet.module.css";
 
 function DeliveryWallet() {
   axios.defaults.withCredentials = true;
@@ -11,6 +12,7 @@ function DeliveryWallet() {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
   const [orders, setOrders] = useState([]);
+  const walletBalance = 0;
 
   useEffect(() => {
     axios
@@ -33,15 +35,51 @@ function DeliveryWallet() {
     <div>
       <NavbarDelivery />
       <div className={`${customDelivery.customContainer}`}>
-      <div className="row">
-        <div className="col-md-12 text-center mt-5">
-          <h1 className={`${customDelivery.customTextColorHeadings} display-6`}>Wallet</h1>
-          
+        <div className="row mx-auto">
+          <div className="col-md-12 text-center mt-5">
+            <h1
+              className={`${customDelivery.customTextColorHeadings} display-6`}
+            >
+              Wallet
+            </h1>
+          </div>
         </div>
-      </div>
+        <div className="row mx-auto">
+          <div className="col-md-12 text-center mt-5">
+            <h1 className={`${customDelivery.customTextColorHeadings} display-6`}>
+              My balance : ${walletBalance}
+            </h1>
+          </div>
+        </div>
 
+        <div className="row my-5 mx-auto"></div>
 
+        <div className="row mt-5 mx-auto">
+          <div class="input-group" style={{ width: "30%", margin: "0 auto" }}>
+            <span class="input-group-text">Withdraw money</span>
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInputGroup1"
+                placeholder="Username"
+              />
+              <label for="floatingInputGroup1">Enter value</label>
+            </div>
+          </div>
 
+          <div className="text-center mt-5">
+            <button
+              type="submit"
+              className={`${customWallet.customButtonWalletDelivery} btn btn-lg`}
+              style={{
+                padding: "8px 70px",
+              }}
+            >
+              <strong>Submit</strong>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

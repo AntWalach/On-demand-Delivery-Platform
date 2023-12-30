@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import NavbarAdmin from "../../components/Layouts/NavbarAdmin";
 import "../../assets/css/Admin.module.css";
 import customAdmin from "../../assets/css/Admin.module.css";
-import test from "../../assets/css/Wallet.module.css";
 import axios from "axios";
 
 const AdminClient = () => {
@@ -29,6 +28,19 @@ const AdminClient = () => {
   useEffect(() => {
     fetchDataWrapper();
   }, []);
+
+
+  const handleDeleteClient = async (clientId) => {
+    try {
+      // Wywołaj żądanie do usunięcia klienta z serwera
+      await axios.delete(`http://localhost:8081/admin/client/${clientId}`);
+      
+      // Odśwież listę klientów po usunięciu
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting client:", error.message);
+    }
+  };
 
   const sortedAndFilteredClients = clients
     .filter((client) =>
@@ -96,7 +108,14 @@ const AdminClient = () => {
                 <div className="accordion-body">
                   {/* Dodaj inne informacje o kliencie */}
                   {`ID: ${client.ID}, Email: ${client.Email}`}
+                  
                 </div>
+                <button onClick={() => handleDeleteClient(client.ID)}>
+                    Delete
+                  </button>
+                  <button >
+                    Edit
+                  </button>
               </div>
             </div>
           ))}

@@ -18,19 +18,19 @@
     min-width: 25rem;
 }
 
-.customButtonWallet{
+.customButton{
     background-color: #4F6F52 !important;
     border-color: #4F6F52 !important;
     color: white !important;
 }
   
-.customButtonWallet:hover{
+.customButton:hover{
     background-color: #739072 !important;
     border-color: #739072 !important;
     color: white !important;
 }
 
-.customButtonWallet:active {
+.customButton:active {
     background-color: #BDCDD6 !important;
     border-color: #BDCDD6  !important;
     color: white  !important;

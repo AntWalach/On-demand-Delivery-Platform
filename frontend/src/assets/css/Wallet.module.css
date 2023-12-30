@@ -25,6 +25,24 @@
     color: #537188 !important;
 }
 
+.customButtonWalletDelivery {
+    background-color: #6B240C !important;
+    border-color: #6B240C !important;
+    color: white !important;
+}
+
+.customButtonWalletDelivery:hover {
+    background-color: #994D1C !important;
+    border-color: #994D1C !important;
+    color: white !important;
+}
+
+.customButtonWalletDelivery:active {
+    background-color: #994D1C !important;
+    border-color: #994D1C !important;
+    color: white !important;
+}
+
 .inputMoney {
     width: 30%;
     margin: 0 auto;
