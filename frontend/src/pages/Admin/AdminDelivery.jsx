@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import NavbarAdmin from "../../components/Layouts/NavbarAdmin";
 import "../../assets/css/Admin.module.css";
 import customAdmin from "../../assets/css/Admin.module.css";
@@ -8,6 +9,7 @@ const AdminDelivery = () => {
   const [delivery, setDelivery] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -17,8 +19,7 @@ const AdminDelivery = () => {
       setDelivery(delivery);
     } catch (error) {
       console.error("Error fetching data:", error.message);
-    } finally {
-    }
+    } 
   };
 
   const fetchDataWrapper = async () => {
@@ -28,6 +29,19 @@ const AdminDelivery = () => {
   useEffect(() => {
     fetchDataWrapper();
   }, []);
+
+  const handleDeleteDelivery = async (deliveryId) => {
+    try {
+      await axios.delete(`http://localhost:8081/admin/delivery/${deliveryId}`);
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting delivery:", error.message);
+    }
+  };
+
+  const handleEditDelivery = (deliveryId) => {
+    navigate(`/admin/delivery/edit/${deliveryId}`);
+  };
 
   const sortedAndFilteredDelivery = delivery
     .filter((delivery) =>
@@ -96,8 +110,10 @@ const AdminDelivery = () => {
                   {/* Dodaj inne informacje o kliencie */}
                   {`ID: ${delivery.ID}, Email: ${delivery.Email}`}
                 </div>
-                <button>Delete</button>
-                <button>Edit</button>
+                <button onClick={() => handleDeleteDelivery(delivery.ID)}>Delete</button>
+                <button onClick={() => handleEditDelivery(delivery.ID)}>
+                  Edit
+                </button>
               </div>
             </div>
           ))}

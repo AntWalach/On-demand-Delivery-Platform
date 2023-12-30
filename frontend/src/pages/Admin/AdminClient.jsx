@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import NavbarAdmin from "../../components/Layouts/NavbarAdmin";
 import "../../assets/css/Admin.module.css";
 import customAdmin from "../../assets/css/Admin.module.css";
@@ -8,6 +9,7 @@ const AdminClient = () => {
   const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const navigate = useNavigate(); 
 
   const fetchData = async () => {
     try {
@@ -17,7 +19,6 @@ const AdminClient = () => {
       setClients(clients);
     } catch (error) {
       console.error("Error fetching data:", error.message);
-    } finally {
     }
   };
 
@@ -29,17 +30,17 @@ const AdminClient = () => {
     fetchDataWrapper();
   }, []);
 
-
   const handleDeleteClient = async (clientId) => {
     try {
-      // Wywołaj żądanie do usunięcia klienta z serwera
       await axios.delete(`http://localhost:8081/admin/client/${clientId}`);
-      
-      // Odśwież listę klientów po usunięciu
       fetchData();
     } catch (error) {
       console.error("Error deleting client:", error.message);
     }
+  };
+
+  const handleEditClient = (clientId) => {
+    navigate(`/admin/client/edit/${clientId}`);
   };
 
   const sortedAndFilteredClients = clients
@@ -68,7 +69,6 @@ const AdminClient = () => {
   return (
     <div className={`${customAdmin.customContainer}`}>
       <NavbarAdmin />
-
       <div className="container mt-4">
         <div className="container">
           <input
@@ -106,16 +106,14 @@ const AdminClient = () => {
                 data-bs-parent="#accordionFlushExample"
               >
                 <div className="accordion-body">
-                  {/* Dodaj inne informacje o kliencie */}
                   {`ID: ${client.ID}, Email: ${client.Email}`}
-                  
                 </div>
                 <button onClick={() => handleDeleteClient(client.ID)}>
-                    Delete
-                  </button>
-                  <button >
-                    Edit
-                  </button>
+                  Delete
+                </button>
+                <button onClick={() => handleEditClient(client.ID)}>
+                  Edit
+                </button>
               </div>
             </div>
           ))}

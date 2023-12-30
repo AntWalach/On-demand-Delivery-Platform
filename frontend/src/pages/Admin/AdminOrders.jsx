@@ -34,6 +34,16 @@ const AdminOrder = () => {
     fetchData();
   }, []);
 
+  const handleDeleteOrder = async (orderId) => {
+    try {
+      await axios.delete(`http://localhost:8081/admin/orders/${orderId}`);
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting order:", error.message);
+    }
+  };
+
+
   const formatDate = (dateString) => {
     const options = {
       year: "numeric",
@@ -163,7 +173,7 @@ const AdminOrder = () => {
                     <p>Date: {formatDate(order.Date)}</p>
                     {/* Inne informacje do wyświetlenia */}
                   </div>
-                  <button> Delete </button>
+                  <button onClick={() => handleDeleteOrder(order.ID)}> Delete </button>
                 </div>
               </div>
             ))}

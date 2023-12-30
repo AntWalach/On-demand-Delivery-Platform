@@ -18,6 +18,7 @@ import AdminClient from "./pages/Admin/AdminClient";
 import AdminDelivery from "./pages/Admin/AdminDelivery";
 import AdminOrders from "./pages/Admin/AdminOrders";
 import AdminLogin from "./pages/Admin/AdminLogin";
+import AdminEdit from "./pages/Admin/AdminEdit"
 function App() {
 
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route path="/admin/client" element={<AdminClient/>}/>
           <Route path="/admin/delivery" element={<AdminDelivery/>}/>
           <Route path="/admin/orders" element={<AdminOrders/>}/>
+          <Route path="/admin/:entityType/edit/:entityId" element={<AdminEdit />} />
+
         </Routes>
       </BrowserRouter>
 
