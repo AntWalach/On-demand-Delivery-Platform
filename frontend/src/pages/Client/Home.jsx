@@ -91,7 +91,7 @@ function Home() {
   return (
       <div>
         <Navbar />
-        <div className="row mt-5">
+        <div className="row mt-5 mx-auto">
           <div className="text-center">
             <h2 className={`${customHome.customTextColorHeadings} display-4`}>
               Delivery destination

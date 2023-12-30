@@ -33,14 +33,14 @@ function ClientWallet() {
   return (
     <div>
       <Navbar />
-      <div className="row">
+      <div className="row mx-auto">
         <div className="col-md-12 text-center mt-5">
           <h1 className={`${customWallet.customTextColorHeader} display-6`}>
             Wallet
           </h1>
         </div>
       </div>
-      <div className="row">
+      <div className="row mx-auto">
         <div className="col-md-12 text-center mt-5">
           <h1 className={`${customWallet.customTextColorHeader} display-6`}>
             My balance : ${walletBalance}
@@ -48,9 +48,9 @@ function ClientWallet() {
         </div>
       </div>
 
-      <div className="row my-5"></div>
+      <div className="row my-5 mx-auto"></div>
 
-      <div className="row mt-5">
+      <div className="row mt-5 mx-auto">
         <div class="input-group" style={{ width: "30%", margin: "0 auto" }}>
           <span class="input-group-text">Top up your wallet</span>
           <div class="form-floating">

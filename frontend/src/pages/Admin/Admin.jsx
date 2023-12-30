@@ -10,7 +10,7 @@ function Admin() {
       <NavbarAdmin />
 
        <div className={`${customAdmin.customContainer}`}>
-        <div className="row">
+        <div className="row mx-auto">
           <div className="col-md-12 text-center mt-5">
             <h1 className={`${customAdmin.customTextColorHeader} display-6`}>
               Admin
@@ -18,7 +18,7 @@ function Admin() {
           </div>
         </div>
 
-        <div className="row mt-5">
+        <div className="row mt-5 mx-auto">
           <div className="text-center mt-5">
           <Link to="/admin/client">
             <button

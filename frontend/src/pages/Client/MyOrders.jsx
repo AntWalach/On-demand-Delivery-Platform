@@ -34,12 +34,12 @@ function MyOrders() {
   return (
     <div>
       <Navbar />
-      <div className="row">
+      <div className="row mx-auto">
         <div className="col-md-12 text-center mt-5">
-          <h1 className={`${customMyOrders.customTextColorHeader} display-6`}>Orders</h1>
+          <h1 className={`${customMyOrders.customTextColorHeader} display-6 mx-auto`}>Orders</h1>
         </div>
       </div>
-      <div className="row mt-4 justify-content-center ">
+      <div className="row mt-4 justify-content-center mx-auto">
           {orders.length > 0 ? (
             orders.map((order) => (
               <div key={order.id} className="col-sm-6 col-lg-3">

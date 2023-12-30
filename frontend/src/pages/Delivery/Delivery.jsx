@@ -35,7 +35,7 @@ function Delivery() {
     <div className={`${customDelivery.customContainer}`}>
      <NavbarDelivery />
       <div>
-        <div className="row">
+        <div className="row justify-content-center p-0 mx-auto">
           <div className="col-md-12 text-center mt-5">
             <h1
               className={`${customDelivery.customTextColorHeadings} display-6`}
@@ -44,7 +44,7 @@ function Delivery() {
             </h1>
           </div>
         </div>
-        <div className="row mt-4 justify-content-center ">
+        <div className="row mt-4 justify-content-center mx-auto ">
           {orders.length > 0 ? (
             orders.map((order) => (
               <div key={order.id} className="col-sm-6 col-lg-3">
