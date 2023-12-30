@@ -10,7 +10,6 @@ const AdminClient = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
 
-
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:8081/admin/client");
@@ -57,8 +56,9 @@ const AdminClient = () => {
   return (
     <div className={`${customAdmin.customContainer}`}>
       <NavbarAdmin />
-      <div className={`${test.inputMoney}`}>
-        <div>
+
+      <div className="container mt-4">
+        <div className="container">
           <input
             type="text"
             placeholder="Search by name..."
@@ -71,7 +71,7 @@ const AdminClient = () => {
         </div>
 
         <div
-          className="accordion accordion-flush inputMoney"
+          className="container accordion accordion-flush inputMoney mt-4"
           id="accordionFlushExample"
         >
           {sortedAndFilteredClients.map((client) => (
@@ -95,7 +95,7 @@ const AdminClient = () => {
               >
                 <div className="accordion-body">
                   {/* Dodaj inne informacje o kliencie */}
-                  {`ID: ${client.ID}, Email: ${client.Email}, ...`}
+                  {`ID: ${client.ID}, Email: ${client.Email}`}
                 </div>
               </div>
             </div>

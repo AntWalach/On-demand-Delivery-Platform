@@ -99,6 +99,7 @@ function AccountSettings({ userType }) {
       <div className="col-md-12 text-center mt-5">
         <h1 className="display-6">Account Settings</h1>
       </div>
+      
       <div className={`container mt-4 ${customAS.containerFlex}`}>
         <div className="container mt-4">
           <div className={`${customAS.bgdata} p-3 rounded`}>

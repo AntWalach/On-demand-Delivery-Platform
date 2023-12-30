@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import NavbarAdmin from "../../components/Layouts/NavbarAdmin";
 import "../../assets/css/Admin.module.css";
 import customAdmin from "../../assets/css/Admin.module.css";
-import test from "../../assets/css/Wallet.module.css";
 import axios from "axios";
 
 const AdminOrder = () => {
@@ -10,6 +9,11 @@ const AdminOrder = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
   const [loading, setLoading] = useState(true);
+  const [openOrderId, setOpenOrderId] = useState(null);
+  const [orderSortBy, setOrderSortBy] = useState("id");
+  const handleAccordion = (orderId) => {
+    setOpenOrderId((prevId) => (prevId === orderId ? null : orderId));
+  };
 
   const fetchData = async () => {
     try {
@@ -68,34 +72,58 @@ const AdminOrder = () => {
         .includes(searchTerm.toLowerCase())
     )
     .sort((a, b) => {
-      const nameA = `${a.SenderAddress} ${a.RecipientAddress}`.toLowerCase();
-      const nameB = `${b.SenderAddress} ${b.RecipientAddress}`.toLowerCase();
-
-      return sortOrder === "asc"
-        ? nameA.localeCompare(nameB)
-        : nameB.localeCompare(nameA);
+      if (sortOrder === "asc") {
+        if (orderSortBy === "id") {
+          return a.ID - b.ID;
+        } else {
+          const addressA =
+            `${a.SenderAddress} ${a.RecipientAddress}`.toLowerCase();
+          const addressB =
+            `${b.SenderAddress} ${b.RecipientAddress}`.toLowerCase();
+          return addressA.localeCompare(addressB);
+        }
+      } else {
+        if (orderSortBy === "id") {
+          return b.ID - a.ID;
+        } else {
+          const addressA =
+            `${a.SenderAddress} ${a.RecipientAddress}`.toLowerCase();
+          const addressB =
+            `${b.SenderAddress} ${b.RecipientAddress}`.toLowerCase();
+          return addressB.localeCompare(addressA);
+        }
+      }
     });
+
+  const handleSortOrderId = () => {
+    setSortOrder((prevSortOrder) => (prevSortOrder === "asc" ? "desc" : "asc"));
+    setOrderSortBy("id");
+  };
+
+  const handleSortOrderAddress = () => {
+    setSortOrder((prevSortOrder) => (prevSortOrder === "asc" ? "desc" : "asc"));
+    setOrderSortBy("address");
+  };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSortOrderToggle = () => {
-    setSortOrder((prevSortOrder) => (prevSortOrder === "asc" ? "desc" : "asc"));
-  };
-
   return (
     <div className={`${customAdmin.customContainer}`}>
       <NavbarAdmin />
-      <div className={`${test.inputMoney}`}>
-        <div>
+      <div className="container mt-4">
+        <div className="container mt-4">
           <input
             type="text"
             placeholder="Search by address..."
             value={searchTerm}
             onChange={handleSearchChange}
           />
-          <button onClick={handleSortOrderToggle}>
+          <button onClick={handleSortOrderId}>
+            Sort by ID ({sortOrder === "asc" ? "Ascending" : "Descending"})
+          </button>
+          <button onClick={handleSortOrderAddress}>
             Sort by Address ({sortOrder === "asc" ? "Ascending" : "Descending"})
           </button>
         </div>
@@ -104,18 +132,19 @@ const AdminOrder = () => {
           <p>Loading...</p>
         ) : (
           <div
-            className="accordion accordion-flush inputMoney"
+            className="container accordion accordion-flush inputMoney mt-4"
             id="accordionFlushExample"
           >
             {sortedAndFilteredOrders.map((order) => (
               <div className="accordion-item" key={order.ID}>
-                <h2 className="accordion-header" id={`heading${order.ID}`}>
+                <h2 className="accordion-header">
                   <button
-                    className="accordion-button"
+                    className={`accordion-button${
+                      order.ID === openOrderId ? "" : " collapsed"
+                    }`}
                     type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={`#collapse${order.ID}`}
-                    aria-expanded="true"
+                    onClick={() => handleAccordion(order.ID)}
+                    aria-expanded={openOrderId === order.ID ? "true" : "false"}
                     aria-controls={`collapse${order.ID}`}
                   >
                     Order ID: {order.ID}
@@ -123,7 +152,9 @@ const AdminOrder = () => {
                 </h2>
                 <div
                   id={`collapse${order.ID}`}
-                  className="accordion-collapse collapse show"
+                  className={`accordion-collapse collapse${
+                    order.ID === openOrderId ? " show" : ""
+                  }`}
                   aria-labelledby={`heading${order.ID}`}
                   data-bs-parent="#accordionFlushExample"
                 >

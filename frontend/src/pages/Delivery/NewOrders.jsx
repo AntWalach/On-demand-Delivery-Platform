@@ -49,7 +49,7 @@ function NewOrders() {
       <NavbarDelivery />
 
       <div className={`${customNewOrders.customContainer}`}>
-        <div className="row">
+        <div className="row mx-auto">
           <div className="col-md-12 text-center mt-5">
             <h1
               className={`${customNewOrders.customTextColorHeadings} display-6 `}

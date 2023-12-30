@@ -44,9 +44,9 @@ function Order({ order, userType }) {
       : customNewOrders.customTextColor;
 
   return (
-    <div className={`${customMyOrders.customCardsOrders} col-md-6 mb-4`}>
+    <div className={`${customMyOrders.customCardsOrders} mb-4 d-flex justify-content-center`}>
       <div
-        className={`${customNewOrders.customCard} ${textColorClass} ${customHome.card} card h-100 text-center mx-auto`}
+        className={`${customNewOrders.customCard} ${textColorClass} ${customHome.card} card text-center`}
         key={order.id}
       >
         <Box2HeartFill className={`${customHome.customIcon} m-auto mt-5`} />

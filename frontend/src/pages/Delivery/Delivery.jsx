@@ -33,7 +33,7 @@ function Delivery() {
 
   return (
     <div className={`${customDelivery.customContainer}`}>
-     <NavbarDelivery />
+      <NavbarDelivery />
       <div>
         <div className="row justify-content-center p-0 mx-auto">
           <div className="col-md-12 text-center mt-5">
@@ -44,10 +44,10 @@ function Delivery() {
             </h1>
           </div>
         </div>
-        <div className="row mt-4 justify-content-center mx-auto ">
+        <div className="row mt-4 justify-content-md-betwee mx-auto p-0">
           {orders.length > 0 ? (
             orders.map((order) => (
-              <div key={order.id} className="col-sm-6 col-lg-3">
+              <div key={order.id} className="mx-auto col-lg-3 col-md-6 mb-4">
                 <Order order={order} userType="delivery" />
               </div>
             ))

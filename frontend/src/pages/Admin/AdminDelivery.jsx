@@ -57,8 +57,9 @@ const AdminDelivery = () => {
   return (
     <div className={`${customAdmin.customContainer}`}>
       <NavbarAdmin />
-      <div className={`${test.inputMoney}`}>
-        <div>
+
+      <div className="container mt-4" >
+        <div className="container mt-4">
           <input
             type="text"
             placeholder="Search by name..."
@@ -71,7 +72,7 @@ const AdminDelivery = () => {
         </div>
 
         <div
-          className="accordion accordion-flush inputMoney"
+          className="container accordion accordion-flush inputMoney mt-4"
           id="accordionFlushExample"
         >
           {sortedAndFilteredDelivery.map((delivery) => (
@@ -95,7 +96,7 @@ const AdminDelivery = () => {
               >
                 <div className="accordion-body">
                   {/* Dodaj inne informacje o kliencie */}
-                  {`ID: ${delivery.ID}, Email: ${delivery.Email}, ...`}
+                  {`ID: ${delivery.ID}, Email: ${delivery.Email}`}
                 </div>
               </div>
             </div>
