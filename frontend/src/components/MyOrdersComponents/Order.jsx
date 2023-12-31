@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box2HeartFill } from "react-bootstrap-icons";
 import customHome from "../../assets/css/Home.module.css";
 import customMyOrders from "../../assets/css/MyOrders.module.css";
 import customNewOrders from "../../assets/css/NewOrders.module.css";
+import axios from "axios";
 
 function formatDate(dateString) {
   const options = {
@@ -26,11 +27,6 @@ function parseAddress(inputString) {
     const street = match[3];
     const number = match[4];
 
-    console.log(postalCode);
-    console.log(city);
-    console.log(street);
-    console.log(number);
-
     const result = `St. ${street} ${number}, ${city}, ${postalCode}`;
     return result;
   }
@@ -43,8 +39,33 @@ function Order({ order, userType }) {
       ? customHome.customTextColor
       : customNewOrders.customTextColor;
 
+  const [selectedStatus, setSelectedStatus] = useState("");
+
+  const handleUpdateStatus = () => {
+    if (!selectedStatus) {
+      alert("Select a status before updating.");
+      return;
+    }
+    console.log(order.ID);
+    console.log(selectedStatus);
+    axios
+      .put(`http://localhost:8081/delivery`, {
+        orderstatusid: selectedStatus,
+        orderId: order.ID,
+      })
+      .then((response) => {
+        console.log("Order status updated:", response.data);
+        // Tutaj możesz dodać kod do odświeżenia listy zamówień lub innego zachowania po aktualizacji statusu
+      })
+      .catch((error) => {
+        console.error("Error updating order status", error);
+      });
+  };
+
   return (
-    <div className={`${customMyOrders.customCardsOrders} mb-4 d-flex justify-content-center`}>
+    <div
+      className={`${customMyOrders.customCardsOrders} mb-4 d-flex justify-content-center`}
+    >
       <div
         className={`${customNewOrders.customCard} ${textColorClass} ${customHome.card} card text-center`}
         key={order.id}
@@ -75,23 +96,31 @@ function Order({ order, userType }) {
               <p className="m-0">
                 <strong>Status</strong>
               </p>
-              <p className="m-0">testtesttesttest</p>
+              <p className="m-0">{order.status}</p>
             </div>
           </div>
           {userType === "delivery" ? (
-            <div class="mt-auto input-group">
+            <div className="mt-auto input-group">
               <select
-                class="form-select"
+                className="form-select"
                 id="inputGroupSelect04"
                 aria-label="Example select with button addon"
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                value={selectedStatus}
               >
-                <option selected>Status...</option>
-                <option value="1">On way</option>
-                <option value="2">To destination</option>
-                <option value="3">Delivered</option>
+                <option value="" disabled selected>
+                  Status...
+                </option>
+                <option value="3">On way</option>
+                <option value="4">To destination</option>
+                <option value="5">Delivered</option>
               </select>
-              <button class="btn btn-outline-secondary" type="button">
-                Button
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={handleUpdateStatus}
+              >
+                Update Status
               </button>
             </div>
           ) : null}

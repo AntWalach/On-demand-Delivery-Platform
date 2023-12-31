@@ -237,10 +237,11 @@ app.post("/home", verifyUser, (req, res) => {
     date.toISOString().slice(0, 19).replace("T", " "),
     clientId.toString(),
     req.body.packageOption.toString(),
+    1,
   ];
 
   const q =
-    "INSERT INTO `order` (`SenderAddress`, `RecipientAddress`,`Date`,`ClientID`,`OrderDetailsName`) VALUES (?)"; //change Date data type to DATETIME in DataBase
+    "INSERT INTO `order` (`SenderAddress`, `RecipientAddress`,`Date`,`ClientID`,`OrderDetailsName`,`OrderStatusID`) VALUES (?)"; //change Date data type to DATETIME in DataBase
 
   console.log(req.body.packageOption.toString());
 
@@ -256,7 +257,8 @@ app.post("/home", verifyUser, (req, res) => {
 app.get("/myorders", verifyUser, (req, res) => {
   const clientId = req.user.id;
 
-  const q = "SELECT * FROM `order` WHERE `ClientID` = ?";
+  const q =
+    "SELECT `order`.*, orderstatus.status FROM `order` LEFT JOIN orderstatus ON order.orderstatusid=orderstatus.id WHERE `ClientID` = ?";
 
   db.query(q, [clientId], (err, data) => {
     if (err) {
@@ -270,7 +272,8 @@ app.get("/myorders", verifyUser, (req, res) => {
 app.get("/delivery", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
-  const q = "SELECT * FROM `order` WHERE `DeliveryID` = ?";
+  const q =
+    "SELECT `order`.*, orderstatus.status FROM `order` LEFT JOIN orderstatus ON order.orderstatusid=orderstatus.id WHERE `DeliveryID` = ?";
 
   db.query(q, [deliveryId], (err, data) => {
     if (err) {
@@ -312,7 +315,8 @@ app.put("/delivery/neworders/:orderId", verifyUser, async (req, res) => {
       });
     }
 
-    const updateQuery = "UPDATE `order` SET `DeliveryID` = ? WHERE `ID` = ?";
+    const updateQuery =
+      "UPDATE `order` SET `DeliveryID` = ?, `OrderStatusID` = 2 WHERE `ID` = ?";
     await db.promise().query(updateQuery, [deliveryId, orderId]);
 
     return res.status(200).json({ message: "Order updated successfully" });
@@ -628,6 +632,24 @@ app.delete("/admin/orders/:orderId", async (req, res) => {
     return res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
     console.error("Error deleting order:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.put("/delivery", verifyUser, async (req, res) => {
+  const { orderId } = req.body;
+  const { orderstatusid } = req.body;
+  console.log(orderstatusid + "   " + orderId);
+  try {
+    const updateStatusQuery =
+      "UPDATE `order` SET `OrderStatusID` = ? WHERE `ID` = ?";
+    await db.promise().query(updateStatusQuery, [orderstatusid, orderId]);
+
+    return res
+      .status(200)
+      .json({ message: "Order status updated successfully" });
+  } catch (error) {
+    console.error("Error updating order status:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 });
