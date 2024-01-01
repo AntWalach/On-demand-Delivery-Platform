@@ -13,8 +13,7 @@ import AddressFormSection from "../../components/HomeComponents/AddressFormSecti
 import Validation from "../../utils/orderValidation";
 import customHome from "../../assets/css/Home.module.css";
 import "../../assets/css/Home.module.css";
-import ZebraPrintWrapper from "zebra-browser-print-wrapper";
-
+import ZPL from "../../assets/css/ZPL.module.css";
 function Home() {
   axios.defaults.withCredentials = true;
 
@@ -210,11 +209,18 @@ function Home() {
       <Navbar />
       <div>
         {isZPLVisible ? (
-          <div className="mt-4 text-center bg-white rounded">
-            <button onClick={() => setZPLVisible(false)}> Close </button>
-            <button onClick={handleDownloadImage}>Download</button>
-            <div>
-              <img src={labelImage} alt="Label" />
+          <div className={`mt-4 text-center`}>
+            <div className={`w-400 rounded `}>
+              <button onClick={() => setZPLVisible(false)}> Close </button>
+              <button onClick={handleDownloadImage}>Download</button>
+
+              <div>
+                <img
+                  src={labelImage}
+                  alt="Label"
+                  className={`img-fluid border p-2 rounded ${ZPL.customContainer}  `}
+                />
+              </div>
             </div>
           </div>
         ) : (

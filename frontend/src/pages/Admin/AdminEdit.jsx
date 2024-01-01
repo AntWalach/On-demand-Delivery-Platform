@@ -7,10 +7,10 @@ import customAdmin from "../../assets/css/Admin.module.css";
 const AdminEdit = () => {
   const { entityType, entityId } = useParams();
   const [entityData, setEntityData] = useState({
-    fName: "",
-    lName: "",
-    phoneNumber: "",
-    email: "",
+    FirstName: "",
+    LastName: "",
+    PhoneNumber: "",
+    Email: "",
   });
   const navigate = useNavigate();
 
@@ -24,10 +24,10 @@ const AdminEdit = () => {
 
         const { data } = response;
         setEntityData({
-          fName: data[entityType].FirstName,
-          lName: data[entityType].LastName,
-          phoneNumber: data[entityType].PhoneNumber,
-          email: data[entityType].Email,
+          FirstName: data[entityType].FirstName,
+          LastName: data[entityType].LastName,
+          PhoneNumber: data[entityType].PhoneNumber,
+          Email: data[entityType].Email,
         });
 
         console.log(`Fetched ${entityType} Data:`, data);
@@ -76,70 +76,70 @@ const AdminEdit = () => {
                   <h3>Current Data</h3>
 
                   <div>
-                    <strong>First Name</strong> {entityData.fName}
+                    <strong>First Name</strong> {entityData.FirstName}
                   </div>
                   <div>
-                    <strong>Last Name</strong> {entityData.lName}
+                    <strong>Last Name</strong> {entityData.LastName}
                   </div>
                   <div>
-                    <strong>Phone Number</strong> {entityData.phoneNumber}
+                    <strong>Phone Number</strong> {entityData.PhoneNumber}
                   </div>
                   <div>
-                    <strong>Email</strong> {entityData.email}
+                    <strong>Email</strong> {entityData.Email}
                   </div>
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label" htmlFor="fName">
+                  <label className="form-label" htmlFor="FirstName">
                     First Name:
                   </label>
                   <input
                     type="text"
-                    id="fName"
-                    name="fName"
-                    value={entityData.fName}
+                    id="FirstName"
+                    name="FirstName"
+                    value={entityData.FirstName}
                     onChange={handleInputChange}
                     className="form-control"
                   />
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label" htmlFor="lName">
+                  <label className="form-label" htmlFor="LastName">
                     Last Name:
                   </label>
                   <input
                     type="text"
-                    id="lName"
-                    name="lName"
-                    value={entityData.lName}
+                    id="LastName"
+                    name="LastName"
+                    value={entityData.LastName}
                     onChange={handleInputChange}
                     className="form-control"
                   />
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label" htmlFor="phoneNumber">
+                  <label className="form-label" htmlFor="PhoneNumber">
                     Phone Number:
                   </label>
                   <input
                     type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    value={entityData.phoneNumber}
+                    id="PhoneNumber"
+                    name="PhoneNumber"
+                    value={entityData.PhoneNumber}
                     onChange={handleInputChange}
                     className="form-control"
                   />
                 </div>
 
                 <div className="mb-3">
-                  <label className="form-label" htmlFor="email">
+                  <label className="form-label" htmlFor="Email">
                     Email:
                   </label>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
-                    value={entityData.email}
+                    id="Email"
+                    name="Email"
+                    value={entityData.Email}
                     onChange={handleInputChange}
                     className="form-control"
                   />
