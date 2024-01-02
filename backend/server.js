@@ -241,7 +241,7 @@ app.post("/home", verifyUser, (req, res) => {
   ];
 
   const q =
-    "INSERT INTO `Order` (`SenderAddress`, `RecipientAddress`,`Date`,`ClientID`,`OrderDetailsName`,`OrderStatusID`) VALUES (?)"; //change Date data type to DATETIME in DataBase
+    "INSERT INTO `Order` (`SenderAddress`, `RecipientAddress`,`Date`,`ClientID`, `OrderDetailsName`,`OrderStatusID`) VALUES (?)"; //change Date data type to DATETIME in DataBase
 
   console.log(req.body.packageOption.toString());
 
