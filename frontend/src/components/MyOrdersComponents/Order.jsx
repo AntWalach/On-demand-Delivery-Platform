@@ -35,7 +35,7 @@ function parseAddress(inputString) {
 
 function Order({ order, userType }) {
   const textColorClass =
-    userType === "client"
+    userType === "Client"
       ? customHome.customTextColor
       : customNewOrders.customTextColor;
 
@@ -99,7 +99,7 @@ function Order({ order, userType }) {
               <p className="m-0">{order.status}</p>
             </div>
           </div>
-          {userType === "delivery" ? (
+          {userType === "Delivery" ? (
             <div className="mt-auto input-group">
               <select
                 className="form-select"

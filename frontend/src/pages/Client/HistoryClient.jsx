@@ -5,7 +5,7 @@ import axios from "axios";
 import Order from "../../components/MyOrdersComponents/Order";
 import customMyOrders from "../../assets/css/MyOrders.module.css";
 
-function MyOrders() {
+function HistoryClient() {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ function MyOrders() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/myorders")
+      .get("http://localhost:8081/history")
       .then((res) => {
         console.log("API:", res.data);
 
@@ -39,7 +39,7 @@ function MyOrders() {
           <h1
             className={`${customMyOrders.customTextColorHeader} display-6 mx-auto`}
           >
-            Orders
+            History
           </h1>
         </div>
       </div>
@@ -64,4 +64,4 @@ function MyOrders() {
   );
 }
 
-export default MyOrders;
+export default HistoryClient;

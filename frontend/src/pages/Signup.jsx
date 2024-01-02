@@ -171,10 +171,10 @@ function Signup() {
                   name="userType"
                   id="custom-radio-1"
                   label="Client"
-                  value="user"
+                  value="Client"
                   onChange={() => {
                     handleInput({
-                      target: { name: "userType", value: "user" },
+                      target: { name: "userType", value: "Client" },
                     });
                   }}
                 />
@@ -186,10 +186,10 @@ function Signup() {
                   name="userType"
                   id="custom-radio-2"
                   label="Delivery"
-                  value="delivery"
+                  value="Delivery"
                   onChange={() => {
                     handleInput({
-                      target: { name: "userType", value: "delivery" },
+                      target: { name: "userType", value: "Delivery" },
                     });
                   }}
                 />
