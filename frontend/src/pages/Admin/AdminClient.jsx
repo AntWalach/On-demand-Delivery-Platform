@@ -13,7 +13,7 @@ const AdminClient = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8081/admin/client");
+      const response = await axios.get("http://localhost:8081/admin/Client");
       const { clients } = response.data;
       console.log("Data from server:", clients);
       setClients(clients);
@@ -32,7 +32,7 @@ const AdminClient = () => {
 
   const handleDeleteClient = async (clientId) => {
     try {
-      await axios.delete(`http://localhost:8081/admin/client/${clientId}`);
+      await axios.delete(`http://localhost:8081/admin/Client/${clientId}`);
       fetchData();
     } catch (error) {
       console.error("Error deleting client:", error.message);
@@ -40,7 +40,7 @@ const AdminClient = () => {
   };
 
   const handleEditClient = (clientId) => {
-    navigate(`/admin/client/edit/${clientId}`);
+    navigate(`/admin/Client/edit/${clientId}`);
   };
 
   const sortedAndFilteredClients = clients

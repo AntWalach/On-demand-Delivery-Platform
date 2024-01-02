@@ -113,7 +113,7 @@ app.post("/signup", (req, res) => {
     if ("userType" in req.body) {
       if (req.body.userType.toString() === "user") {
         const qClient =
-          "INSERT INTO client (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
+          "INSERT INTO Client (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
 
         db.query(qClient, [values], (err, data) => {
           if (err) {
@@ -124,7 +124,7 @@ app.post("/signup", (req, res) => {
         });
       } else if (req.body.userType.toString() === "delivery") {
         const qDelivery =
-          "INSERT INTO delivery (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
+          "INSERT INTO Delivery (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
 
         db.query(qDelivery, [values], (err, data) => {
           if (err) {
@@ -148,10 +148,10 @@ app.post("/login", (req, res) => {
   let query, table;
 
   if (userType === "user") {
-    query = "SELECT * FROM client WHERE Email = ?";
+    query = "SELECT * FROM Client WHERE Email = ?";
     table = "client";
   } else if (userType === "delivery") {
-    query = "SELECT * FROM delivery WHERE Email = ?";
+    query = "SELECT * FROM Delivery WHERE Email = ?";
     table = "delivery";
   } else {
     return res.json({ login: false, message: "Invalid user type" });
@@ -241,7 +241,7 @@ app.post("/home", verifyUser, (req, res) => {
   ];
 
   const q =
-    "INSERT INTO `order` (`SenderAddress`, `RecipientAddress`,`Date`,`ClientID`,`OrderDetailsName`,`OrderStatusID`) VALUES (?)"; //change Date data type to DATETIME in DataBase
+    "INSERT INTO `Order` (`SenderAddress`, `RecipientAddress`,`Date`,`ClientID`,`OrderDetailsName`,`OrderStatusID`) VALUES (?)"; //change Date data type to DATETIME in DataBase
 
   console.log(req.body.packageOption.toString());
 
@@ -258,7 +258,7 @@ app.get("/myorders", verifyUser, (req, res) => {
   const clientId = req.user.id;
 
   const q =
-    "SELECT `order`.*, orderstatus.status FROM `order` LEFT JOIN orderstatus ON order.orderstatusid=orderstatus.id WHERE `ClientID` = ?";
+    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `ClientID` = ?";
 
   db.query(q, [clientId], (err, data) => {
     if (err) {
@@ -273,7 +273,7 @@ app.get("/delivery", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const q =
-    "SELECT `order`.*, orderstatus.status FROM `order` LEFT JOIN orderstatus ON order.orderstatusid=orderstatus.id WHERE `DeliveryID` = ?";
+    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ?";
 
   db.query(q, [deliveryId], (err, data) => {
     if (err) {
@@ -287,7 +287,7 @@ app.get("/delivery", verifyUser, (req, res) => {
 app.get("/delivery/neworders", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
-  const q = "SELECT * FROM `order` WHERE `DeliveryID` IS NULL";
+  const q = "SELECT * FROM `Order` WHERE `DeliveryID` IS NULL";
 
   db.query(q, [deliveryId], (err, data) => {
     if (err) {
@@ -306,7 +306,7 @@ app.put("/delivery/neworders/:orderId", verifyUser, async (req, res) => {
 
   try {
     const orderQuery =
-      "SELECT * FROM `order` WHERE `ID` = ? AND `DeliveryID` IS NULL";
+      "SELECT * FROM `Order` WHERE `ID` = ? AND `DeliveryID` IS NULL";
     const [order] = await db.promise().query(orderQuery, [orderId]);
 
     if (!order || order.length === 0) {
@@ -316,7 +316,7 @@ app.put("/delivery/neworders/:orderId", verifyUser, async (req, res) => {
     }
 
     const updateQuery =
-      "UPDATE `order` SET `DeliveryID` = ?, `OrderStatusID` = 2 WHERE `ID` = ?";
+      "UPDATE `Order` SET `DeliveryID` = ?, `OrderStatusID` = 2 WHERE `ID` = ?";
     await db.promise().query(updateQuery, [deliveryId, orderId]);
 
     return res.status(200).json({ message: "Order updated successfully" });
@@ -345,9 +345,9 @@ app.put("/updatePhoneNumber", verifyUser, async (req, res) => {
 
     let updateQuery;
     if (userType === "client") {
-      updateQuery = "UPDATE `client` SET `PhoneNumber` = ? WHERE `ID` = ?";
+      updateQuery = "UPDATE `Client` SET `PhoneNumber` = ? WHERE `ID` = ?";
     } else if (userType === "delivery") {
-      updateQuery = "UPDATE `delivery` SET `PhoneNumber` = ? WHERE `ID` = ?";
+      updateQuery = "UPDATE `Delivery` SET `PhoneNumber` = ? WHERE `ID` = ?";
     } else {
       return res.status(400).json({ error: "Invalid user type" });
     }
@@ -382,9 +382,9 @@ app.put("/updateEmail", verifyUser, async (req, res) => {
 
     let updateQuery;
     if (userType === "client") {
-      updateQuery = "UPDATE `client` SET `Email` = ? WHERE `ID` = ?";
+      updateQuery = "UPDATE `Client` SET `Email` = ? WHERE `ID` = ?";
     } else if (userType === "delivery") {
-      updateQuery = "UPDATE `delivery` SET `Email` = ? WHERE `ID` = ?";
+      updateQuery = "UPDATE `Delivery` SET `Email` = ? WHERE `ID` = ?";
     } else {
       return res.status(400).json({ error: "Invalid user type" });
     }
@@ -406,9 +406,9 @@ app.put("/updatePassword", verifyUser, async (req, res) => {
   try {
     let getPasswordQuery;
     if (userType === "client") {
-      getPasswordQuery = "SELECT `Password` FROM `client` WHERE `ID` = ?";
+      getPasswordQuery = "SELECT `Password` FROM `Client` WHERE `ID` = ?";
     } else if (userType === "delivery") {
-      getPasswordQuery = "SELECT `Password` FROM `delivery` WHERE `ID` = ?";
+      getPasswordQuery = "SELECT `Password` FROM `Delivery` WHERE `ID` = ?";
     } else {
       return res.status(400).json({ error: "Invalid user type" });
     }
@@ -439,10 +439,10 @@ app.put("/updatePassword", verifyUser, async (req, res) => {
           let updatePasswordQuery;
           if (userType === "client") {
             updatePasswordQuery =
-              "UPDATE `client` SET `Password` = ? WHERE `ID` = ?";
+              "UPDATE `Client` SET `Password` = ? WHERE `ID` = ?";
           } else if (userType === "delivery") {
             updatePasswordQuery =
-              "UPDATE `delivery` SET `Password` = ? WHERE `ID` = ?";
+              "UPDATE `Delivery` SET `Password` = ? WHERE `ID` = ?";
           } else {
             return res.status(400).json({ error: "Invalid user type" });
           }
@@ -466,7 +466,7 @@ app.put("/updatePassword", verifyUser, async (req, res) => {
 
 app.get("/admin/client", async (req, res) => {
   try {
-    const q = "SELECT * FROM client";
+    const q = "SELECT * FROM Client";
     const data = await db.promise().query(q);
     const clients = data[0];
 
@@ -484,7 +484,7 @@ app.get("/admin/client", async (req, res) => {
 
 app.get("/admin/delivery", async (req, res) => {
   try {
-    const q = "SELECT * FROM delivery";
+    const q = "SELECT * FROM Delivery";
     const data = await db.promise().query(q);
     const delivery = data[0];
 
@@ -502,7 +502,7 @@ app.get("/admin/delivery", async (req, res) => {
 
 app.get("/admin/orders", async (req, res) => {
   try {
-    const q = "SELECT * FROM `order`";
+    const q = "SELECT * FROM `Order`";
     const data = await db.promise().query(q);
     const orders = data[0];
     return res.json({ orders });
@@ -517,7 +517,7 @@ app.delete("/admin/client/:clientId", async (req, res) => {
 
   try {
     // Check if the client exists
-    const checkClientQuery = "SELECT * FROM client WHERE ID = ?";
+    const checkClientQuery = "SELECT * FROM Client WHERE ID = ?";
     const [existingClient] = await db
       .promise()
       .query(checkClientQuery, [clientId]);
@@ -527,7 +527,7 @@ app.delete("/admin/client/:clientId", async (req, res) => {
     }
 
     // Delete the client
-    const deleteClientQuery = "DELETE FROM client WHERE ID = ?";
+    const deleteClientQuery = "DELETE FROM Client WHERE ID = ?";
     await db.promise().query(deleteClientQuery, [clientId]);
 
     return res.status(200).json({ message: "Client deleted successfully" });
@@ -594,7 +594,7 @@ app.delete("/admin/delivery/:deliveryId", async (req, res) => {
   const { deliveryId } = req.params;
 
   try {
-    const checkDeliveryQuery = "SELECT * FROM delivery WHERE ID = ?";
+    const checkDeliveryQuery = "SELECT * FROM Delivery WHERE ID = ?";
     const [existingDelivery] = await db
       .promise()
       .query(checkDeliveryQuery, [deliveryId]);
@@ -603,7 +603,7 @@ app.delete("/admin/delivery/:deliveryId", async (req, res) => {
       return res.status(404).json({ error: "Delivery not found" });
     }
 
-    const deleteDeliveryQuery = "DELETE FROM delivery WHERE ID = ?";
+    const deleteDeliveryQuery = "DELETE FROM Delivery WHERE ID = ?";
     await db.promise().query(deleteDeliveryQuery, [deliveryId]);
 
     return res.status(200).json({ message: "Delivery deleted successfully" });
@@ -617,7 +617,7 @@ app.delete("/admin/orders/:orderId", async (req, res) => {
   const { orderId } = req.params;
 
   try {
-    const checkOrderQuery = "SELECT * FROM `order` WHERE ID = ?";
+    const checkOrderQuery = "SELECT * FROM `Order` WHERE ID = ?";
     const [existingOrder] = await db
       .promise()
       .query(checkOrderQuery, [orderId]);
@@ -626,7 +626,7 @@ app.delete("/admin/orders/:orderId", async (req, res) => {
       return res.status(404).json({ error: "Order not found" });
     }
 
-    const deleteOrderQuery = "DELETE FROM `order` WHERE ID = ?";
+    const deleteOrderQuery = "DELETE FROM `Order` WHERE ID = ?";
     await db.promise().query(deleteOrderQuery, [orderId]);
 
     return res.status(200).json({ message: "Order deleted successfully" });
@@ -642,7 +642,7 @@ app.put("/delivery", verifyUser, async (req, res) => {
   console.log(orderstatusid + "   " + orderId);
   try {
     const updateStatusQuery =
-      "UPDATE `order` SET `OrderStatusID` = ? WHERE `ID` = ?";
+      "UPDATE `Order` SET `OrderStatusID` = ? WHERE `ID` = ?";
     await db.promise().query(updateStatusQuery, [orderstatusid, orderId]);
 
     return res

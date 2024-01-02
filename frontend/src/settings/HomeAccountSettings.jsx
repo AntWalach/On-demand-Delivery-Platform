@@ -6,7 +6,7 @@ function HomeAccountSettings() {
   const location = useLocation();
   const source = location.state?.source;
 
-  return <AccountSettings userType="home" source={source} />;
+  return <AccountSettings userType="Home" source={source} />;
 }
 
 export default HomeAccountSettings;

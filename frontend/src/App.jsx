@@ -40,9 +40,9 @@ function App() {
           <Route path="/delivery/account" element={<DeliveryAccountSettings userType="delivery"/>} />
           <Route path="/admin/home" element={<Admin />}/>
           <Route path="/admin" element={<AdminLogin/>}/>
-          <Route path="/admin/client" element={<AdminClient/>}/>
-          <Route path="/admin/delivery" element={<AdminDelivery/>}/>
-          <Route path="/admin/orders" element={<AdminOrders/>}/>
+          <Route path="/admin/Client" element={<AdminClient/>}/>
+          <Route path="/admin/Delivery" element={<AdminDelivery/>}/>
+          <Route path="/admin/Orders" element={<AdminOrders/>}/>
           <Route path="/admin/:entityType/edit/:entityId" element={<AdminEdit />} />
 
         </Routes>

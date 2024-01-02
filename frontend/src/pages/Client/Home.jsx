@@ -212,7 +212,6 @@ function Home() {
           <div className={`mt-4 text-center`}>
             <div className={`w-400 rounded `}>
               <button onClick={() => setZPLVisible(false)}> Close </button>
-              <button onClick={handleDownloadImage}>Download</button>
 
               <div>
                 <img
@@ -388,7 +387,10 @@ function Home() {
                       style={{
                         padding: "8px 70px",
                       }}
-                      onClick={handleGenerateZPL}
+                      onClick={() => {
+                        handleGenerateZPL();
+                        handleDownloadImage();
+                      }}
                     >
                       <strong>Submit</strong>
                     </button>

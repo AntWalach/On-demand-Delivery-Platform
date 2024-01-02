@@ -19,7 +19,7 @@ const AdminOrder = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8081/admin/orders");
+      const response = await axios.get("http://localhost:8081/admin/Orders");
       const { orders } = response.data;
       console.log("Order data from server:", orders);
       setOrders(orders);
@@ -36,7 +36,7 @@ const AdminOrder = () => {
 
   const handleDeleteOrder = async (orderId) => {
     try {
-      await axios.delete(`http://localhost:8081/admin/orders/${orderId}`);
+      await axios.delete(`http://localhost:8081/admin/Orders/${orderId}`);
       fetchData();
     } catch (error) {
       console.error("Error deleting order:", error.message);

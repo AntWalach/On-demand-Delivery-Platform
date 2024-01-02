@@ -13,7 +13,7 @@ const AdminDelivery = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8081/admin/delivery");
+      const response = await axios.get("http://localhost:8081/admin/Delivery");
       const { delivery } = response.data;
       console.log("Data from server:", delivery);
       setDelivery(delivery);
@@ -32,7 +32,7 @@ const AdminDelivery = () => {
 
   const handleDeleteDelivery = async (deliveryId) => {
     try {
-      await axios.delete(`http://localhost:8081/admin/delivery/${deliveryId}`);
+      await axios.delete(`http://localhost:8081/admin/Delivery/${deliveryId}`);
       fetchData();
     } catch (error) {
       console.error("Error deleting delivery:", error.message);
@@ -40,7 +40,7 @@ const AdminDelivery = () => {
   };
 
   const handleEditDelivery = (deliveryId) => {
-    navigate(`/admin/delivery/edit/${deliveryId}`);
+    navigate(`/admin/Delivery/edit/${deliveryId}`);
   };
 
   const sortedAndFilteredDelivery = delivery

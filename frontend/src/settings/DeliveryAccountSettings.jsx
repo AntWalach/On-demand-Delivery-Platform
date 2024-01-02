@@ -6,7 +6,7 @@ function DeliveryAccountSettings() {
   const location = useLocation();
   const source = location.state?.source;
   return (
-    <AccountSettings userType="delivery" source={source} />
+    <AccountSettings userType="Delivery" source={source} />
   );
 }
 

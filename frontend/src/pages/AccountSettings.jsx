@@ -88,7 +88,7 @@ function AccountSettings({ userType }) {
   return (
     <div
       className={`${customLogin.loginContainer} ${
-        userType === "delivery" ? customLogin.delivery : ""
+        userType === "Delivery" ? customLogin.delivery : ""
       } `}
     >
       {userType === "home" ? (
