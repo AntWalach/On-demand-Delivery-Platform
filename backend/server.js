@@ -273,7 +273,7 @@ app.get("/delivery", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const q =
-    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ?";
+    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ?";
 
   db.query(q, [deliveryId], (err, data) => {
     if (err) {

@@ -91,7 +91,7 @@ function AccountSettings({ userType }) {
         userType === "Delivery" ? customLogin.delivery : ""
       } `}
     >
-      {userType === "home" ? (
+      {userType === "Home" ? (
         <Navbar userType={userType} />
       ) : (
         <NavbarDelivery userType={userType} />

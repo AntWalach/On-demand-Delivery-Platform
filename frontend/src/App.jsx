@@ -37,7 +37,7 @@ function App() {
           <Route path="/delivery/neworders" element={<NewOrders />}></Route>
           <Route path="/delivery/wallet" element={<DeliveryWallet/>}/>
           <Route path="/delivery/history" element={<HistoryDelivery/>}/>
-          <Route path="/delivery/account" element={<DeliveryAccountSettings userType="delivery"/>} />
+          <Route path="/delivery/account" element={<DeliveryAccountSettings userType="Delivery"/>} />
           <Route path="/admin/home" element={<Admin />}/>
           <Route path="/admin" element={<AdminLogin/>}/>
           <Route path="/admin/Client" element={<AdminClient/>}/>
