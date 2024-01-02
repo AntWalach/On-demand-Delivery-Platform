@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { House } from "react-bootstrap-icons";
-import { PinAngle } from "react-bootstrap-icons";
 import { BoxFill } from "react-bootstrap-icons";
 import { BoxSeamFill } from "react-bootstrap-icons";
 import { Box2Fill } from "react-bootstrap-icons";
+import { BoxArrowInDown } from "react-bootstrap-icons";
+import { PencilSquare } from "react-bootstrap-icons";
+import { Printer } from "react-bootstrap-icons";
+import { SendCheck } from "react-bootstrap-icons";
+import { CaretRight } from "react-bootstrap-icons";
 import axios from "axios";
 import Navbar from "../../components/Layouts/Navbar";
-import DeliveryOption from "../../components/HomeComponents/DeliveryOption";
 import PackageOption from "../../components/HomeComponents/PackageOption";
 import AddressFormSection from "../../components/HomeComponents/AddressFormSection";
 import Validation from "../../utils/orderValidation";
 import customHome from "../../assets/css/Home.module.css";
+import HomeIcon from "../../components/HomeComponents/HomeIcon";
 import "../../assets/css/Home.module.css";
 import ZPL from "../../assets/css/ZPL.module.css";
+
 function Home() {
   axios.defaults.withCredentials = true;
 
@@ -226,48 +230,54 @@ function Home() {
           <div className="row mt-5 mx-auto">
             <div className="text-center">
               <h2 className={`${customHome.customTextColorHeadings} display-4`}>
-                Delivery destination
+                Send your parcel quickly and conveniently!
               </h2>
             </div>
             <div>
+              <div className="row justify-content-center mt-4 w-75 mx-auto">
+                <HomeIcon
+                  icon={
+                    <BoxArrowInDown
+                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                    />
+                  }
+                  description="Pack a parcel"
+                />
+
+                <HomeIcon
+                  icon={
+                    <PencilSquare 
+                    className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                    />
+                  }
+                  description="Complete the data"
+                />
+
+                <HomeIcon
+                  icon={
+                    <Printer
+                    className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                    />
+                  }
+                  description="Pay, print, stick the label"
+                />
+                
+                <HomeIcon
+                  icon={
+                    <SendCheck
+                    className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                    />
+                  }
+                  description="Send the parcel"
+                />
+              </div>
               <form
                 className="w-60 mx-auto justify-content-center text-center"
                 action=""
                 onSubmit={handleSubmit}
               >
-                {/* Delivery options components */}
-                <div className="row justify-content-center mt-4 w-75 mx-auto">
-                  <div
-                    className={`${customHome.customColWidth} col-3 mx-5 d-flex justify-content-center mb-3`}
-                  >
-                    <DeliveryOption
-                      icon={
-                        <House
-                          className={`${customHome.customIcon} m-auto mt-5`}
-                        />
-                      }
-                      title="Address"
-                      description="The courier will deliver the parcel directly to the address"
-                    />
-                  </div>
-
-                  <div
-                    className={`${customHome.customColWidth} col-3 mx-5 d-flex justify-content-center mb-3`}
-                  >
-                    <DeliveryOption
-                      icon={
-                        <PinAngle
-                          className={`${customHome.customIcon} m-auto mt-5`}
-                        />
-                      }
-                      title="Shipping point"
-                      description="The courier will deliver the parcel at the shipping point"
-                    />
-                  </div>
-                </div>
-
                 <div className="row mt-5">
-                  <div className="col-12 text-center">
+                  <div className="col-12 text-center mt-2">
                     <h2
                       className={`${customHome.customTextColorHeadings} display-4`}
                     >

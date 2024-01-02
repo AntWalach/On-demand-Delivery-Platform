@@ -1,15 +1,20 @@
+@font-face {
+    font-family: 'Poppins';
+    src: local('Poppins Regular'), url('/src/assets/fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400; /* Dostosuj do potrzeb */
+    font-style: normal; /* Dostosuj do potrzeb */
+}
+
 body {
     background-color:#6096B4 !important;
     margin: 0;
     padding: 0;
-    
 }
 
 .homeConteiner{
     background-color: #537188 !important;
     
 }
-
 
 .customCard {
     max-width: 280px;
@@ -29,6 +34,17 @@ body {
 .customInputs {
     background-color: #EEE9DA !important;
     border-color: #EEE9DA !important;
+}
+
+.customDescriptionHome{
+    font-size: 12px;
+    padding-top: 10px;
+    font-family: 'Poppins', sans-serif;
+    animation: trackingInExpand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.4s both;
+}
+
+.customIconHome{
+    color: #425b6d;
 }
 
 .customIcon {
@@ -60,7 +76,7 @@ body {
 }
 
 .customColWidth {
-    min-width: 20rem;
+    min-width: 10rem;
 }
 
 .customShippingForm {
@@ -84,3 +100,16 @@ body {
     border-color: #BDCDD6  !important;
     color: #537188  !important;
 }
+
+@keyframes trackingInExpand {
+    0% {
+      letter-spacing: -0.5em;
+      opacity: 0;
+    }
+    40% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
