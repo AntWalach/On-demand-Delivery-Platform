@@ -11,7 +11,7 @@ import HomeAccountSettings from "./settings/HomeAccountSettings";
 import DeliveryAccountSettings from "./settings/DeliveryAccountSettings";
 import Admin from "./pages/Admin/Admin";
 import ClientWallet from "./pages/Client/ClientWallet";
-import HistoryClient from "./pages/Client/HistoryCllient";
+import HistoryClient from "./pages/Client/HistoryClient";
 import DeliveryWallet from "./pages/Delivery/DeliveryWallet";
 import HistoryDelivery from "./pages/Delivery/HistoryDelivery";
 import AdminClient from "./pages/Admin/AdminClient";

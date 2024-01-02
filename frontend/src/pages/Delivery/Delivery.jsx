@@ -48,7 +48,7 @@ function Delivery() {
           {orders.length > 0 ? (
             orders.map((order) => (
               <div key={order.id} className="mx-auto col-lg-3 col-md-6 mb-4">
-                <Order order={order} userType="delivery" />
+                <Order order={order} userType="Delivery" />
               </div>
             ))
           ) : (

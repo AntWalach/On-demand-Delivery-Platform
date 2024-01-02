@@ -111,7 +111,7 @@ app.post("/signup", (req, res) => {
     ];
 
     if ("userType" in req.body) {
-      if (req.body.userType.toString() === "user") {
+      if (req.body.userType.toString() === "Client") {
         const qClient =
           "INSERT INTO Client (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
 
@@ -122,7 +122,7 @@ app.post("/signup", (req, res) => {
           }
           return res.json(data);
         });
-      } else if (req.body.userType.toString() === "delivery") {
+      } else if (req.body.userType.toString() === "Delivery") {
         const qDelivery =
           "INSERT INTO Delivery (`Login`,`FirstName`,`LastName`,`PhoneNumber`,`Email`,`Password`) VALUES (?)";
 
@@ -147,12 +147,12 @@ app.post("/login", (req, res) => {
 
   let query, table;
 
-  if (userType === "user") {
+  if (userType === "Client") {
     query = "SELECT * FROM Client WHERE Email = ?";
-    table = "client";
-  } else if (userType === "delivery") {
+    table = "Client";
+  } else if (userType === "Delivery") {
     query = "SELECT * FROM Delivery WHERE Email = ?";
-    table = "delivery";
+    table = "Delivery";
   } else {
     return res.json({ login: false, message: "Invalid user type" });
   }
@@ -258,7 +258,7 @@ app.get("/myorders", verifyUser, (req, res) => {
   const clientId = req.user.id;
 
   const q =
-    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `ClientID` = ?";
+    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `ClientID` = ? AND Order.OrderStatusID != 5";
 
   db.query(q, [clientId], (err, data) => {
     if (err) {
@@ -273,7 +273,7 @@ app.get("/delivery", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const q =
-    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ?";
+    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ? AND Order.OrderStatusID != 5";
 
   db.query(q, [deliveryId], (err, data) => {
     if (err) {
@@ -344,9 +344,9 @@ app.put("/updatePhoneNumber", verifyUser, async (req, res) => {
     }
 
     let updateQuery;
-    if (userType === "client") {
+    if (userType === "Client") {
       updateQuery = "UPDATE `Client` SET `PhoneNumber` = ? WHERE `ID` = ?";
-    } else if (userType === "delivery") {
+    } else if (userType === "Delivery") {
       updateQuery = "UPDATE `Delivery` SET `PhoneNumber` = ? WHERE `ID` = ?";
     } else {
       return res.status(400).json({ error: "Invalid user type" });
@@ -368,11 +368,20 @@ app.put("/updateEmail", verifyUser, async (req, res) => {
   const userId = req.user.id;
   const userType = req.user.userType;
 
+
   try {
-    const checkQuery = "SELECT * FROM ?? WHERE ?? = ?";
+    //const checkQuery = "SELECT * FROM ?? WHERE ?? = ?";
+    let getPasswordQuery;
+    if (userType === "Client") {
+      getPasswordQuery = "SELECT * FROM `Client` WHERE `Email` = ?";
+    } else if (userType === "Delivery") {
+      getPasswordQuery = "SELECT * FROM `Delivery` WHERE `Email` = ?";
+    } else {
+      return res.status(400).json({ error: "Invalid user type" });
+    }
     const [existingUser] = await db
       .promise()
-      .query(checkQuery, [userType, "Email", email]);
+      .query(getPasswordQuery, [email]);
 
     if (existingUser && existingUser.length > 0) {
       return res
@@ -381,9 +390,9 @@ app.put("/updateEmail", verifyUser, async (req, res) => {
     }
 
     let updateQuery;
-    if (userType === "client") {
+    if (userType === "Client") {
       updateQuery = "UPDATE `Client` SET `Email` = ? WHERE `ID` = ?";
-    } else if (userType === "delivery") {
+    } else if (userType === "Delivery") {
       updateQuery = "UPDATE `Delivery` SET `Email` = ? WHERE `ID` = ?";
     } else {
       return res.status(400).json({ error: "Invalid user type" });
@@ -405,9 +414,9 @@ app.put("/updatePassword", verifyUser, async (req, res) => {
 
   try {
     let getPasswordQuery;
-    if (userType === "client") {
+    if (userType === "Client") {
       getPasswordQuery = "SELECT `Password` FROM `Client` WHERE `ID` = ?";
-    } else if (userType === "delivery") {
+    } else if (userType === "Delivery") {
       getPasswordQuery = "SELECT `Password` FROM `Delivery` WHERE `ID` = ?";
     } else {
       return res.status(400).json({ error: "Invalid user type" });
@@ -437,10 +446,10 @@ app.put("/updatePassword", verifyUser, async (req, res) => {
           );
 
           let updatePasswordQuery;
-          if (userType === "client") {
+          if (userType === "Client") {
             updatePasswordQuery =
               "UPDATE `Client` SET `Password` = ? WHERE `ID` = ?";
-          } else if (userType === "delivery") {
+          } else if (userType === "Delivery") {
             updatePasswordQuery =
               "UPDATE `Delivery` SET `Password` = ? WHERE `ID` = ?";
           } else {
@@ -653,6 +662,38 @@ app.put("/delivery", verifyUser, async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
+app.get("/history", verifyUser, (req, res) => {
+  const clientId = req.user.id;
+
+  const q =
+    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `ClientID` = ? AND Order.OrderStatusID = 5";
+
+  db.query(q, [clientId], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Error");
+    }
+    return res.json(data);
+  });
+});
+
+app.get("/history", verifyUser, (req, res) => {
+  const deliveryId = req.user.id;
+
+  const q =
+    "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ? AND Order.OrderStatusID = 5";
+
+  db.query(q, [deliveryId], (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json("Error");
+    }
+    return res.json(data);
+  });
+});
+
 
 app.listen(8081, () => {
   console.log("Backend");

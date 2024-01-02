@@ -8,7 +8,7 @@ function Login() {
   const [values, setValues] = useState({
     email: "",
     password: "",
-    userType: "user",
+    userType: "Client",
   });
 
   axios.defaults.withCredentials = true;
@@ -47,9 +47,9 @@ function Login() {
       axios
         .post("http://localhost:8081/login", values)
         .then((res) => {
-          if (res.data.userType === "client") {
+          if (res.data.userType === "Client") {
             navigate("/home");
-          } else if (res.data.userType === "delivery") {
+          } else if (res.data.userType === "Delivery") {
             navigate("/delivery");
           } else {
             alert("No record existed.");
@@ -62,7 +62,7 @@ function Login() {
   return (
     <div
       className={`${customLogin.loginContainer} ${
-        values.userType === "delivery" ? customLogin.delivery : ""
+        values.userType === "Delivery" ? customLogin.delivery : ""
       }`}
     >
       <div className="px-3 pt-2">
@@ -92,7 +92,7 @@ function Login() {
                 defaultChecked
                 onChange={() => {
                   handleInput({
-                    target: { name: "userType", value: "user" },
+                    target: { name: "userType", value: "Client" },
                   });
                 }}
               />
@@ -111,7 +111,7 @@ function Login() {
                 autoComplete="off"
                 onChange={() => {
                   handleInput({
-                    target: { name: "userType", value: "delivery" },
+                    target: { name: "userType", value: "Delivery" },
                   });
                 }}
               />

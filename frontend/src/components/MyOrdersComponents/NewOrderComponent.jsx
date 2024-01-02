@@ -35,7 +35,7 @@ function parseAddress(inputString) {
   return inputString;
 }
 
-function NewOrderComponent({ order, handleClick }) {
+function NewOrderComponent({ order,type, handleClick }) {
   return (
     <div className={`${customNewOrders.customCardsOrders} col-md-6 mb-4`}>
       <div
@@ -67,7 +67,7 @@ function NewOrderComponent({ order, handleClick }) {
               <p className="m-0">{formatDate(order.Date)}</p>
             </div>
           </div>
-          <div className="mt-auto">
+          {type === "history" ? null : (<div className="mt-auto">
             <button
               className={`${customNewOrders.customButton} btn btn-outline-success`}
               type="submit"
@@ -75,7 +75,7 @@ function NewOrderComponent({ order, handleClick }) {
             >
               Accept order
             </button>
-          </div>
+          </div>)}
         </div>
       </div>
     </div>
