@@ -940,7 +940,8 @@ app.put("/updatewalletdelivery", verifyUser, async (req, res) => {
   const { orderstatusid } = req.body;
 
   if (orderstatusid == "5") {
-    const packageNameQuery = "SELECT OrderDetailsName FROM `Order` WHERE ID = ?";
+    const packageNameQuery =
+      "SELECT OrderDetailsName FROM `Order` WHERE ID = ?";
 
     // Pobieranie nazwy paczki na podstawie orderId
     db.query(packageNameQuery, [orderId], async (nameErr, nameResult) => {
@@ -977,6 +978,30 @@ app.put("/updatewalletdelivery", verifyUser, async (req, res) => {
         });
       }
     });
+  }
+});
+
+app.post("/rateOrder", verifyUser, async (req, res) => {
+  const { orderId, orderRate } = req.body;
+
+  try {
+    const checkOrderQuery = "SELECT * FROM `Order` WHERE ID = ?";
+    const [existingOrder] = await db
+      .promise()
+      .query(checkOrderQuery, [orderId]);
+
+    if (!existingOrder || existingOrder.length === 0) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    const addRatingQuery =
+      "INSERT INTO Rate (OrderOrderID, OrderRate) VALUES (?, ?)";
+    await db.promise().query(addRatingQuery, [orderId, orderRate]);
+
+    return res.status(200).json({ message: "Order rated successfully" });
+  } catch (error) {
+    console.error("Error rating order:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 

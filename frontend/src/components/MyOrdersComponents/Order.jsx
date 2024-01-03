@@ -3,6 +3,7 @@ import { Box2HeartFill } from "react-bootstrap-icons";
 import customHome from "../../assets/css/Home.module.css";
 import customMyOrders from "../../assets/css/MyOrders.module.css";
 import customNewOrders from "../../assets/css/NewOrders.module.css";
+import Rating from "./Rating";
 import axios from "axios";
 
 function formatDate(dateString) {
@@ -31,7 +32,7 @@ function parseAddress(inputString) {
   return inputString;
 }
 
-function Order({ order, userType }) {
+function Order({ order, userType, type }) {
   const textColorClass =
     userType === "Client"
       ? customHome.customTextColor
@@ -59,10 +60,10 @@ function Order({ order, userType }) {
         console.error("Error updating order status", error);
       });
 
-      axios.put("http://localhost:8081/updatewalletdelivery", {
-        orderId: order.ID,
-        orderstatusid: selectedStatus,
-      });
+    axios.put("http://localhost:8081/updatewalletdelivery", {
+      orderId: order.ID,
+      orderstatusid: selectedStatus,
+    });
   };
 
   return (
@@ -102,7 +103,10 @@ function Order({ order, userType }) {
               <p className="m-0">{order.status}</p>
             </div>
           </div>
-          {userType === "Delivery" ? (
+          {userType !== "Delivery" && type === "rating" && (
+            <Rating uniqueId={order.ID} />
+          )}
+          {userType === "Delivery" && type !== "rating" && (
             <div className="mt-auto input-group">
               <select
                 className="form-select"
@@ -111,7 +115,7 @@ function Order({ order, userType }) {
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 value={selectedStatus}
               >
-                <option value="" disabled selected>
+                <option value="" disabled defaultValue>
                   Status...
                 </option>
                 <option value="3">On way</option>
@@ -126,7 +130,7 @@ function Order({ order, userType }) {
                 Update Status
               </button>
             </div>
-          ) : null}
+          )}
         </div>
       </div>
     </div>

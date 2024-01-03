@@ -47,7 +47,7 @@ function HistoryClient() {
         {orders.length > 0 ? (
           orders.map((order) => (
             <div key={order.id} className="col-sm-6 col-lg-3">
-              <Order order={order} userType="Client" />
+              <Order order={order} userType="Client" type="rating" />
             </div>
           ))
         ) : (
