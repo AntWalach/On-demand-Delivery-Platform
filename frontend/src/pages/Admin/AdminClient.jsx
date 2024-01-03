@@ -70,20 +70,24 @@ const AdminClient = () => {
     <div className={`${customAdmin.customContainer}`}>
       <NavbarAdmin />
       <div className="container mt-4">
-        <div className="container">
+        <div className="container w-75">
           <input
             type="text"
             placeholder="Search by name..."
             value={searchTerm}
             onChange={handleSearchChange}
+            className={`${customAdmin.searchField} mx-2`}
           />
-          <button onClick={handleSortOrderToggle}>
+          <button 
+            onClick={handleSortOrderToggle}
+            className={`${customAdmin.searchButton}`}
+          >
             Sort by Name ({sortOrder === "asc" ? "Ascending" : "Descending"})
           </button>
         </div>
 
         <div
-          className="container accordion accordion-flush inputMoney mt-4"
+          className="container accordion accordion-flush inputMoney mt-4 w-75"
           id="accordionFlushExample"
         >
           {sortedAndFilteredClients.map((client) => (
@@ -108,10 +112,16 @@ const AdminClient = () => {
                 <div className="accordion-body">
                   {`ID: ${client.ID}, Email: ${client.Email}`}
                 </div>
-                <button onClick={() => handleDeleteClient(client.ID)}>
+                <button 
+                  onClick={() => handleDeleteClient(client.ID)}
+                  className={`${customAdmin.searchButton} m-2`}
+                >
                   Delete
                 </button>
-                <button onClick={() => handleEditClient(client.ID)}>
+                <button 
+                  onClick={() => handleEditClient(client.ID)}
+                  className={`${customAdmin.searchButton}`}
+                >
                   Edit
                 </button>
               </div>

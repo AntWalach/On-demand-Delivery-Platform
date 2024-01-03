@@ -119,17 +119,24 @@ const AdminOrder = () => {
     <div className={`${customAdmin.customContainer}`}>
       <NavbarAdmin />
       <div className="container mt-4">
-        <div className="container mt-4">
+        <div className="container mt-4 w-75">
           <input
             type="text"
             placeholder="Search by address..."
             value={searchTerm}
             onChange={handleSearchChange}
+            className={`${customAdmin.searchField} mx-2`}
           />
-          <button onClick={handleSortOrderId}>
+          <button 
+            onClick={handleSortOrderId}
+            className={`${customAdmin.searchButton}`}
+          >
             Sort by ID ({idSortOrder === "asc" ? "Ascending" : "Descending"})
           </button>
-          <button onClick={handleSortOrderAddress}>
+          <button 
+            onClick={handleSortOrderAddress}
+            className={`${customAdmin.searchButton} mx-2 `}
+          >
             Sort by Address (
             {addressSortOrder === "asc" ? "Ascending" : "Descending"})
           </button>
@@ -139,7 +146,7 @@ const AdminOrder = () => {
           <p>Loading...</p>
         ) : (
           <div
-            className="container accordion accordion-flush inputMoney mt-4"
+            className="container accordion accordion-flush inputMoney mt-4 w-75"
             id="accordionFlushExample"
           >
             {sortedAndFilteredOrders.map((order) => (
@@ -173,7 +180,11 @@ const AdminOrder = () => {
                     <p>Date: {formatDate(order.Date)}</p>
                     {/* Inne informacje do wyświetlenia */}
                   </div>
-                  <button onClick={() => handleDeleteOrder(order.ID)}> Delete </button>
+                  <button 
+                    onClick={() => handleDeleteOrder(order.ID)}
+                    className={`${customAdmin.searchButton} m-2`}
+                  > 
+                  Delete </button>
                 </div>
               </div>
             ))}

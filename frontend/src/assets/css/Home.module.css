@@ -47,6 +47,12 @@ body {
     color: #425b6d;
 }
 
+.customIconHome:hover {
+    transform: scale(1.3);
+    transition: transform 0.3s;
+}
+
+
 .customIcon {
     width: 50px;
     height: 50px;
