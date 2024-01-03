@@ -58,6 +58,11 @@ function Order({ order, userType }) {
       .catch((error) => {
         console.error("Error updating order status", error);
       });
+
+      axios.put("http://localhost:8081/updatewalletdelivery", {
+        orderId: order.ID,
+        orderstatusid: selectedStatus,
+      });
   };
 
   return (

@@ -886,6 +886,100 @@ app.post("/withdraw", verifyUser, (req, res) => {
   });
 });
 
+app.post("/updatewalletclient", verifyUser, async (req, res) => {
+  const clientId = req.user.id;
+
+  const packageName = req.body.packageOption;
+
+  const packageCostQuery = "SELECT Price FROM OrderDetails WHERE Name = ?";
+
+  db.query(packageCostQuery, [packageName], async (err, result) => {
+    if (err) {
+      console.error("Error fetching package cost:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Package not found" });
+    }
+
+    const packageCost = result[0].Price;
+    console.log(packageCost);
+
+    // Retrieve wallet balance
+    const selectQuery = "SELECT Balance FROM Wallet WHERE ClientID = ?";
+    db.query(selectQuery, [clientId], async (err, result) => {
+      if (err) {
+        console.error("Error fetching wallet balance:", err);
+        return res.json({ error: "Internal server error" });
+      }
+
+      if (result.length === 0) {
+        return res.json({ error: "Wallet not found" });
+      }
+
+      const walletBalance = result[0].Balance;
+
+      // Check if the wallet has sufficient balance
+      if (walletBalance >= packageCost) {
+        // Deduct amount from the wallet
+        const newBalance = walletBalance - packageCost;
+        const updateQuery = "UPDATE Wallet SET Balance = ? WHERE ClientID = ?";
+        await db.promise().query(updateQuery, [newBalance, clientId]);
+      } else {
+        // Insufficient balance
+        return res.json({ error: "Insufficient balance" });
+      }
+    });
+  });
+});
+
+app.put("/updatewalletdelivery", verifyUser, async (req, res) => {
+  const deliveryID = req.user.id;
+  const { orderId } = req.body;
+  const { orderstatusid } = req.body;
+
+  if (orderstatusid == "5") {
+    const packageNameQuery = "SELECT OrderDetailsName FROM `Order` WHERE ID = ?";
+
+    // Pobieranie nazwy paczki na podstawie orderId
+    db.query(packageNameQuery, [orderId], async (nameErr, nameResult) => {
+      if (nameErr || nameResult.length === 0) {
+        res.status(500).send("Error fetching package name");
+      } else {
+        const packageName = nameResult[0].OrderDetailsName;
+
+        // Pobieranie ceny paczki na podstawie jej nazwy
+        const packageCostQuery =
+          "SELECT Price FROM OrderDetails WHERE Name = ?";
+        db.query(packageCostQuery, [packageName], async (err, result) => {
+          if (err || result.length === 0) {
+            res.status(500).send("Error fetching package cost");
+          } else {
+            const packageCost = result[0].Price;
+            const comissionPrice = packageCost * 0.5;
+
+            // Kod aktualizujący portfel kuriera w bazie danych
+            const updateWalletQuery =
+              "UPDATE DeliveryWallet SET Balance = Balance + ? WHERE DeliveryID = ?";
+            db.query(
+              updateWalletQuery,
+              [comissionPrice, deliveryID],
+              (walletErr, walletResult) => {
+                if (walletErr) {
+                  res.status(500).send("Error updating courier's wallet");
+                } else {
+                  res.status(200).send("Courier's wallet updated successfully");
+                }
+              }
+            );
+          }
+        });
+      }
+    });
+  }
+});
+
 app.listen(8081, () => {
   console.log("Backend");
 });
