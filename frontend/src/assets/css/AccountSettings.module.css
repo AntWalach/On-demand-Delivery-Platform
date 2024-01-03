@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Poppins';
+  src: local('Poppins Regular'), url('/src/assets/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400; /* Dostosuj do potrzeb */
+  font-style: normal; /* Dostosuj do potrzeb */
+}
+
 .containerFlex {
   display: flex;
   justify-content: space-between;
@@ -10,4 +17,19 @@
 
 .bgdata {
   background-color: #eee9da;
+}
+
+.pageHeader{
+  color: #EEE9DA;
+  margin-left: 39vw;
+}
+
+.settingsIcon{
+  color: #EEE9DA;
+  width: 45px;
+  height: 45px;
+}
+  
+.settingsText{
+  font-family: 'Poppins', sans-serif;
 }
