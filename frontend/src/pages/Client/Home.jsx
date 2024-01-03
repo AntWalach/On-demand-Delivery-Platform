@@ -70,7 +70,7 @@ function Home() {
       try {
         await axios.post("http://localhost:8081/home", values);
         handleGenerateZPL(); // Dodaj to wywołanie
-        handleDownloadImage();
+        //handleDownloadImage();
       } catch (err) {
         console.log(err);
       }
@@ -193,7 +193,6 @@ function Home() {
         const imageUrl = URL.createObjectURL(await response.blob());
         setLabelImage(imageUrl);
         setZPLVisible(true);
-        
       } else {
         const errorMessage = await response.text();
         console.error("Error generating label:", errorMessage);
@@ -217,8 +216,12 @@ function Home() {
         {isZPLVisible ? (
           <div className={`mt-4 text-center`}>
             <div className={`w-400 rounded `}>
-              <button onClick={() => setZPLVisible(false)}> Close </button>
-
+              <button
+                onClick={() => {
+                  setZPLVisible(false);
+                  handleDownloadImage(); // Dodaj to wywołanie
+                }}
+              >Close</button>
               <div>
                 <img
                   src={labelImage}
@@ -248,8 +251,8 @@ function Home() {
 
                 <HomeIcon
                   icon={
-                    <PencilSquare 
-                    className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                    <PencilSquare
+                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
                     />
                   }
                   description="Complete the data"
@@ -258,16 +261,16 @@ function Home() {
                 <HomeIcon
                   icon={
                     <Printer
-                    className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
                     />
                   }
                   description="Pay, print, stick the label"
                 />
-                
+
                 <HomeIcon
                   icon={
                     <SendCheck
-                    className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
                     />
                   }
                   description="Send the parcel"
