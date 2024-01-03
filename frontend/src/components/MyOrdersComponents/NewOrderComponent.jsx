@@ -35,9 +35,9 @@ function parseAddress(inputString) {
 
 function NewOrderComponent({ order,type, handleClick }) {
   return (
-    <div className={`${customNewOrders.customCardsOrders} col-md-6 mb-4`}>
+    <div className={`${customNewOrders.customCardsOrders} col-md-3 mb-4 d-flex justify-content-center`}>
       <div
-        className={`${customNewOrders.customCard} ${customNewOrders.customTextColor} ${customNewOrders.card} card h-100 text-center mx-auto`}
+        className={`${customNewOrders.customCard} ${customNewOrders.customTextColor} ${customNewOrders.card} card h-100 text-center`}
         key={order.id}
       >
         <Box2HeartFill

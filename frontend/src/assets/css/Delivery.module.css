@@ -59,3 +59,28 @@
 .customShippingForm {
     min-width: 28rem;
 }
+
+.customTextColorHeader {
+    color: #EEE9DA;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    font-weight: 400 !important;
+    transform: translate(-50%, -50%) !important;
+    font-size: 20px !important;
+    animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.9s both;
+    z-index: 1;
+}
+
+@keyframes tracking-in-expand {
+    0% {
+      letter-spacing: -0.5em;
+      opacity: 0;
+    }
+    40% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

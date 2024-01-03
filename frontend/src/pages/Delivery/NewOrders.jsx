@@ -4,6 +4,9 @@ import NavbarDelivery from "../../components/Layouts/NavbarDelivery";
 import axios from "axios";
 import NewOrderComponent from "../../components/MyOrdersComponents/NewOrderComponent";
 import customNewOrders from "../../assets/css/NewOrders.module.css";
+import customMyOrdersNew from "../../assets/css/MyOrders.module.css";
+import NewOrdersIcon from "../../assets/images/newOrders.png";
+
 
 function NewOrders() {
   axios.defaults.withCredentials = true;
@@ -51,29 +54,38 @@ function NewOrders() {
       <div className={`${customNewOrders.customContainer}`}>
         <div className="row mx-auto">
           <div className="col-md-12 text-center mt-5">
-            <h1
-              className={`${customNewOrders.customTextColorHeadings} display-6 `}
-            >
-              Orders
-            </h1>
+          <div className={`${customMyOrdersNew.packageLogoBackground} mx-auto`}>
+              <div
+                className={`${customNewOrders.customTextColorHeader} display-6`}
+              >
+                Orders
+              </div>
+              <img
+                src={NewOrdersIcon}
+                className={`${customNewOrders.packageLogo}`}
+              >
+              </img>
+            </div>
           </div>
         </div>
-        <div className="row mt-4 justify-content-center w-50 mx-auto">
-          {orders.length > 0 ? (
-            orders.map((order) => (
-              <React.Fragment key={order.id}>
-                <NewOrderComponent order={order} handleClick={handleClick} />
-              </React.Fragment>
-            ))
-          ) : (
-            <div className="col-md-12 text-center mt-5">
-              <h1
-                className={`${customNewOrders.customTextColorHeadings} display-6 `}
-              >
-                You don't have any orders.
-              </h1>
-            </div>
-          )}
+        <div className={`${customMyOrdersNew.containerMyPackages} mx-auto w-75`}>
+          <div className="row mt-4 justify-content-md-between mx-auto p-0">
+            {orders.length > 0 ? (
+              orders.map((order) => (
+                <React.Fragment key={order.id}>
+                  <NewOrderComponent order={order} handleClick={handleClick} />
+                </React.Fragment>
+              ))
+            ) : (
+              <div className="col-md-12 text-center mt-5">
+                <h1
+                  className={`${customNewOrders.customTextColorHeadings} display-6 `}
+                >
+                  You don't have any orders.
+                </h1>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
