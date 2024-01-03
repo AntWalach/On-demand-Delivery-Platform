@@ -243,37 +243,37 @@ function Home() {
                 <HomeIcon
                   icon={
                     <BoxArrowInDown
-                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                      className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome1} m-auto mt-5`}
                     />
                   }
-                  description="Pack a parcel"
+                  description={<span className={`${customHome.customDescriptionHome1}`}>Pack a parcel</span>}
                 />
 
                 <HomeIcon
                   icon={
                     <PencilSquare
-                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                      className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome2} m-auto mt-5`}
                     />
                   }
-                  description="Complete the data"
+                  description={<span className={`${customHome.customDescriptionHome2}`}>Complete the data</span>}
                 />
 
                 <HomeIcon
                   icon={
                     <Printer
-                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                      className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome3} m-auto mt-5`}
                     />
                   }
-                  description="Pay, print, stick the label"
+                  description={<span className={`${customHome.customDescriptionHome3}`}>Pay, print, stick the label</span>}
                 />
 
                 <HomeIcon
                   icon={
                     <SendCheck
-                      className={`${customHome.customIcon} ${customHome.customIconHome} m-auto mt-5`}
+                      className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome4} m-auto mt-5`}
                     />
                   }
-                  description="Send the parcel"
+                  description={<span className={`${customHome.customDescriptionHome4}`}>Send the parcel</span>}
                 />
               </div>
               <form

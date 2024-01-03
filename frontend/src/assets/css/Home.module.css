@@ -40,11 +40,49 @@ body {
     font-size: 12px;
     padding-top: 10px;
     font-family: 'Poppins', sans-serif;
-    animation: trackingInExpand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.4s both;
+}
+
+.customDescriptionHome1{
+    animation: trackingInExpand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation-delay: 0.4s;
+}
+
+.customDescriptionHome2{
+    animation: trackingInExpand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation-delay: 0.8s;
+}
+
+.customDescriptionHome3{
+    animation: trackingInExpand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation-delay: 1.2s;
+}
+
+.customDescriptionHome4{
+    animation: trackingInExpand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+    animation-delay: 1.6s;
 }
 
 .customIconHome{
     color: #425b6d;
+}
+
+.customIconHome1{
+    animation: bounce-in-top 1.1s both;
+}
+
+.customIconHome2{
+    animation: bounce-in-top 1.1s both;
+    animation-delay: 0.4s;
+}
+
+.customIconHome3{
+    animation: bounce-in-top 1.1s both;
+    animation-delay: 0.8s;
+}
+
+.customIconHome4{
+    animation: bounce-in-top 1.1s both;
+    animation-delay: 1.2s;
 }
 
 .customIconHome:hover {
@@ -61,8 +99,7 @@ body {
 }
 
 .card:hover .customIcon {
-    transform: scale(1.3);
-    transition: transform 0.3s;
+    animation: jello-horizontal 0.9s both;
 }
 
 .customContainer {
@@ -119,3 +156,66 @@ body {
       opacity: 1;
     }
   }
+
+  @keyframes bounce-in-top {
+    0% {
+      transform: translateY(-500px);
+      animation-timing-function: ease-in;
+      opacity: 0;
+    }
+    38% {
+      transform: translateY(0);
+      animation-timing-function: ease-out;
+      opacity: 1;
+    }
+    55% {
+      transform: translateY(-65px);
+      animation-timing-function: ease-in;
+    }
+    72% {
+      transform: translateY(0);
+      animation-timing-function: ease-out;
+    }
+    81% {
+      transform: translateY(-28px);
+      animation-timing-function: ease-in;
+    }
+    90% {
+      transform: translateY(0);
+      animation-timing-function: ease-out;
+    }
+    95% {
+      transform: translateY(-8px);
+      animation-timing-function: ease-in;
+    }
+    100% {
+      transform: translateY(0);
+      animation-timing-function: ease-out;
+    }
+  }
+
+  @keyframes jello-horizontal {
+    0% {
+      transform: scale3d(1, 1, 1);
+    }
+    30% {
+      transform: scale3d(1.25, 0.75, 1);
+    }
+    40% {
+      transform: scale3d(0.75, 1.25, 1);
+    }
+    50% {
+      transform: scale3d(1.15, 0.85, 1);
+    }
+    65% {
+      transform: scale3d(0.95, 1.05, 1);
+    }
+    75% {
+      transform: scale3d(1.05, 0.95, 1);
+    }
+    100% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  
+  
