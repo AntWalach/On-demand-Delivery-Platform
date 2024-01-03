@@ -792,7 +792,7 @@ app.get("/history", verifyUser, (req, res) => {
   });
 });
 
-app.get("/history", verifyUser, (req, res) => {
+app.get("/historyd", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const q =
