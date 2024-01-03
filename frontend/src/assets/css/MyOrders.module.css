@@ -18,6 +18,8 @@
     border-radius: 10px;
     background-color: #d1d0cce5;
     animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.2s both;
+    position: relative;
+    margin-top: -1%;
 }
 
 .packageLogo{
@@ -34,7 +36,6 @@
     border-radius: 50%;
     border: 15px solid #EEE9DA;
     background-color: #d1d0cce5;
-    position: relative;
     text-align: center;
     animation: roll-in-left 0.6s ease-out both;
 }
