@@ -120,7 +120,22 @@ app.post("/signup", (req, res) => {
             console.error(err);
             return res.status(500).json("Error");
           }
-          return res.json(data);
+
+          const clientId = data.insertId;
+
+          const walletValues = [0, clientId];
+
+          const qWallet =
+            "INSERT INTO Wallet (`Balance`, `ClientID`) VALUES (?)";
+
+          db.query(qWallet, [walletValues], (err, walletData) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).json("Error creating wallet");
+            }
+
+            return res.json({ clientData: data, walletData });
+          });
         });
       } else if (req.body.userType.toString() === "Delivery") {
         const qDelivery =
@@ -129,8 +144,24 @@ app.post("/signup", (req, res) => {
         db.query(qDelivery, [values], (err, data) => {
           if (err) {
             console.error(err);
-            return res.json({ Error: "Inseritng data Error in server" });
+            return res.json({ Error: "Inserting data Error in server" });
           }
+
+          const deliveryId = data.insertId;
+
+          const walletValues = [0, deliveryId];
+
+          const qWallet =
+            "INSERT INTO DeliveryWallet (`Balance`, `DeliveryID`) VALUES (?)";
+
+          db.query(qWallet, [walletValues], (err, walletData) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).json("Error creating wallet");
+            }
+
+            return res.json({ clientData: data, walletData });
+          });
           return res.json(data);
         });
       } else {
@@ -407,18 +438,20 @@ app.put("/updatePhoneNumber", verifyUser, async (req, res) => {
     const checkQuery = "SELECT * FROM ?? WHERE ?? = ?";
     const [existingUser] = await db
       .promise()
-      .query(checkQuery, [userType, "PhoneNumber", phoneNumber])
+      .query(checkQuery, [userType, "PhoneNumber", phoneNumber]);
 
-      if (existingUser && existingUser.length > 0) {
-        const existingPhoneNumber = existingUser[0].PhoneNumber;
-        if (existingPhoneNumber === phoneNumber) {
-          return res.status(200).json({ message: "Phone number is already up to date" });
-        }
-  
+    if (existingUser && existingUser.length > 0) {
+      const existingPhoneNumber = existingUser[0].PhoneNumber;
+      if (existingPhoneNumber === phoneNumber) {
         return res
-          .status(400)
-          .json({ error: "Numer telefonu już istnieje w bazie danych" });
+          .status(200)
+          .json({ message: "Phone number is already up to date" });
       }
+
+      return res
+        .status(400)
+        .json({ error: "Numer telefonu już istnieje w bazie danych" });
+    }
 
     let updateQuery;
     if (userType === "Client") {
@@ -455,17 +488,20 @@ app.put("/updateEmail", verifyUser, async (req, res) => {
       return res.status(400).json({ error: "Invalid user type" });
     }
 
-    const [existingUser] = await db
-      .promise()
-      .query(getPasswordQuery, [email]);
+    const [existingUser] = await db.promise().query(getPasswordQuery, [email]);
 
-      if (existingUser && existingUser.length > 0 && existingUser[0].ID === userId) {
-        const existingEmail = existingUser[0].Email;
-        if (existingEmail === email) {
-          return res.status(400).json({ error: "Nowy adres e-mail jest identyczny z aktualnym adresem e-mail" });
-        }
+    if (
+      existingUser &&
+      existingUser.length > 0 &&
+      existingUser[0].ID === userId
+    ) {
+      const existingEmail = existingUser[0].Email;
+      if (existingEmail === email) {
+        return res.status(400).json({
+          error: "Nowy adres e-mail jest identyczny z aktualnym adresem e-mail",
+        });
       }
-      
+    }
 
     let updateQuery;
     if (userType === "Client") {
@@ -484,7 +520,6 @@ app.put("/updateEmail", verifyUser, async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 app.put("/updatePassword", verifyUser, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
@@ -742,7 +777,6 @@ app.put("/delivery", verifyUser, async (req, res) => {
   }
 });
 
-
 app.get("/history", verifyUser, (req, res) => {
   const clientId = req.user.id;
 
@@ -773,6 +807,84 @@ app.get("/history", verifyUser, (req, res) => {
   });
 });
 
+app.post("/topup", verifyUser, (req, res) => {
+  const { amount } = req.body;
+  const clientId = req.user.id;
+  //sprawdzenie czy amount jest liczbą dodatnia
+  if (isNaN(amount) || amount <= 0) {
+    return res.status(400).json({ error: "Invalid top-up amount" });
+  }
+
+  const updateQuery =
+    "UPDATE Wallet SET Balance = Balance + ? WHERE ClientID = ?";
+
+  db.query(updateQuery, [amount, clientId], (err, data) => {
+    if (err) {
+      console.error("Error updating wallet balance:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    console.log("Wallet balance updated successfully");
+    return res.json(data);
+  });
+});
+
+app.get("/walletBalance", verifyUser, (req, res) => {
+  const clientId = req.user.id;
+
+  const selectQuery = "SELECT Balance FROM Wallet WHERE ClientID = ?";
+
+  db.query(selectQuery, [clientId], (err, result) => {
+    if (err) {
+      console.error("Error fetching wallet balance:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ balance: 0 });
+    }
+
+    const walletBalance = result[0].Balance;
+    return res.status(200).json({ balance: walletBalance });
+  });
+});
+
+app.get("/wallet", verifyUser, (req, res) => {
+  const deliveryId = req.user.id;
+
+  const selectQuery = "SELECT Balance FROM DeliveryWallet WHERE DeliveryID = ?";
+
+  db.query(selectQuery, [deliveryId], (err, result) => {
+    if (err) {
+      console.error("Error fetching wallet balance:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ balance: 0 });
+    }
+
+    const walletBalance = result[0].Balance;
+    return res.status(200).json({ balance: walletBalance });
+  });
+});
+
+app.post("/withdraw", verifyUser, (req, res) => {
+  const deliveryId = req.user.id;
+
+  const updateQuery =
+    "UPDATE DeliveryWallet SET Balance = 0 WHERE DeliveryID = ?";
+
+  db.query(updateQuery, [deliveryId], (err, data) => {
+    if (err) {
+      console.error("Error updating wallet balance:", err);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    console.log("Wallet balance updated successfully");
+    return res.json(data);
+  });
+});
 
 app.listen(8081, () => {
   console.log("Backend");

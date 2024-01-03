@@ -11,7 +11,8 @@ function ClientWallet() {
   const [message, setMessage] = useState("");
   const [user, setUser] = useState("");
   const navigate = useNavigate();
-  const walletBalance = 0;
+  const [topUpAmount, setTopUpAmount] = useState("");
+  const [walletBalance, setWalletBalance] = useState(0);
 
   useEffect(() => {
     axios
@@ -21,6 +22,7 @@ function ClientWallet() {
         if (res.data.valid) {
           setAuth(true);
           setUser(res.data.name);
+          fetchWalletBalance();
         } else {
           setAuth(false);
           navigate("/login");
@@ -29,6 +31,29 @@ function ClientWallet() {
       })
       .catch((err) => console.log(err));
   }, [navigate]);
+
+  const fetchWalletBalance = () => {
+    axios.get("http://localhost:8081/walletBalance").then((res) => {
+      setWalletBalance(res.data.balance);
+    });
+  };
+
+  const handleTopUp = () => {
+    // czy topUpAmount jest liczbą dodatnią
+    if (isNaN(topUpAmount) || topUpAmount <= 0) {
+      console.error("Invalid top-up amount");
+      return;
+    }
+
+    axios
+      .post("http://localhost:8081/topup", { amount: topUpAmount })
+      .then((response) => {
+        console.log("Top-up successful", response.data);
+      })
+      .catch((error) => {
+        console.error("Error during top-up", error);
+      });
+  };
 
   return (
     <div>
@@ -55,10 +80,11 @@ function ClientWallet() {
           <span class="input-group-text">Top up your wallet</span>
           <div class="form-floating">
             <input
-              type="text"
+              type="float"
               class="form-control"
               id="floatingInputGroup1"
               placeholder="Username"
+              onChange={(e) => setTopUpAmount(e.target.value)}
             />
             <label for="floatingInputGroup1">Enter value</label>
           </div>
@@ -71,12 +97,12 @@ function ClientWallet() {
             style={{
               padding: "8px 70px",
             }}
+            onClick={handleTopUp}
           >
             <strong>Submit</strong>
           </button>
         </div>
       </div>
-      
     </div>
   );
 }

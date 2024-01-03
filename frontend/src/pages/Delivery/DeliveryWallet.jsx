@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
-import NavbarDelivery from "../../components/Layouts/NavbarDelivery";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import NavbarDelivery from "../../components/Layouts/NavbarDelivery";
 import customDelivery from "../../assets/css/Delivery.module.css";
 import customWallet from "../../assets/css/Wallet.module.css";
 
 function DeliveryWallet() {
   axios.defaults.withCredentials = true;
-  const navigate = useNavigate();
 
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
-  const walletBalance = 0;
+  const [walletBalance, setWalletBalance] = useState(0);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/delivery")
+      .get("http://localhost:8081")
       .then((res) => {
         console.log("API:", res.data);
 
-        if (res.data && Array.isArray(res.data)) {
+        if (res.data.valid) {
           setAuth(true);
           setOrders(res.data);
+          showBalance();
         } else {
           setAuth(false);
           navigate("/login");
@@ -31,6 +32,31 @@ function DeliveryWallet() {
       })
       .catch((err) => console.log(err));
   }, [navigate]);
+
+  const showBalance = () => {
+    axios.get("http://localhost:8081/wallet").then((res) => {
+      setWalletBalance(res.data.balance);
+    });
+  };
+
+  const handleWithdraw = () => {
+    axios
+      .post("http://localhost:8081/withdraw")
+      .then((res) => {
+        if (res.data.success) {
+          setWalletBalance(0);
+
+          setMessage("Withdrawal successful");
+        } else {
+          setMessage("Withdrawal failed");
+        }
+      })
+      .catch((err) => {
+        console.error("Withdrawal error:", err);
+        setMessage("Withdrawal error");
+      });
+  };
+
   return (
     <div>
       <NavbarDelivery />
@@ -46,7 +72,9 @@ function DeliveryWallet() {
         </div>
         <div className="row mx-auto">
           <div className="col-md-12 text-center mt-5">
-            <h1 className={`${customDelivery.customTextColorHeadings} display-6`}>
+            <h1
+              className={`${customDelivery.customTextColorHeadings} display-6`}
+            >
               My balance : ${walletBalance}
             </h1>
           </div>
@@ -55,19 +83,6 @@ function DeliveryWallet() {
         <div className="row my-5 mx-auto"></div>
 
         <div className="row mt-5 mx-auto">
-          <div class="input-group" style={{ width: "30%", margin: "0 auto" }}>
-            <span class="input-group-text">Withdraw money</span>
-            <div class="form-floating">
-              <input
-                type="text"
-                class="form-control"
-                id="floatingInputGroup1"
-                placeholder="Username"
-              />
-              <label for="floatingInputGroup1">Enter value</label>
-            </div>
-          </div>
-
           <div className="text-center mt-5">
             <button
               type="submit"
@@ -75,8 +90,9 @@ function DeliveryWallet() {
               style={{
                 padding: "8px 70px",
               }}
+              onClick={handleWithdraw}
             >
-              <strong>Submit</strong>
+              <strong>Withdraw</strong>
             </button>
           </div>
         </div>
