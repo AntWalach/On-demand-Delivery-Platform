@@ -70,7 +70,6 @@ function Home() {
       try {
         await axios.post("http://localhost:8081/home", values);
         handleGenerateZPL(); // Dodaj to wywołanie
-        //handleDownloadImage();
       } catch (err) {
         console.log(err);
       }
@@ -193,6 +192,7 @@ function Home() {
         const imageUrl = URL.createObjectURL(await response.blob());
         setLabelImage(imageUrl);
         setZPLVisible(true);
+
       } else {
         const errorMessage = await response.text();
         console.error("Error generating label:", errorMessage);
