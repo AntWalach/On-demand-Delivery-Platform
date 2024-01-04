@@ -4,6 +4,8 @@ import Navbar from "../../components/Layouts/Navbar";
 import axios from "axios";
 import Order from "../../components/MyOrdersComponents/Order";
 import customMyOrders from "../../assets/css/MyOrders.module.css";
+import ordersHistory from "../../assets/css/OrdersHistory.module.css";
+import HistoryIcon from "../../assets/images/historyIcon.png";
 
 function HistoryClient() {
   axios.defaults.withCredentials = true;
@@ -36,29 +38,38 @@ function HistoryClient() {
       <Navbar />
       <div className="row mx-auto">
         <div className="col-md-12 text-center mt-5">
-          <h1
-            className={`${customMyOrders.customTextColorHeader} display-6 mx-auto`}
-          >
-            History
-          </h1>
+          <div className={`${customMyOrders.packageLogoBackground} mx-auto`}>
+            <div
+              className={`${ordersHistory.customTextColorHeader} display-6`}
+            >
+              History
+            </div>
+            <img
+              src={HistoryIcon}
+              className={`${ordersHistory.packageLogo}`}
+            >
+            </img>
+          </div>
         </div>
       </div>
-      <div className="row mt-4 justify-content-center mx-auto">
-        {orders.length > 0 ? (
-          orders.map((order) => (
-            <div key={order.id} className="col-sm-6 col-lg-3">
-              <Order order={order} userType="Client" type="rating" />
+      <div className={`${customMyOrders.containerMyPackages} mx-auto w-75`}>
+        <div className="row mt-4 justify-content-center mx-auto">
+          {orders.length > 0 ? (
+            orders.map((order) => (
+              <div key={order.id} className="col-sm-6 col-lg-3">
+                <Order order={order} userType="Client" type="rating" />
+              </div>
+            ))
+          ) : (
+            <div className="col-md-12 text-center mt-5">
+              <h1
+                className={`${customMyOrders.customTextColorHeadings} display-6`}
+              >
+                You don't have any orders.
+              </h1>
             </div>
-          ))
-        ) : (
-          <div className="col-md-12 text-center mt-5">
-            <h1
-              className={`${customMyOrders.customTextColorHeadings} display-6`}
-            >
-              You don't have any orders.
-            </h1>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
