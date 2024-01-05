@@ -20,10 +20,16 @@ function AccountSettings({ userType }) {
   const navigate = useNavigate();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  let end = "";
+  if (userType === "Client") {
+    end = "home";
+  } else {
+    end = "delivery";
+  }
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081")
+      .get(`http://localhost:8081/${end}`)
       .then((res) => {
         if (res.data.valid) {
           console.log("Setting user data:", res.data);
@@ -48,46 +54,58 @@ function AccountSettings({ userType }) {
     e.preventDefault();
     try {
       // Obsługa zmiany loginu
-      const usernameResponse = await axios.put("http://localhost:8081/updateUsername", {
-        username: userData.username,
-      });
+      const usernameResponse = await axios.put(
+        `http://localhost:8081/${end}/updateUsername`,
+        {
+          username: userData.username,
+        }
+      );
       console.log("Username updated:", usernameResponse.data);
       setUserData({ ...userData, username: usernameResponse.data.username });
 
       // Obsługa zmiany imienia
-      const fNameResponse = await axios.put("http://localhost:8081/updateFirstName", {
-        fName: userData.fName,
-      });
+      const fNameResponse = await axios.put(
+        `http://localhost:8081/${end}/updateFirstName`,
+        {
+          fName: userData.fName,
+        }
+      );
       console.log("First name updated:", fNameResponse.data);
       setUserData({ ...userData, fName: fNameResponse.data.fName });
 
       // Obsługa zmiany nazwiska
-      const lNameResponse = await axios.put("http://localhost:8081/updateLastName", {
-        lName: userData.lName,
-      });
+      const lNameResponse = await axios.put(
+        `http://localhost:8081/${end}/updateLastName`,
+        {
+          lName: userData.lName,
+        }
+      );
       console.log("Last name updated:", lNameResponse.data);
       setUserData({ ...userData, lName: lNameResponse.data.lName });
 
       // Obsługa zmiany numeru telefonu
       const phoneResponse = await axios.put(
-        "http://localhost:8081/updatePhoneNumber",
+        `http://localhost:8081/${end}/updatePhoneNumber`,
         {
           phoneNumber: userData.phoneNumber,
         }
       );
       console.log("Phone number updated:", phoneResponse.data);
       setUserData({ ...userData, phoneNumber: phoneResponse.data.phoneNumber });
-  
+
       // Obsługa zmiany adresu email
-      const emailResponse = await axios.put("http://localhost:8081/updateEmail", {
-        email: userData.email,
-      });
+      const emailResponse = await axios.put(
+        `http://localhost:8081/${end}/updateEmail`,
+        {
+          email: userData.email,
+        }
+      );
       console.log("Email updated:", emailResponse.data);
       setUserData({ ...userData, email: emailResponse.data.email });
-  
+
       // Obsługa zmiany hasła
       const passwordResponse = await axios.put(
-        "http://localhost:8081/updatePassword",
+        `http://localhost:8081/${end}/updatePassword`,
         {
           oldPassword: oldPassword,
           newPassword: newPassword,
@@ -101,32 +119,34 @@ function AccountSettings({ userType }) {
       }
     }
   };
-  
+
   return (
     <div
-    className={`${customLogin.loginContainer} ${
-      userType === "Delivery" ? customLogin.delivery : ""
-    } `}
-  >
-    {userType === "Client" ? (
-      <Navbar userType={userType} />
-    ) : (
-      <NavbarDelivery userType={userType} />
-    )}
-    <div className="row w-100 mt-5">
-      <div className="col-auto text-center d-flex justify-content-center align-items-center">
-        <h1 className={`${customAS.pageHeader} display-6`}>Account Settings</h1>
+      className={`${customLogin.loginContainer} ${
+        userType === "Delivery" ? customLogin.delivery : ""
+      } `}
+    >
+      {userType === "Client" ? (
+        <Navbar userType={userType} />
+      ) : (
+        <NavbarDelivery userType={userType} />
+      )}
+      <div className="row w-100 mt-5">
+        <div className="col-auto text-center d-flex justify-content-center align-items-center">
+          <h1 className={`${customAS.pageHeader} display-6`}>
+            Account Settings
+          </h1>
+        </div>
+        <div className="col-auto d-flex justify-content-center align-items-center">
+          <Sliders className={`${customAS.settingsIcon}`} />
+        </div>
       </div>
-      <div className="col-auto d-flex justify-content-center align-items-center">
-        <Sliders className={`${customAS.settingsIcon}`}/>
-      </div>
-    </div>
-    <div className="row w-25 mx-auto mt-3">
-      <div className="col-md-12">
-        <form onSubmit={handleSubmit}>
-          <div className={`${customAS.bgdata} p-3 rounded`}>
-            <h3 className={`${customAS.settingsText} px-5`}>Account data</h3>
-            <div className={`${customAS.settingsText} px-5`}>Username</div>
+      <div className="row w-25 mx-auto mt-3">
+        <div className="col-md-12">
+          <form onSubmit={handleSubmit}>
+            <div className={`${customAS.bgdata} p-3 rounded`}>
+              <h3 className={`${customAS.settingsText} px-5`}>Account data</h3>
+              <div className={`${customAS.settingsText} px-5`}>Username</div>
               <div className="input-group mb-3 w-75 mx-auto">
                 <input
                   type="text"
@@ -134,7 +154,9 @@ function AccountSettings({ userType }) {
                   name="username"
                   className="form-control"
                   value={userData.username}
-                  onChange={(e) => setUserData({ ...userData, username: e.target.value })}
+                  onChange={(e) =>
+                    setUserData({ ...userData, username: e.target.value })
+                  }
                 />
               </div>
               <div className={`${customAS.settingsText} px-5`}>First Name</div>
@@ -145,7 +167,9 @@ function AccountSettings({ userType }) {
                   name="fName"
                   className="form-control"
                   value={userData.fName}
-                  onChange={(e) => setUserData({ ...userData, fName: e.target.value })}
+                  onChange={(e) =>
+                    setUserData({ ...userData, fName: e.target.value })
+                  }
                 />
               </div>
               <div className={`${customAS.settingsText} px-5`}>Last Name</div>
@@ -156,81 +180,84 @@ function AccountSettings({ userType }) {
                   name="lName"
                   className="form-control"
                   value={userData.lName}
-                  onChange={(e) => setUserData({ ...userData, lName: e.target.value })}
+                  onChange={(e) =>
+                    setUserData({ ...userData, lName: e.target.value })
+                  }
                 />
               </div>
-            <div className={`${customAS.settingsText} px-5`}>Phone Number</div>
-            <div className="input-group mb-3 w-75 mx-auto">
-              <PhoneInput
-                type="text"
-                placeholder="Enter Phone Number"
-                name="phoneNumber"
-                country="PL"
-                international={true}
-                className="form-control"
-                value={userData.phoneNumber}
-                onChange={(value) =>
-                  setUserData({ ...userData, phoneNumber: value })
-                }
-              />
-            </div>
-            <div className={`${customAS.settingsText} px-5`}>Email</div>
-            <div className="input-group mb-3 w-75 mx-auto">
-              <input
-                type="email"
-                placeholder="Enter Email"
-                name="email"
-                className="form-control"
-                value={userData.email}
-                onChange={(e) =>
-                  setUserData({ ...userData, email: e.target.value })
-                }
-              />
-            </div>
-            <div className={`${customAS.settingsText} px-5`}>Old Password</div>
-            <div className="input-group mb-3 w-75 mx-auto">
-              <input
-                type="password"
-                placeholder="Enter Old Password"
-                name="oldPassword"
-                className="form-control"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-            </div>
-            <div className={`${customAS.settingsText} px-5`}>Password</div>
-            <div className="input-group mb-3 w-75 mx-auto">
-              <input
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                className="form-control"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-              />
-            </div>
-            <div className="row">
-              <div className="col-md-12 text-center">
-                <button
-                  className="btn btn-outline-secondary"
-                  type="submit"
-                >
-                  Submit
-                </button>
+              <div className={`${customAS.settingsText} px-5`}>
+                Phone Number
+              </div>
+              <div className="input-group mb-3 w-75 mx-auto">
+                <PhoneInput
+                  type="text"
+                  placeholder="Enter Phone Number"
+                  name="phoneNumber"
+                  country="PL"
+                  international={true}
+                  className="form-control"
+                  value={userData.phoneNumber}
+                  onChange={(value) =>
+                    setUserData({ ...userData, phoneNumber: value })
+                  }
+                />
+              </div>
+              <div className={`${customAS.settingsText} px-5`}>Email</div>
+              <div className="input-group mb-3 w-75 mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter Email"
+                  name="email"
+                  className="form-control"
+                  value={userData.email}
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
+                />
+              </div>
+              <div className={`${customAS.settingsText} px-5`}>
+                Old Password
+              </div>
+              <div className="input-group mb-3 w-75 mx-auto">
+                <input
+                  type="password"
+                  placeholder="Enter Old Password"
+                  name="oldPassword"
+                  className="form-control"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+              </div>
+              <div className={`${customAS.settingsText} px-5`}>Password</div>
+              <div className="input-group mb-3 w-75 mx-auto">
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  name="password"
+                  className="form-control"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+              <div className="row">
+                <div className="col-md-12 text-center">
+                  <button className="btn btn-outline-secondary" type="submit">
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
   );
 }
 
 export default AccountSettings;
 
-
-{/* <div className={`container mt-4 ${customAS.containerFlex}`}>
+{
+  /* <div className={`container mt-4 ${customAS.containerFlex}`}>
         <div className="container mt-4">
           <div className={`${customAS.bgdata} p-3 rounded`}>
             <h2>Current Data</h2>
@@ -354,4 +381,5 @@ export default AccountSettings;
             </div>
           </div>
         </div>
-      </div> */}
+      </div> */
+}

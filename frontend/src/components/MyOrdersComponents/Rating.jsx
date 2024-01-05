@@ -18,7 +18,7 @@ const BasicRating = ({ uniqueId }) => {
     setValue(newValue);
 
     axios
-      .post("http://localhost:8081/rateOrder", {
+      .post("http://localhost:8081/home/rateOrder", {
         orderId: uniqueId,
         orderRate: newValue,
       })

@@ -16,13 +16,13 @@ function DeliveryWallet() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081")
+      .get("http://localhost:8081/delivery")
       .then((res) => {
         console.log("API:", res.data);
 
         if (res.data.valid) {
           setAuth(true);
-          setOrders(res.data);
+
           showBalance();
         } else {
           setAuth(false);
@@ -34,14 +34,14 @@ function DeliveryWallet() {
   }, [navigate]);
 
   const showBalance = () => {
-    axios.get("http://localhost:8081/wallet").then((res) => {
+    axios.get("http://localhost:8081/delivery/wallet").then((res) => {
       setWalletBalance(res.data.balance);
     });
   };
 
   const handleWithdraw = () => {
     axios
-      .post("http://localhost:8081/withdraw")
+      .post("http://localhost:8081/delivery/withdraw")
       .then((res) => {
         if (res.data.success) {
           setWalletBalance(0);

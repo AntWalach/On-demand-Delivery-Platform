@@ -14,16 +14,17 @@ function Delivery() {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
   const [orders, setOrders] = useState([]);
-
+  const [user, setUser] = useState("");
   useEffect(() => {
     axios
       .get("http://localhost:8081/delivery")
       .then((res) => {
         console.log("API:", res.data);
 
-        if (res.data && Array.isArray(res.data)) {
+        if (res.data.valid) {
           setAuth(true);
-          setOrders(res.data);
+          //setOrders(res.data);
+         //setUser(res.data.name);
         } else {
           setAuth(false);
           navigate("/login");
@@ -31,6 +32,12 @@ function Delivery() {
         }
       })
       .catch((err) => console.log(err));
+
+      axios
+      .get("http://localhost:8081/delivery/orders")
+      .then((res) => {
+        setOrders(res.data)
+      })
   }, [navigate]);
 
   return (

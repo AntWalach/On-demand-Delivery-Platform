@@ -15,10 +15,18 @@ function Login() {
 
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  let end = ""
+
+  if(values.userType === "Client") {
+      end = "home"
+  } else {
+      end = "delivery"
+  }
+
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/")
+      .get(`http://localhost:8081/${end}`)
       .then((res) => {
         if (res.data.valid) {
           navigate("/home");

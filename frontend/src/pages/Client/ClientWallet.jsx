@@ -16,7 +16,7 @@ function ClientWallet() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081")
+      .get("http://localhost:8081/home")
       .then((res) => {
         console.log("API Response:", res.data);
         if (res.data.valid) {
@@ -33,7 +33,7 @@ function ClientWallet() {
   }, [navigate]);
 
   const fetchWalletBalance = () => {
-    axios.get("http://localhost:8081/walletBalance").then((res) => {
+    axios.get("http://localhost:8081/home/walletBalance").then((res) => {
       setWalletBalance(res.data.balance);
     });
   };
@@ -46,7 +46,7 @@ function ClientWallet() {
     }
 
     axios
-      .post("http://localhost:8081/topup", { amount: topUpAmount })
+      .post("http://localhost:8081/home/topup", { amount: topUpAmount })
       .then((response) => {
         console.log("Top-up successful", response.data);
       })

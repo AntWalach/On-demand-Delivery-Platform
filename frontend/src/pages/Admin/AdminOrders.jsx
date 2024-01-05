@@ -57,7 +57,7 @@ const AdminOrder = () => {
   };
 
   const parseAddress = (inputString) => {
-    const addressRegex = /^(\d{5})([^\d]+?)([A-Z][^\d]+)(\d+)$/;
+    const addressRegex = /^(\d{5})([^\d]+?)([A-ZĄĆĘŁŃÓŚŹŻ][^\d]+)(\d+)$/;
     const match = inputString.match(addressRegex);
 
     if (match) {

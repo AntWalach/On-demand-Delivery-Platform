@@ -19,9 +19,8 @@ function Navbar() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081")
+      .get("http://localhost:8081/home")
       .then((res) => {
-        //console.log("API Response:", res.data);
         if (res.data.valid) {
           setUser(res.data.username);
         } else {
@@ -30,8 +29,6 @@ function Navbar() {
       })
       .catch((err) => console.log(err));
   }, [navigate]);
-
-  
 
   const handleAccountSettingsClick = () => {
     navigate(`/home/account?source=home`);
@@ -87,7 +84,6 @@ function Navbar() {
                   </a>
                 </li>
                 <li>
-                  
                   <a
                     className="dropdown-item"
                     href="/home/account"

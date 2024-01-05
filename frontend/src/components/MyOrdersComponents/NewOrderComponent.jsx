@@ -13,7 +13,7 @@ function formatDate(dateString) {
 }
 
 function parseAddress(inputString) {
-  const addressRegex = /^(\d{5})([^\d]+?)([A-Z][^\d]+)(\d+)$/;
+  const addressRegex = /^(\d{5})([^\d]+?)([A-ZĄĆĘŁŃÓŚŹŻ][^\d]+)(\d+)$/;
   const match = inputString.match(addressRegex);
 
   if (match) {
@@ -22,10 +22,10 @@ function parseAddress(inputString) {
     const street = match[3];
     const number = match[4];
 
-    console.log(postalCode);
-    console.log(city);
-    console.log(street);
-    console.log(number);
+    // console.log(postalCode);
+    // console.log(city);
+    // console.log(street);
+    // console.log(number);
 
     const result = `St. ${street} ${number}, ${city}, ${postalCode}`;
     return result;
@@ -33,9 +33,11 @@ function parseAddress(inputString) {
   return inputString;
 }
 
-function NewOrderComponent({ order,type, handleClick }) {
+function NewOrderComponent({ order, type, handleClick }) {
   return (
-    <div className={`${customNewOrders.customCardsOrders} col-md-3 mb-4 d-flex justify-content-center`}>
+    <div
+      className={`${customNewOrders.customCardsOrders} col-md-3 mb-4 d-flex justify-content-center`}
+    >
       <div
         className={`${customNewOrders.customCard} ${customNewOrders.customTextColor} ${customNewOrders.card} card h-100 text-center`}
         key={order.id}
@@ -65,15 +67,17 @@ function NewOrderComponent({ order,type, handleClick }) {
               <p className="m-0">{formatDate(order.Date)}</p>
             </div>
           </div>
-          {type === "history" ? null : (<div className="mt-auto">
-            <button
-              className={`${customNewOrders.customButton} btn btn-outline-success`}
-              type="submit"
-              onClick={() => handleClick(order.ID)}
-            >
-              Accept order
-            </button>
-          </div>)}
+          {type === "history" ? null : (
+            <div className="mt-auto">
+              <button
+                className={`${customNewOrders.customButton} btn btn-outline-success`}
+                type="submit"
+                onClick={() => handleClick(order.ID)}
+              >
+                Accept order
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

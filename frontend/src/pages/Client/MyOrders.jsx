@@ -16,7 +16,7 @@ function MyOrders() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/myorders")
+      .get("http://localhost:8081/home/myorders")
       .then((res) => {
         console.log("API:", res.data);
 

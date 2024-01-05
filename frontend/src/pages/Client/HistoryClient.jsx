@@ -17,7 +17,7 @@ function HistoryClient() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/history")
+      .get("http://localhost:8081/home/history")
       .then((res) => {
         console.log("API:", res.data);
 

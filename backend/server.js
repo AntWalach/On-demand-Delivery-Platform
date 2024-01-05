@@ -65,8 +65,26 @@ const retryConnection = () => {
 
 retryConnection();
 
+// const verifyUser = (req, res, next) => {
+//   const token = req.cookies.token;
+//   if (!token) {
+//     return res.json({ Error: "You are not authenticated" });
+//   } else {
+//     jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+//       if (err) {
+//         return res.json({ Error: "Token is not okay" });
+//       } else {
+//         req.user = decoded;
+//         console.log("User - " + req.user.userType);
+//         next();
+//       }
+//     });
+//   }
+// };
+
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
+
   if (!token) {
     return res.json({ Error: "You are not authenticated" });
   } else {
@@ -75,14 +93,23 @@ const verifyUser = (req, res, next) => {
         return res.json({ Error: "Token is not okay" });
       } else {
         req.user = decoded;
-        console.log("User - " + req.user.userType);
-        next();
+        const userType = req.user.userType;
+        console.log("Auth User - " + userType);
+
+        if (
+          (req.path.startsWith("/delivery") && userType === "Delivery") ||
+          (req.path.startsWith("/home") && userType === "Client")
+        ) {
+          next();
+        } else {
+          res.json({ Error: "Unauthorized access" });
+        }
       }
     });
   }
 };
 
-app.get("/", verifyUser, (req, res) => {
+app.get("/delivery", verifyUser, (req, res) => {
   if (req.user.username) {
     return res.json({
       valid: true,
@@ -98,6 +125,21 @@ app.get("/", verifyUser, (req, res) => {
   }
 });
 
+app.get("/home", verifyUser, (req, res) => {
+  if (req.user.username) {
+    return res.json({
+      valid: true,
+      username: req.user.username,
+      id: req.user.id.toString(),
+      fName: req.user.fName,
+      lName: req.user.lName,
+      phoneNumber: req.user.phoneNumber,
+      email: req.user.email,
+    });
+  } else {
+    return res.json({ valid: false });
+  }
+});
 app.post("/signup", (req, res) => {
   bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
     if (err) return res.json({ Error: "Error for hashing password" });
@@ -285,7 +327,7 @@ app.post("/home", verifyUser, (req, res) => {
   });
 });
 
-app.get("/myorders", verifyUser, (req, res) => {
+app.get("/home/myorders", verifyUser, (req, res) => {
   const clientId = req.user.id;
 
   const q =
@@ -300,7 +342,7 @@ app.get("/myorders", verifyUser, (req, res) => {
   });
 });
 
-app.get("/delivery", verifyUser, (req, res) => {
+app.get("/delivery/orders", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const q =
@@ -357,7 +399,7 @@ app.put("/delivery/neworders/:orderId", verifyUser, async (req, res) => {
   }
 });
 
-app.put("/updateUsername", verifyUser, async (req, res) => {
+app.put("/:entityType/updateUsername", verifyUser, async (req, res) => {
   const { username } = req.body;
   const userId = req.user.id;
   const userType = req.user.userType;
@@ -381,7 +423,7 @@ app.put("/updateUsername", verifyUser, async (req, res) => {
   }
 });
 
-app.put("/updateLastName", verifyUser, async (req, res) => {
+app.put("/:entityType/updateLastName", verifyUser, async (req, res) => {
   const { lName } = req.body;
   const userId = req.user.id;
   const userType = req.user.userType;
@@ -405,7 +447,7 @@ app.put("/updateLastName", verifyUser, async (req, res) => {
   }
 });
 
-app.put("/updateFirstName", verifyUser, async (req, res) => {
+app.put("/:entityType/updateFirstName", verifyUser, async (req, res) => {
   const { fName } = req.body;
   const userId = req.user.id;
   const userType = req.user.userType;
@@ -429,7 +471,7 @@ app.put("/updateFirstName", verifyUser, async (req, res) => {
   }
 });
 
-app.put("/updatePhoneNumber", verifyUser, async (req, res) => {
+app.put("/:entityType/updatePhoneNumber", verifyUser, async (req, res) => {
   const { phoneNumber } = req.body;
   const userId = req.user.id;
   const userType = req.user.userType;
@@ -473,7 +515,7 @@ app.put("/updatePhoneNumber", verifyUser, async (req, res) => {
   }
 });
 
-app.put("/updateEmail", verifyUser, async (req, res) => {
+app.put("/:entityType/updateEmail", verifyUser, async (req, res) => {
   const { email } = req.body;
   const userId = req.user.id;
   const userType = req.user.userType;
@@ -521,7 +563,7 @@ app.put("/updateEmail", verifyUser, async (req, res) => {
   }
 });
 
-app.put("/updatePassword", verifyUser, async (req, res) => {
+app.put("/:entityType/updatePassword", verifyUser, async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   const userId = req.user.id;
   const userType = req.user.userType;
@@ -777,7 +819,7 @@ app.put("/delivery", verifyUser, async (req, res) => {
   }
 });
 
-app.get("/history", verifyUser, (req, res) => {
+app.get("/home/history", verifyUser, (req, res) => {
   const clientId = req.user.id;
 
   const q =
@@ -792,7 +834,7 @@ app.get("/history", verifyUser, (req, res) => {
   });
 });
 
-app.get("/historyd", verifyUser, (req, res) => {
+app.get("/delivery/historyd", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const q =
@@ -807,7 +849,7 @@ app.get("/historyd", verifyUser, (req, res) => {
   });
 });
 
-app.post("/topup", verifyUser, (req, res) => {
+app.post("/home/topup", verifyUser, (req, res) => {
   const { amount } = req.body;
   const clientId = req.user.id;
   //sprawdzenie czy amount jest liczbą dodatnia
@@ -829,7 +871,7 @@ app.post("/topup", verifyUser, (req, res) => {
   });
 });
 
-app.get("/walletBalance", verifyUser, (req, res) => {
+app.get("/home/walletBalance", verifyUser, (req, res) => {
   const clientId = req.user.id;
 
   const selectQuery = "SELECT Balance FROM Wallet WHERE ClientID = ?";
@@ -849,7 +891,7 @@ app.get("/walletBalance", verifyUser, (req, res) => {
   });
 });
 
-app.get("/wallet", verifyUser, (req, res) => {
+app.get("/delivery/wallet", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const selectQuery = "SELECT Balance FROM DeliveryWallet WHERE DeliveryID = ?";
@@ -869,7 +911,7 @@ app.get("/wallet", verifyUser, (req, res) => {
   });
 });
 
-app.post("/withdraw", verifyUser, (req, res) => {
+app.post("/delivery/withdraw", verifyUser, (req, res) => {
   const deliveryId = req.user.id;
 
   const updateQuery =
@@ -886,7 +928,7 @@ app.post("/withdraw", verifyUser, (req, res) => {
   });
 });
 
-app.post("/updatewalletclient", verifyUser, async (req, res) => {
+app.post("/home/updatewalletclient", verifyUser, async (req, res) => {
   const clientId = req.user.id;
 
   const packageName = req.body.packageOption;
@@ -934,7 +976,7 @@ app.post("/updatewalletclient", verifyUser, async (req, res) => {
   });
 });
 
-app.put("/updatewalletdelivery", verifyUser, async (req, res) => {
+app.put("/delivery/updatewalletdelivery", verifyUser, async (req, res) => {
   const deliveryID = req.user.id;
   const { orderId } = req.body;
   const { orderstatusid } = req.body;
@@ -981,7 +1023,7 @@ app.put("/updatewalletdelivery", verifyUser, async (req, res) => {
   }
 });
 
-app.post("/rateOrder", verifyUser, async (req, res) => {
+app.post("/home/rateOrder", verifyUser, async (req, res) => {
   const { orderId, orderRate } = req.body;
 
   try {

@@ -69,7 +69,7 @@ function Home() {
     ) {
       try {
         await axios.post("http://localhost:8081/home", values);
-        await axios.post("http://localhost:8081/updatewalletclient", values);
+        await axios.post("http://localhost:8081/home/updatewalletclient", values);
         handleGenerateZPL(); // Dodaj to wywołanie
       } catch (err) {
         console.log(err);
@@ -79,7 +79,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081")
+      .get("http://localhost:8081/home")
       .then((res) => {
         console.log("API Response:", res.data);
         if (res.data.valid) {
@@ -149,6 +149,7 @@ function Home() {
       ^FO220,115^FD${convertToZPLString(values.InputZipCode1)}^FS
       ^FO220,155^FD${convertToZPLString(values.InputCity1)}^FS
       ^FO220,195^FD${convertToZPLString(values.InputStreet1)}^FS
+      ^FO220,195^FD${convertToZPLString(values.InputBuildingNumber1)}^FS
       ^FO220,195^FD${convertToZPLString(values.InputApartmentNumber1)}^FS
       ^FO50,250^GB700,3,3^FS
       

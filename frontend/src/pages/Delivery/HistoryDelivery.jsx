@@ -18,7 +18,7 @@ function HistoryDelivery() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081/historyd")
+      .get("http://localhost:8081/delivery/historyd")
       .then((res) => {
         console.log("API:", res.data);
 

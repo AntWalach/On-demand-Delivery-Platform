@@ -19,9 +19,10 @@ function NavbarDelivery() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8081")
+      .get("http://localhost:8081/delivery")
       .then((res) => {
-        console.log("API Response:", res.data);
+        console.log("NavbarD API Response:", res.data);
+        console.log(res.data.valid)
         if (res.data.valid) {
           setUser(res.data.username);
         } else {

@@ -17,7 +17,7 @@ function formatDate(dateString) {
 }
 
 function parseAddress(inputString) {
-  const addressRegex = /^(\d{5})([^\d]+?)([A-Z][^\d]+)(\d+)$/;
+  const addressRegex = /^(\d{5})([^\d]+?)([A-ZĄĆĘŁŃÓŚŹŻ][^\d]+)(\d+)$/;
   const match = inputString.match(addressRegex);
 
   if (match) {
@@ -60,7 +60,7 @@ function Order({ order, userType, type }) {
         console.error("Error updating order status", error);
       });
 
-    axios.put("http://localhost:8081/updatewalletdelivery", {
+    axios.put("http://localhost:8081/delivery/updatewalletdelivery", {
       orderId: order.ID,
       orderstatusid: selectedStatus,
     });

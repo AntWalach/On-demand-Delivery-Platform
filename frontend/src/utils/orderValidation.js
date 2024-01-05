@@ -3,7 +3,7 @@ const Validation = (values) => {
   const ZIPCODE_PATTERN = /^\d{5}$/;
   //const UPPERCASE_LETTER_PATTERN = /^[A-Z]/;
   const UPPERCASE_LETTER_PATTERN = /^[A-ZĄĆĘŁŃÓŚŹŻ]/;
-  
+
   if (!values.InputZipCode1.trim()) {
     errors.InputZipCode1 = "Zip Code is required";
   } else if (!ZIPCODE_PATTERN.test(values.InputZipCode1.trim())) {
