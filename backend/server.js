@@ -1037,7 +1037,7 @@ app.post("/home/rateOrder", verifyUser, async (req, res) => {
     }
 
     const addRatingQuery =
-      "INSERT INTO Rate (OrderOrderID, OrderRate) VALUES (?, ?)";
+      "INSERT INTO Rate (OrderID, OrderRate) VALUES (?, ?)";
     await db.promise().query(addRatingQuery, [orderId, orderRate]);
 
     return res.status(200).json({ message: "Order rated successfully" });

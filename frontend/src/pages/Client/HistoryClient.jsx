@@ -14,8 +14,6 @@ function HistoryClient() {
   const [auth, setAuth] = useState(false);
   const [message, setMessage] = useState("");
   const [orders, setOrders] = useState([]);
-  const [sortByDate, setSortByDate] = useState("asc");
-  const [sortByRating, setSortByRating] = useState("asc");
 
   useEffect(() => {
     axios
@@ -25,8 +23,7 @@ function HistoryClient() {
 
         if (res.data && Array.isArray(res.data)) {
           setAuth(true);
-          const sortedOrders = sortOrders(res.data);
-          setOrders(sortedOrders);
+          setOrders(res.data);
         } else {
           setAuth(false);
           navigate("/login");
@@ -34,49 +31,7 @@ function HistoryClient() {
         }
       })
       .catch((err) => console.log(err));
-  }, [navigate, sortByDate, sortByRating]);
-
-  const sortOrders = (ordersToSort) => {
-    const compareByDate = (a, b) => {
-      const dateComparison = new Date(b.Date) - new Date(a.Date);
-      return sortByDate === "asc" ? dateComparison : -dateComparison;
-    };
-
-    const compareByRating = (a, b) => {
-      const ratingA = a.OrderRate || 0;
-      const ratingB = b.OrderRate || 0;
-      return sortByRating === "asc" ? ratingB - ratingA : ratingA - ratingB;
-    };
-
-    return ordersToSort.slice().sort((a, b) => {
-      const dateComparison = compareByDate(a, b);
-      return dateComparison !== 0 ? dateComparison : compareByRating(a, b);
-    });
-  };
-
-  const handleSortChange = (sortBy) => {
-    if (sortBy === "date") {
-      setSortByDate((prevSortOrder) =>
-        prevSortOrder === "asc" ? "desc" : "asc"
-      );
-      setSortByRating("asc"); 
-    } else if (sortBy === "rating") {
-      setSortByRating((prevSortOrder) =>
-        prevSortOrder === "asc" ? "desc" : "asc"
-      );
-      setSortByDate("asc"); 
-    }
-  };
-
-  const handleRatingChange = (orderId, newRating) => {
-    setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.ID === orderId ? { ...order, OrderRate: newRating } : order
-      )
-    );
-
-    setOrders((prevOrders) => sortOrders(prevOrders));
-  };
+  }, [navigate]);
 
   return (
     <div>
@@ -97,37 +52,10 @@ function HistoryClient() {
       </div>
       <div className={`${customMyOrders.containerMyPackages} mx-auto w-75`}>
         <div className="row mt-4 justify-content-center mx-auto">
-          <div className="col-md-12 mb-3">
-            <button
-              className={`btn btn-secondary me-2 ${
-                sortByDate === "desc" ? "active" : ""
-              }`}
-              onClick={() => handleSortChange("date")}
-            >
-              {sortByDate === "desc"
-                ? "Sort Newest to Oldest"
-                : "Sort Oldest to Newest"}
-            </button>
-            <button
-              className={`btn btn-secondary ${
-                sortByRating === "desc" ? "active" : ""
-              }`}
-              onClick={() => handleSortChange("rating")}
-            >
-              {sortByRating === "desc"
-                ? "Sort Highest to Lowest Rating"
-                : "Sort Lowest to Highest Rating"}
-            </button>
-          </div>
           {orders.length > 0 ? (
             orders.map((order) => (
               <div key={order.id} className="col-sm-6 col-lg-3">
-                <Order
-                  order={order}
-                  userType="Client"
-                  type="rating"
-                  onRatingChange={handleRatingChange}
-                />
+                <Order order={order} userType="Client" type="rating" />
               </div>
             ))
           ) : (
