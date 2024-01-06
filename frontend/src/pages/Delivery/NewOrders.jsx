@@ -7,27 +7,44 @@ import customNewOrders from "../../assets/css/NewOrders.module.css";
 import customMyOrdersNew from "../../assets/css/MyOrders.module.css";
 import NewOrdersIcon from "../../assets/images/newOrders.png";
 
-
 function NewOrders() {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
 
   const [orders, setOrders] = useState([]);
-
+  const [sortOrder, setSortOrder] = useState("desc"); 
+  const [senderAddressFilter, setSenderAddressFilter] = useState("");
+  const [recipientAddressFilter, setRecipientAddressFilter] = useState("");
   useEffect(() => {
-    axios
-      .get("http://localhost:8081/delivery/neworders")
-      .then((res) => {
-        console.log("API:", res.data);
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8081/delivery/neworders"
+        );
+        if (response.data && Array.isArray(response.data)) {
+          let sortedOrders = [...response.data];
 
-        if (res.data && Array.isArray(res.data)) {
-          setOrders(res.data);
+          if (sortOrder === "desc") {
+            sortedOrders.sort(
+              (a, b) => new Date(b.Date) - new Date(a.Date)
+            );
+          } else if (sortOrder === "asc") {
+            sortedOrders.sort(
+              (a, b) => new Date(a.Date) - new Date(b.Date)
+            );
+          }
+
+          setOrders(sortedOrders);
         } else {
           navigate("/login");
         }
-      })
-      .catch((err) => console.log(err));
-  }, [navigate]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchOrders();
+  }, [navigate, sortOrder]);
 
   const handleClick = async (orderId) => {
     console.log(orderId);
@@ -47,6 +64,24 @@ function NewOrders() {
     window.location.reload();
   };
 
+  const handleSortChange = () => {
+    setSortOrder((prevSortOrder) =>
+      prevSortOrder === "desc" ? "asc" : "desc"
+    );
+  };
+
+  const filteredOrders = orders
+    .filter(
+      (order) =>
+        senderAddressFilter === "" ||
+        order.SenderAddress.includes(senderAddressFilter)
+    )
+    .filter(
+      (order) =>
+        recipientAddressFilter === "" ||
+        order.RecipientAddress.includes(recipientAddressFilter)
+    );
+
   return (
     <div>
       <NavbarDelivery />
@@ -54,7 +89,9 @@ function NewOrders() {
       <div className={`${customNewOrders.customContainer}`}>
         <div className="row mx-auto">
           <div className="col-md-12 text-center mt-5">
-          <div className={`${customMyOrdersNew.packageLogoBackground} mx-auto`}>
+            <div
+              className={`${customMyOrdersNew.packageLogoBackground} mx-auto`}
+            >
               <div
                 className={`${customNewOrders.customTextColorHeader} display-6`}
               >
@@ -63,15 +100,48 @@ function NewOrders() {
               <img
                 src={NewOrdersIcon}
                 className={`${customNewOrders.packageLogo}`}
-              >
-              </img>
+                alt="New Orders Icon"
+              />
             </div>
           </div>
         </div>
-        <div className={`${customMyOrdersNew.containerMyPackages} mx-auto w-75`}>
-          <div className="row mt-4 justify-content-md-between mx-auto p-0">
-            {orders.length > 0 ? (
-              orders.map((order) => (
+        <div
+          className={`${customMyOrdersNew.containerMyPackages} mx-auto w-75`}
+        >
+          <div className="row mt-4 justify-content-between mx-auto p-0">
+            <div className="row mb-3">
+              <div className="col-md-4">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Sender Address"
+                  value={senderAddressFilter}
+                  onChange={(e) => setSenderAddressFilter(e.target.value)}
+                />
+              </div>
+              <div className="col-md-4 d-flex justify-content-center">
+                <button
+                  className="btn btn-secondary"
+                  onClick={handleSortChange}
+                >
+                  {sortOrder === "desc"
+                    ? "Sort Oldest to Newest"
+                    : "Sort Newest to Oldest"}
+                </button>
+              </div>
+
+              <div className="col-md-4">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Recipient Address"
+                  value={recipientAddressFilter}
+                  onChange={(e) => setRecipientAddressFilter(e.target.value)}
+                />
+              </div>
+            </div>
+            {filteredOrders.length > 0 ? (
+              filteredOrders.map((order) => (
                 <React.Fragment key={order.id}>
                   <NewOrderComponent order={order} handleClick={handleClick} />
                 </React.Fragment>

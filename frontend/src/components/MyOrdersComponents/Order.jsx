@@ -32,7 +32,7 @@ function parseAddress(inputString) {
   return inputString;
 }
 
-function Order({ order, userType, type }) {
+function Order({ order, userType, type, onRatingChange }) {
   const textColorClass =
     userType === "Client"
       ? customHome.customTextColor
@@ -54,7 +54,7 @@ function Order({ order, userType, type }) {
       })
       .then((response) => {
         console.log("Order status updated:", response.data);
-        // Tutaj możesz dodać kod do odświeżenia listy zamówień lub innego zachowania po aktualizacji statusu
+        
       })
       .catch((error) => {
         console.error("Error updating order status", error);
@@ -64,6 +64,10 @@ function Order({ order, userType, type }) {
       orderId: order.ID,
       orderstatusid: selectedStatus,
     });
+  };
+
+  const handleRatingChange = (newValue) => {
+    onRatingChange(order.ID, newValue);
   };
 
   return (
@@ -104,7 +108,7 @@ function Order({ order, userType, type }) {
             </div>
           </div>
           {userType !== "Delivery" && type === "rating" && (
-            <Rating uniqueId={order.ID} />
+            <Rating uniqueId={order.ID} onRatingChange={handleRatingChange} />
           )}
           {userType === "Delivery" && type !== "rating" && (
             <div className="mt-auto input-group">

@@ -15,6 +15,10 @@ function Delivery() {
   const [message, setMessage] = useState("");
   const [orders, setOrders] = useState([]);
   const [user, setUser] = useState("");
+  const [orderStatusFilter, setOrderStatusFilter] = useState(null);
+  const [senderAddressFilter, setSenderAddressFilter] = useState("");
+  const [recipientAddressFilter, setRecipientAddressFilter] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:8081/delivery")
@@ -24,7 +28,7 @@ function Delivery() {
         if (res.data.valid) {
           setAuth(true);
           //setOrders(res.data);
-         //setUser(res.data.name);
+          setUser(res.data.name);
         } else {
           setAuth(false);
           navigate("/login");
@@ -33,12 +37,26 @@ function Delivery() {
       })
       .catch((err) => console.log(err));
 
-      axios
-      .get("http://localhost:8081/delivery/orders")
-      .then((res) => {
-        setOrders(res.data)
-      })
+    axios.get("http://localhost:8081/delivery/orders").then((res) => {
+      setOrders(res.data);
+    });
   }, [navigate]);
+
+  const filteredOrders = orders
+    .filter(
+      (order) =>
+        orderStatusFilter === null || order.OrderStatusID === orderStatusFilter
+    )
+    .filter(
+      (order) =>
+        senderAddressFilter === "" ||
+        order.SenderAddress.includes(senderAddressFilter)
+    )
+    .filter(
+      (order) =>
+        recipientAddressFilter === "" ||
+        order.RecipientAddress.includes(recipientAddressFilter)
+    );
 
   return (
     <div className={`${customDelivery.customContainer}`}>
@@ -46,7 +64,9 @@ function Delivery() {
       <div>
         <div className="row mx-auto">
           <div className="col-md-12 text-center mt-5">
-            <div className={`${customMyOrdersDelivery.packageLogoBackground} mx-auto`}>
+            <div
+              className={`${customMyOrdersDelivery.packageLogoBackground} mx-auto`}
+            >
               <div
                 className={`${customDelivery.customTextColorHeader} display-6`}
               >
@@ -55,15 +75,54 @@ function Delivery() {
               <img
                 src={ScooterIcon}
                 className={`${customMyOrdersDelivery.packageLogo}`}
-              >
-              </img>
+              ></img>
             </div>
           </div>
         </div>
-        <div className={`${customMyOrdersDelivery.containerMyPackages} mx-auto w-75`}>
+
+        <div
+          className={`${customMyOrdersDelivery.containerMyPackages} mx-auto w-75`}
+        >
           <div className="row mt-4 justify-content-md-between mx-auto p-0">
-            {orders.length > 0 ? (
-              orders.map((order) => (
+            <div className="row mb-3">
+              <div className="col-md-4">
+                <select
+                  className="form-select"
+                  value={orderStatusFilter === null ? "" : orderStatusFilter}
+                  onChange={(e) =>
+                    setOrderStatusFilter(
+                      e.target.value === "" ? null : parseInt(e.target.value)
+                    )
+                  }
+                >
+                  <option value="">All Statuses</option>
+                  <option value="2">Accepted</option>
+                  <option value="3">On way</option>
+                  <option value="4">To destination</option>
+                </select>
+              </div>
+
+              <div className="col-md-4">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Sender Address"
+                  value={senderAddressFilter}
+                  onChange={(e) => setSenderAddressFilter(e.target.value)}
+                />
+              </div>
+              <div className="col-md-4">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Recipient Address"
+                  value={recipientAddressFilter}
+                  onChange={(e) => setRecipientAddressFilter(e.target.value)}
+                />
+              </div>
+            </div>
+            {filteredOrders.length > 0 ? (
+              filteredOrders.map((order) => (
                 <div key={order.id} className="mx-auto col-lg-3 col-md-6 mb-4">
                   <Order order={order} userType="Delivery" />
                 </div>
@@ -73,7 +132,7 @@ function Delivery() {
                 <h1
                   className={`${customDelivery.customTextColorHeadings} display-6`}
                 >
-                  You don't have any orders.
+                  No matching orders found.
                 </h1>
               </div>
             )}

@@ -69,7 +69,10 @@ function Home() {
     ) {
       try {
         await axios.post("http://localhost:8081/home", values);
-        await axios.post("http://localhost:8081/home/updatewalletclient", values);
+        await axios.post(
+          "http://localhost:8081/home/updatewalletclient",
+          values
+        );
         handleGenerateZPL(); // Dodaj to wywołanie
       } catch (err) {
         console.log(err);
@@ -218,16 +221,23 @@ function Home() {
           <div className={`mt-4 text-center`}>
             <div className={`w-400 rounded `}>
               <button
+                className={`${customHome.customButtonHome} btn btn-lg mb-2`}
                 onClick={() => {
                   setZPLVisible(false);
-                  handleDownloadImage(); // Dodaj to wywołanie
+                  handleDownloadImage(); 
                 }}
-              >Close</button>
+              >
+                <strong>Close & Download</strong>
+              </button>
               <div>
                 <img
                   src={labelImage}
                   alt="Label"
-                  className={`img-fluid border p-2 rounded ${ZPL.customContainer}  `}
+                  className={`img-fluid border p-2 rounded ${ZPL.customContainer}`}
+                  style={{
+                    width: "22%",
+                    height: "22%",
+                  }}
                 />
               </div>
             </div>
@@ -247,7 +257,11 @@ function Home() {
                       className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome1} m-auto mt-5`}
                     />
                   }
-                  description={<span className={`${customHome.customDescriptionHome1}`}>Pack a parcel</span>}
+                  description={
+                    <span className={`${customHome.customDescriptionHome1}`}>
+                      Pack a parcel
+                    </span>
+                  }
                 />
 
                 <HomeIcon
@@ -256,7 +270,11 @@ function Home() {
                       className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome2} m-auto mt-5`}
                     />
                   }
-                  description={<span className={`${customHome.customDescriptionHome2}`}>Complete the data</span>}
+                  description={
+                    <span className={`${customHome.customDescriptionHome2}`}>
+                      Complete the data
+                    </span>
+                  }
                 />
 
                 <HomeIcon
@@ -265,7 +283,11 @@ function Home() {
                       className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome3} m-auto mt-5`}
                     />
                   }
-                  description={<span className={`${customHome.customDescriptionHome3}`}>Pay, print, stick the label</span>}
+                  description={
+                    <span className={`${customHome.customDescriptionHome3}`}>
+                      Pay, print, stick the label
+                    </span>
+                  }
                 />
 
                 <HomeIcon
@@ -274,7 +296,11 @@ function Home() {
                       className={`${customHome.customIcon} ${customHome.customIconHome} ${customHome.customIconHome4} m-auto mt-5`}
                     />
                   }
-                  description={<span className={`${customHome.customDescriptionHome4}`}>Send the parcel</span>}
+                  description={
+                    <span className={`${customHome.customDescriptionHome4}`}>
+                      Send the parcel
+                    </span>
+                  }
                 />
               </div>
               <form
