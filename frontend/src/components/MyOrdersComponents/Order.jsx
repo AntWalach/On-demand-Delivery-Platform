@@ -63,6 +63,7 @@ function Order({ order, userType, type }) {
       orderId: order.ID,
       orderstatusid: selectedStatus,
     });
+    window.location.reload();
   };
 
   return (

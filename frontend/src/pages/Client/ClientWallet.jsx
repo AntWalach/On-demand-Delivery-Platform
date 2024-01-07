@@ -53,6 +53,8 @@ function ClientWallet() {
       .catch((error) => {
         console.error("Error during top-up", error);
       });
+    
+      window.location.reload();
   };
 
   return (

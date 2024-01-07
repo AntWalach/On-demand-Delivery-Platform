@@ -7,7 +7,6 @@ import { BoxArrowInDown } from "react-bootstrap-icons";
 import { PencilSquare } from "react-bootstrap-icons";
 import { Printer } from "react-bootstrap-icons";
 import { SendCheck } from "react-bootstrap-icons";
-import { CaretRight } from "react-bootstrap-icons";
 import axios from "axios";
 import Navbar from "../../components/Layouts/Navbar";
 import PackageOption from "../../components/HomeComponents/PackageOption";
@@ -22,7 +21,6 @@ function Home() {
   axios.defaults.withCredentials = true;
 
   const [values, setValues] = useState({
-    //deliveryOption: "",
     packageOption: "Small",
     InputZipCode1: "",
     InputCity1: "",
@@ -42,42 +40,24 @@ function Home() {
   const [user, setUser] = useState("");
   const [labelImage, setLabelImage] = useState("");
   const [isZPLVisible, setZPLVisible] = useState(false);
+  const [walletBalance, setWalletBalance] = useState(0);
+  const [selectedPackagePrice, setSelectedPackagePrice] = useState(15);
   const navigate = useNavigate();
 
-  const handleInput = (event) => {
+  const handlePackageSelection = (event, price) => {
+    setValues((prev) => ({
+      ...prev,
+      packageOption: event.target.value,
+    }));
+
+    setSelectedPackagePrice(price);
+  };
+
+  const handleFormInput = (event) => {
     setValues((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
     }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const validationErrors = Validation(values);
-    setErrors(validationErrors);
-
-    console.log("Validation Errors:", validationErrors);
-    if (
-      !validationErrors.InputZipCode1 &&
-      !validationErrors.InputZipCode2 &&
-      !validationErrors.InputCity1 &&
-      !validationErrors.InputCity2 &&
-      !validationErrors.InputStreet1 &&
-      !validationErrors.InputStreet2 &&
-      !validationErrors.InputBuildingNumber1 &&
-      !validationErrors.InputBuildingNumber2
-    ) {
-      try {
-        await axios.post("http://localhost:8081/home", values);
-        await axios.post(
-          "http://localhost:8081/home/updatewalletclient",
-          values
-        );
-        handleGenerateZPL(); // Dodaj to wywołanie
-      } catch (err) {
-        console.log(err);
-      }
-    }
   };
 
   useEffect(() => {
@@ -85,9 +65,11 @@ function Home() {
       .get("http://localhost:8081/home")
       .then((res) => {
         console.log("API Response:", res.data);
+        console.log(selectedPackagePrice);
         if (res.data.valid) {
           setAuth(true);
           setUser(res.data.name);
+          setWalletBalance(res.data.Balance);
         } else {
           setAuth(false);
           navigate("/login");
@@ -95,7 +77,41 @@ function Home() {
         }
       })
       .catch((err) => console.log(err));
-  }, [navigate]);
+  }, [navigate, walletBalance, selectedPackagePrice]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const validationErrors = Validation(values);
+    setErrors(validationErrors);
+
+    console.log("Validation Errors:", validationErrors);
+
+    if (Object.values(validationErrors).every((error) => !error)) {
+      try {
+        // Existing code for fetching wallet balance
+        const walletBalanceResponse = await axios.get(
+          "http://localhost:8081/home"
+        );
+        const userWalletBalance = parseFloat(
+          walletBalanceResponse.data.Balance
+        );
+
+        if (userWalletBalance >= selectedPackagePrice) {
+          
+          handleGenerateZPL();
+          await axios.post("http://localhost:8081/home", values);
+          await axios.post(
+            "http://localhost:8081/home/updatewalletclient",
+            values
+          );
+        } else {
+          console.log("Insufficient funds");
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
 
   function convertToZPLString(inputString) {
     const polishCharsMap = {
@@ -130,18 +146,17 @@ function Home() {
       const validationErrors = Validation(values);
 
       if (
-        validationErrors.InputZipCode1 ||
-        validationErrors.InputZipCode2 ||
-        validationErrors.InputCity1 ||
-        validationErrors.InputCity2 ||
-        validationErrors.InputStreet1 ||
-        validationErrors.InputStreet2 ||
-        validationErrors.InputBuildingNumber1 ||
-        validationErrors.InputBuildingNumber2
+        !validationErrors.InputZipCode1 &&
+        !validationErrors.InputZipCode2 &&
+        !validationErrors.InputCity1 &&
+        !validationErrors.InputCity2 &&
+        !validationErrors.InputStreet1 &&
+        !validationErrors.InputStreet2 &&
+        !validationErrors.InputBuildingNumber1 &&
+        !validationErrors.InputBuildingNumber2
       ) {
-        return;
-      }
-      const generatedZPL = `^XA
+        try {
+          const generatedZPL = `^XA
       ^FX Top section with logo, name, and address.
       ^CF0,30
       ^FO50,50^GB700,3,3^FS
@@ -181,28 +196,32 @@ function Home() {
       ^FO470,955^FDCA^FS
       ^XZ`;
 
-      const response = await fetch(
-        "http://api.labelary.com/v1/printers/8dpmm/labels/4x6/0/",
-        {
-          method: "POST",
-          headers: {
-            Accept: "image/png",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: `${generatedZPL}`,
-        }
-      );
+          const response = await fetch(
+            "http://api.labelary.com/v1/printers/8dpmm/labels/4x6/0/",
+            {
+              method: "POST",
+              headers: {
+                Accept: "image/png",
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: `${generatedZPL}`,
+            }
+          );
 
-      if (response.ok) {
-        const imageUrl = URL.createObjectURL(await response.blob());
-        setLabelImage(imageUrl);
-        setZPLVisible(true);
-      } else {
-        const errorMessage = await response.text();
-        console.error("Error generating label:", errorMessage);
+          if (response.ok) {
+            const imageUrl = URL.createObjectURL(await response.blob());
+            setLabelImage(imageUrl);
+            setZPLVisible(true);
+          } else {
+            const errorMessage = await response.text();
+            console.error("Error generating label:", errorMessage);
+          }
+        } catch (error) {
+          console.error("Error generating label:", error);
+        }
       }
-    } catch (error) {
-      console.error("Error generating label:", error);
+    } catch (err) {
+      console.error("Error in handleGenerateZPL:", err);
     }
   };
 
@@ -224,7 +243,7 @@ function Home() {
                 className={`${customHome.customButtonHome} btn btn-lg mb-2`}
                 onClick={() => {
                   setZPLVisible(false);
-                  handleDownloadImage(); 
+                  handleDownloadImage();
                 }}
               >
                 <strong>Close & Download</strong>
@@ -334,7 +353,7 @@ function Home() {
                       weightInfo="up to 10 kg"
                       price="$15"
                       value="Small"
-                      onChange={handleInput}
+                      onChange={(event) => handlePackageSelection(event, 15)}
                     />
                   </div>
 
@@ -352,7 +371,7 @@ function Home() {
                       weightInfo="up to 20 kg"
                       price="$20"
                       value="Medium"
-                      onChange={handleInput}
+                      onChange={(event) => handlePackageSelection(event, 20)}
                     />
                   </div>
 
@@ -370,7 +389,7 @@ function Home() {
                       weightInfo="up to 30 kg"
                       price="$25"
                       value="Large"
-                      onChange={handleInput}
+                      onChange={(event) => handlePackageSelection(event, 25)}
                     />
                   </div>
                 </div>
@@ -401,7 +420,7 @@ function Home() {
                         buildingNumber={values.InputBuildingNumber1}
                         apartmentNumber={values.InputApartmentNumber1}
                         errors={errors}
-                        handleInput={handleInput}
+                        handleInput={handleFormInput}
                       />
 
                       <AddressFormSection
@@ -417,7 +436,7 @@ function Home() {
                         buildingNumber={values.InputBuildingNumber2}
                         apartmentNumber={values.InputApartmentNumber2}
                         errors={errors}
-                        handleInput={handleInput}
+                        handleInput={handleFormInput}
                       />
                     </div>
                   </div>
@@ -429,7 +448,6 @@ function Home() {
                       style={{
                         padding: "8px 70px",
                       }}
-                      onClick={handleGenerateZPL}
                     >
                       <strong>Submit</strong>
                     </button>

@@ -102,18 +102,30 @@ app.get("/delivery", verifyUser, (req, res) => {
   }
 });
 
-app.get("/home", verifyUser, (req, res) => {
+app.get("/home", verifyUser, async (req, res) => {
   if (req.user.Login) {
-    return res.json({
-      valid: true,
-      Login: req.user.Login,
-      ID: req.user.ID.toString(),
-      FirstName: req.user.FirstName,
-      LastName: req.user.LastName,
-      PhoneNumber: req.user.PhoneNumber,
-      Email: req.user.Email,
-      Password: req.user.Password,
-    });
+    try {
+      // Fetch the wallet information based on the ClientID
+      const walletQuery = await db
+        .promise()
+        .query("SELECT Balance FROM Wallet WHERE ClientID = ?", [req.user.ID]);
+      const walletInfo = walletQuery[0][0];
+
+      return res.json({
+        valid: true,
+        Login: req.user.Login,
+        ID: req.user.ID.toString(),
+        FirstName: req.user.FirstName,
+        LastName: req.user.LastName,
+        PhoneNumber: req.user.PhoneNumber,
+        Email: req.user.Email,
+        Password: req.user.Password,
+        Balance: walletInfo ? walletInfo.Balance : 0,
+      });
+    } catch (error) {
+      console.error("Error fetching wallet information:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
   } else {
     return res.json({ valid: false });
   }
@@ -1088,9 +1100,7 @@ app.put("/:end/update", verifyUser, async (req, res) => {
       updateData.Password = await bcrypt.hash(updateData.Password, saltRounds);
     }
 
-    await db
-      .promise()
-      .query(updateEntityQuery, [updateData, userId]);
+    await db.promise().query(updateEntityQuery, [updateData, userId]);
 
     return res
       .status(200)

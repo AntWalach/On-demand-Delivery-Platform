@@ -55,6 +55,8 @@ function DeliveryWallet() {
         console.error("Withdrawal error:", err);
         setMessage("Withdrawal error");
       });
+    
+      window.location.reload();
   };
 
   return (
