@@ -24,7 +24,7 @@ function NavbarDelivery() {
         console.log("NavbarD API Response:", res.data);
         console.log(res.data.valid)
         if (res.data.valid) {
-          setUser(res.data.username);
+          setUser(res.data.Login);
         } else {
           console.log("Error");
         }

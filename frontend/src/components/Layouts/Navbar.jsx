@@ -22,7 +22,7 @@ function Navbar() {
       .get("http://localhost:8081/home")
       .then((res) => {
         if (res.data.valid) {
-          setUser(res.data.username);
+          setUser(res.data.Login);
         } else {
           console.log("Error");
         }

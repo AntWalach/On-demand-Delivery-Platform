@@ -6,8 +6,8 @@ import customLogin from "../assets/css/Login.module.css";
 
 function Login() {
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    Email: "",
+    Password: "",
     userType: "Client",
   });
 
@@ -51,7 +51,7 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(Validation(values));
-    if (errors.email === "" && errors.password === "") {
+    if (errors.Email === "" && errors.Password === "") {
       axios
         .post("http://localhost:8081/login", values)
         .then((res) => {
@@ -133,34 +133,34 @@ function Login() {
           </div>
           <form action="" onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="email">
+              <label htmlFor="Email">
                 <strong>Email</strong>
               </label>
               <input
-                type="email"
+                type="Email"
                 placeholder="Enter Email"
-                name="email"
+                name="Email"
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.email && (
-                <span className="text-danger">{errors.email}</span>
+              {errors.Email && (
+                <span className="text-danger">{errors.Email}</span>
               )}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="password">
+              <label htmlFor="Password">
                 <strong>Password</strong>
               </label>
               <input
-                type="password"
+                type="Password"
                 placeholder="Enter Password"
-                name="password"
+                name="Password"
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.password && (
-                <span className="text-danger">{errors.password}</span>
+              {errors.Password && (
+                <span className="text-danger">{errors.Password}</span>
               )}
             </div>
 

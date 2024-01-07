@@ -8,7 +8,7 @@ const BasicRating = ({ uniqueId }) => {
   const storedIsDisabled = localStorage.getItem(`isDisabled_${uniqueId}`);
 
   const [value, setValue] = React.useState(
-    storedValue ? JSON.parse(storedValue) : 2
+    storedValue ? JSON.parse(storedValue) : 0
   );
   const [isDisabled, setIsDisabled] = React.useState(
     storedIsDisabled ? JSON.parse(storedIsDisabled) : false

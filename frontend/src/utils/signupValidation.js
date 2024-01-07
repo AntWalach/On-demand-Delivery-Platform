@@ -5,46 +5,46 @@ function Validation(values) {
   const PHONE_NUMBER_PATTERN =
     /^(\+\d{1,3}[-.\s]?)?(\d{3,4}[-.\s]?)?\d{3,4}[-.\s]?\d{4}$/;
 
-  if (values.username === "") {
-    error.username = "Username should not be empty.";
+  if (values.Login === "") {
+    error.Login = "Username should not be empty.";
   } else {
-    error.username = "";
+    error.Login = "";
   }
 
-  if (values.fName === "") {
-    error.fName = "First Name should not be empty.";
+  if (values.FirstName === "") {
+    error.FirstName = "First Name should not be empty.";
   } else {
-    error.fName = "";
+    error.FirstName = "";
   }
 
-  if (values.lName === "") {
-    error.lName = "Last Name should not be empty.";
+  if (values.LastName === "") {
+    error.LastName = "Last Name should not be empty.";
   } else {
-    error.lName = "";
+    error.LastName = "";
   }
 
-  if (values.phoneNumber === "") {
-    error.phoneNumber = "Phone number should not be empty";
-  } else if (!PHONE_NUMBER_PATTERN.test(values.phoneNumber)) {
-    error.phoneNumber = "Phone Number didn't match.";
+  if (values.PhoneNumber === "") {
+    error.PhoneNumber = "Phone number should not be empty";
+  } else if (!PHONE_NUMBER_PATTERN.test(values.PhoneNumber)) {
+    error.PhoneNumber = "Phone Number didn't match.";
   } else {
-    error.phoneNumber = "";
+    error.PhoneNumber = "";
   }
 
-  if (values.email === "") {
-    error.email = "Email should not be empty.";
-  } else if (!EMAIL_PATTERN.test(values.email)) {
-    error.email = "Email didn't match.";
+  if (values.Email === "") {
+    error.Email = "Email should not be empty.";
+  } else if (!EMAIL_PATTERN.test(values.Email)) {
+    error.Email = "Email didn't match.";
   } else {
-    error.email = "";
+    error.Email = "";
   }
 
-  if (values.password === "") {
-    error.password = "Password should not be empty.";
-  } else if (!PASSWORD_PATTERN.test(values.password)) {
-    error.password = "Password didn't match.";
+  if (values.Password === "") {
+    error.Password = "Password should not be empty.";
+  } else if (!PASSWORD_PATTERN.test(values.Password)) {
+    error.Password = "Password didn't match.";
   } else {
-    error.password = "";
+    error.Password = "";
   }
 
   return error;

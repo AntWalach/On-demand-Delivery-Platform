@@ -31,13 +31,6 @@ app.use(
   })
 );
 
-// const db = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "1234",
-//   database: "deliveryappdb",
-// });
-
 const db = mysql.createPool({
   host: "sql.freedb.tech",
   user: "freedb_baanma",
@@ -64,23 +57,6 @@ const retryConnection = () => {
 };
 
 retryConnection();
-
-// const verifyUser = (req, res, next) => {
-//   const token = req.cookies.token;
-//   if (!token) {
-//     return res.json({ Error: "You are not authenticated" });
-//   } else {
-//     jwt.verify(token, "jwt-secret-key", (err, decoded) => {
-//       if (err) {
-//         return res.json({ Error: "Token is not okay" });
-//       } else {
-//         req.user = decoded;
-//         console.log("User - " + req.user.userType);
-//         next();
-//       }
-//     });
-//   }
-// };
 
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
@@ -110,15 +86,16 @@ const verifyUser = (req, res, next) => {
 };
 
 app.get("/delivery", verifyUser, (req, res) => {
-  if (req.user.username) {
+  if (req.user.Login) {
     return res.json({
       valid: true,
-      username: req.user.username,
-      id: req.user.id.toString(),
-      fName: req.user.fName,
-      lName: req.user.lName,
-      phoneNumber: req.user.phoneNumber,
-      email: req.user.email,
+      Login: req.user.Login,
+      ID: req.user.ID.toString(),
+      FirstName: req.user.FirstName,
+      LastName: req.user.LastName,
+      PhoneNumber: req.user.PhoneNumber,
+      Email: req.user.Email,
+      Password: req.user.Password,
     });
   } else {
     return res.json({ valid: false });
@@ -126,29 +103,30 @@ app.get("/delivery", verifyUser, (req, res) => {
 });
 
 app.get("/home", verifyUser, (req, res) => {
-  if (req.user.username) {
+  if (req.user.Login) {
     return res.json({
       valid: true,
-      username: req.user.username,
-      id: req.user.id.toString(),
-      fName: req.user.fName,
-      lName: req.user.lName,
-      phoneNumber: req.user.phoneNumber,
-      email: req.user.email,
+      Login: req.user.Login,
+      ID: req.user.ID.toString(),
+      FirstName: req.user.FirstName,
+      LastName: req.user.LastName,
+      PhoneNumber: req.user.PhoneNumber,
+      Email: req.user.Email,
+      Password: req.user.Password,
     });
   } else {
     return res.json({ valid: false });
   }
 });
 app.post("/signup", (req, res) => {
-  bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
+  bcrypt.hash(req.body.Password.toString(), salt, (err, hash) => {
     if (err) return res.json({ Error: "Error for hashing password" });
     const values = [
-      req.body.username,
-      req.body.fName,
-      req.body.lName,
-      req.body.phoneNumber,
-      req.body.email,
+      req.body.Login,
+      req.body.FirstName,
+      req.body.LastName,
+      req.body.PhoneNumber,
+      req.body.Email,
       hash,
     ];
 
@@ -216,7 +194,7 @@ app.post("/signup", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const { userType, email, password } = req.body;
+  const { userType, Email, Password } = req.body;
 
   let query, table;
 
@@ -230,7 +208,7 @@ app.post("/login", (req, res) => {
     return res.json({ login: false, message: "Invalid user type" });
   }
 
-  const values = [email];
+  const values = [Email];
 
   db.query(query, values, (err, data) => {
     if (err) {
@@ -239,26 +217,34 @@ app.post("/login", (req, res) => {
     }
 
     if (data.length > 0) {
-      bcrypt.compare(password.toString(), data[0].Password, (err, response) => {
+      bcrypt.compare(Password.toString(), data[0].Password, (err, response) => {
         if (err) {
           console.error(err);
           return res.status(500).json({ Error: "Internal Server Error" });
         }
 
         if (response) {
-          const { Login, ID, FirstName, LastName, Email, PhoneNumber } =
-            data[0];
+          const {
+            Login,
+            ID,
+            FirstName,
+            LastName,
+            Email,
+            PhoneNumber,
+            Password,
+          } = data[0];
           const userType = table;
 
           const token = jwt.sign(
             {
-              username: Login,
-              id: ID,
-              fName: FirstName,
-              lName: LastName,
-              email: Email,
-              phoneNumber: PhoneNumber,
+              Login: Login,
+              ID: ID,
+              FirstName: FirstName,
+              LastName: LastName,
+              Email: Email,
+              PhoneNumber: PhoneNumber,
               userType: userType,
+              Password: Password,
             },
             "jwt-secret-key",
             { expiresIn: "1d" }
@@ -268,13 +254,14 @@ app.post("/login", (req, res) => {
 
           return res.json({
             login: true,
-            username: Login,
-            id: ID,
+            Login: Login,
+            ID: ID,
             userType: userType,
-            fName: FirstName,
-            lName: LastName,
-            email: Email,
-            phoneNumber: PhoneNumber,
+            FirstName: FirstName,
+            LastName: LastName,
+            Email: Email,
+            PhoneNumber: PhoneNumber,
+            Password: Password,
           });
         } else {
           return res.json({ login: false, message: "Password not matched" });
@@ -292,7 +279,7 @@ app.get("/logout", (req, res) => {
 });
 
 app.post("/home", verifyUser, (req, res) => {
-  const clientId = req.user.id;
+  const clientId = req.user.ID;
   let date = new Date();
   console.log(clientId.toString());
 
@@ -328,7 +315,7 @@ app.post("/home", verifyUser, (req, res) => {
 });
 
 app.get("/home/myorders", verifyUser, (req, res) => {
-  const clientId = req.user.id;
+  const clientId = req.user.ID;
 
   const q =
     "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `ClientID` = ? AND Order.OrderStatusID != 5";
@@ -343,7 +330,7 @@ app.get("/home/myorders", verifyUser, (req, res) => {
 });
 
 app.get("/delivery/orders", verifyUser, (req, res) => {
-  const deliveryId = req.user.id;
+  const deliveryId = req.user.ID;
 
   const q =
     "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ? AND Order.OrderStatusID != 5";
@@ -358,7 +345,7 @@ app.get("/delivery/orders", verifyUser, (req, res) => {
 });
 
 app.get("/delivery/neworders", verifyUser, (req, res) => {
-  const deliveryId = req.user.id;
+  const deliveryId = req.user.ID;
 
   const q = "SELECT * FROM `Order` WHERE `DeliveryID` IS NULL";
 
@@ -374,7 +361,7 @@ app.get("/delivery/neworders", verifyUser, (req, res) => {
 app.put("/delivery/neworders/:orderId", verifyUser, async (req, res) => {
   const { orderId } = req.params;
   console.log("Received orderId:", orderId);
-  const deliveryId = req.user.id;
+  const deliveryId = req.user.ID;
   console.log("DELIVERY", deliveryId);
 
   try {
@@ -399,235 +386,235 @@ app.put("/delivery/neworders/:orderId", verifyUser, async (req, res) => {
   }
 });
 
-app.put("/:entityType/updateUsername", verifyUser, async (req, res) => {
-  const { username } = req.body;
-  const userId = req.user.id;
-  const userType = req.user.userType;
+// app.put("/:end/updateUsername", verifyUser, async (req, res) => {
+//   const { username } = req.body;
+//   const userId = req.user.ID;
+//   const userType = req.user.userType;
 
-  try {
-    let updateQuery;
-    if (userType === "Client") {
-      updateQuery = "UPDATE `Client` SET `Login` = ? WHERE `ID` = ?";
-    } else if (userType === "Delivery") {
-      updateQuery = "UPDATE `Delivery` SET `Login` = ? WHERE `ID` = ?";
-    } else {
-      return res.status(400).json({ error: "Invalid user type" });
-    }
+//   try {
+//     let updateQuery;
+//     if (userType === "Client") {
+//       updateQuery = "UPDATE `Client` SET `Login` = ? WHERE `ID` = ?";
+//     } else if (userType === "Delivery") {
+//       updateQuery = "UPDATE `Delivery` SET `Login` = ? WHERE `ID` = ?";
+//     } else {
+//       return res.status(400).json({ error: "Invalid user type" });
+//     }
 
-    await db.promise().query(updateQuery, [username, userId]);
+//     await db.promise().query(updateQuery, [username, userId]);
 
-    return res.status(200).json({ message: "Username updated successfully" });
-  } catch (error) {
-    console.error("Error updating username:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+//     return res.status(200).json({ message: "Username updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating username:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
-app.put("/:entityType/updateLastName", verifyUser, async (req, res) => {
-  const { lName } = req.body;
-  const userId = req.user.id;
-  const userType = req.user.userType;
+// app.put("/:end/updateLastName", verifyUser, async (req, res) => {
+//   const { LastName } = req.body;
+//   const userId = req.user.ID;
+//   const userType = req.user.userType;
 
-  try {
-    let updateQuery;
-    if (userType === "Client") {
-      updateQuery = "UPDATE `Client` SET `LastName` = ? WHERE `ID` = ?";
-    } else if (userType === "Delivery") {
-      updateQuery = "UPDATE `Delivery` SET `LastName` = ? WHERE `ID` = ?";
-    } else {
-      return res.status(400).json({ error: "Invalid user type" });
-    }
+//   try {
+//     let updateQuery;
+//     if (userType === "Client") {
+//       updateQuery = "UPDATE `Client` SET `LastName` = ? WHERE `ID` = ?";
+//     } else if (userType === "Delivery") {
+//       updateQuery = "UPDATE `Delivery` SET `LastName` = ? WHERE `ID` = ?";
+//     } else {
+//       return res.status(400).json({ error: "Invalid user type" });
+//     }
 
-    await db.promise().query(updateQuery, [lName, userId]);
+//     await db.promise().query(updateQuery, [LastName, userId]);
 
-    return res.status(200).json({ message: "Last name updated successfully" });
-  } catch (error) {
-    console.error("Error updating last name:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+//     return res.status(200).json({ message: "Last name updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating last name:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
-app.put("/:entityType/updateFirstName", verifyUser, async (req, res) => {
-  const { fName } = req.body;
-  const userId = req.user.id;
-  const userType = req.user.userType;
+// app.put("/:end/updateFirstName", verifyUser, async (req, res) => {
+//   const { FirstName } = req.body;
+//   const userId = req.user.ID;
+//   const userType = req.user.userType;
 
-  try {
-    let updateQuery;
-    if (userType === "Client") {
-      updateQuery = "UPDATE `Client` SET `FirstName` = ? WHERE `ID` = ?";
-    } else if (userType === "Delivery") {
-      updateQuery = "UPDATE `Delivery` SET `FirstName` = ? WHERE `ID` = ?";
-    } else {
-      return res.status(400).json({ error: "Invalid user type" });
-    }
+//   try {
+//     let updateQuery;
+//     if (userType === "Client") {
+//       updateQuery = "UPDATE `Client` SET `FirstName` = ? WHERE `ID` = ?";
+//     } else if (userType === "Delivery") {
+//       updateQuery = "UPDATE `Delivery` SET `FirstName` = ? WHERE `ID` = ?";
+//     } else {
+//       return res.status(400).json({ error: "Invalid user type" });
+//     }
 
-    await db.promise().query(updateQuery, [fName, userId]);
+//     await db.promise().query(updateQuery, [FirstName, userId]);
 
-    return res.status(200).json({ message: "First name updated successfully" });
-  } catch (error) {
-    console.error("Error updating first name:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+//     return res.status(200).json({ message: "First name updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating first name:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
-app.put("/:entityType/updatePhoneNumber", verifyUser, async (req, res) => {
-  const { phoneNumber } = req.body;
-  const userId = req.user.id;
-  const userType = req.user.userType;
+// app.put("/:end/updatePhoneNumber", verifyUser, async (req, res) => {
+//   const { PhoneNumber } = req.body;
+//   const userId = req.user.ID;
+//   const userType = req.user.userType;
 
-  try {
-    const checkQuery = "SELECT * FROM ?? WHERE ?? = ?";
-    const [existingUser] = await db
-      .promise()
-      .query(checkQuery, [userType, "PhoneNumber", phoneNumber]);
+//   try {
+//     const checkQuery = "SELECT * FROM ?? WHERE ?? = ?";
+//     const [existingUser] = await db
+//       .promise()
+//       .query(checkQuery, [userType, "PhoneNumber", PhoneNumber]);
 
-    if (existingUser && existingUser.length > 0) {
-      const existingPhoneNumber = existingUser[0].PhoneNumber;
-      if (existingPhoneNumber === phoneNumber) {
-        return res
-          .status(200)
-          .json({ message: "Phone number is already up to date" });
-      }
+//     if (existingUser && existingUser.length > 0) {
+//       const existingPhoneNumber = existingUser[0].PhoneNumber;
+//       if (existingPhoneNumber === PhoneNumber) {
+//         return res
+//           .status(200)
+//           .json({ message: "Phone number is already up to date" });
+//       }
 
-      return res
-        .status(400)
-        .json({ error: "Numer telefonu już istnieje w bazie danych" });
-    }
+//       return res
+//         .status(400)
+//         .json({ error: "Numer telefonu już istnieje w bazie danych" });
+//     }
 
-    let updateQuery;
-    if (userType === "Client") {
-      updateQuery = "UPDATE `Client` SET `PhoneNumber` = ? WHERE `ID` = ?";
-    } else if (userType === "Delivery") {
-      updateQuery = "UPDATE `Delivery` SET `PhoneNumber` = ? WHERE `ID` = ?";
-    } else {
-      return res.status(400).json({ error: "Invalid user type" });
-    }
+//     let updateQuery;
+//     if (userType === "Client") {
+//       updateQuery = "UPDATE `Client` SET `PhoneNumber` = ? WHERE `ID` = ?";
+//     } else if (userType === "Delivery") {
+//       updateQuery = "UPDATE `Delivery` SET `PhoneNumber` = ? WHERE `ID` = ?";
+//     } else {
+//       return res.status(400).json({ error: "Invalid user type" });
+//     }
 
-    await db.promise().query(updateQuery, [phoneNumber, userId]);
+//     await db.promise().query(updateQuery, [PhoneNumber, userId]);
 
-    return res
-      .status(200)
-      .json({ message: "Phone number updated successfully" });
-  } catch (error) {
-    console.error("Error updating phone number:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+//     return res
+//       .status(200)
+//       .json({ message: "Phone number updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating phone number:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
-app.put("/:entityType/updateEmail", verifyUser, async (req, res) => {
-  const { email } = req.body;
-  const userId = req.user.id;
-  const userType = req.user.userType;
+// app.put("/:end/updateEmail", verifyUser, async (req, res) => {
+//   const { Email } = req.body;
+//   const userId = req.user.ID;
+//   const userType = req.user.userType;
 
-  try {
-    let getPasswordQuery;
-    if (userType === "Client") {
-      getPasswordQuery = "SELECT * FROM `Client` WHERE `Email` = ?";
-    } else if (userType === "Delivery") {
-      getPasswordQuery = "SELECT * FROM `Delivery` WHERE `Email` = ?";
-    } else {
-      return res.status(400).json({ error: "Invalid user type" });
-    }
+//   try {
+//     let getPasswordQuery;
+//     if (userType === "Client") {
+//       getPasswordQuery = "SELECT * FROM `Client` WHERE `Email` = ?";
+//     } else if (userType === "Delivery") {
+//       getPasswordQuery = "SELECT * FROM `Delivery` WHERE `Email` = ?";
+//     } else {
+//       return res.status(400).json({ error: "Invalid user type" });
+//     }
 
-    const [existingUser] = await db.promise().query(getPasswordQuery, [email]);
+//     const [existingUser] = await db.promise().query(getPasswordQuery, [Email]);
 
-    if (
-      existingUser &&
-      existingUser.length > 0 &&
-      existingUser[0].ID === userId
-    ) {
-      const existingEmail = existingUser[0].Email;
-      if (existingEmail === email) {
-        return res.status(400).json({
-          error: "Nowy adres e-mail jest identyczny z aktualnym adresem e-mail",
-        });
-      }
-    }
+//     if (
+//       existingUser &&
+//       existingUser.length > 0 &&
+//       existingUser[0].ID === userId
+//     ) {
+//       const existingEmail = existingUser[0].Email;
+//       if (existingEmail === Email) {
+//         return res.status(400).json({
+//           error: "Nowy adres e-mail jest identyczny z aktualnym adresem e-mail",
+//         });
+//       }
+//     }
 
-    let updateQuery;
-    if (userType === "Client") {
-      updateQuery = "UPDATE `Client` SET `Email` = ? WHERE `ID` = ?";
-    } else if (userType === "Delivery") {
-      updateQuery = "UPDATE `Delivery` SET `Email` = ? WHERE `ID` = ?";
-    } else {
-      return res.status(400).json({ error: "Invalid user type" });
-    }
+//     let updateQuery;
+//     if (userType === "Client") {
+//       updateQuery = "UPDATE `Client` SET `Email` = ? WHERE `ID` = ?";
+//     } else if (userType === "Delivery") {
+//       updateQuery = "UPDATE `Delivery` SET `Email` = ? WHERE `ID` = ?";
+//     } else {
+//       return res.status(400).json({ error: "Invalid user type" });
+//     }
 
-    await db.promise().query(updateQuery, [email, userId]);
+//     await db.promise().query(updateQuery, [Email, userId]);
 
-    return res.status(200).json({ message: "Email updated successfully" });
-  } catch (error) {
-    console.error("Error updating email:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+//     return res.status(200).json({ message: "Email updated successfully" });
+//   } catch (error) {
+//     console.error("Error updating email:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
-app.put("/:entityType/updatePassword", verifyUser, async (req, res) => {
-  const { oldPassword, newPassword } = req.body;
-  const userId = req.user.id;
-  const userType = req.user.userType;
+// app.put("/:end/updatePassword", verifyUser, async (req, res) => {
+//   const { oldPassword, newPassword } = req.body;
+//   const userId = req.user.ID;
+//   const userType = req.user.userType;
 
-  try {
-    let getPasswordQuery;
-    if (userType === "Client") {
-      getPasswordQuery = "SELECT `Password` FROM `Client` WHERE `ID` = ?";
-    } else if (userType === "Delivery") {
-      getPasswordQuery = "SELECT `Password` FROM `Delivery` WHERE `ID` = ?";
-    } else {
-      return res.status(400).json({ error: "Invalid user type" });
-    }
+//   try {
+//     let getPasswordQuery;
+//     if (userType === "Client") {
+//       getPasswordQuery = "SELECT `Password` FROM `Client` WHERE `ID` = ?";
+//     } else if (userType === "Delivery") {
+//       getPasswordQuery = "SELECT `Password` FROM `Delivery` WHERE `ID` = ?";
+//     } else {
+//       return res.status(400).json({ error: "Invalid user type" });
+//     }
 
-    const [result] = await db.promise().query(getPasswordQuery, [userId]);
+//     const [result] = await db.promise().query(getPasswordQuery, [userId]);
 
-    if (result.length === 0) {
-      return res.status(404).json({ error: "User not found" });
-    }
+//     if (result.length === 0) {
+//       return res.status(404).json({ error: "User not found" });
+//     }
 
-    const oldHashedPassword = result[0].Password;
+//     const oldHashedPassword = result[0].Password;
 
-    bcrypt.compare(
-      oldPassword.toString(),
-      oldHashedPassword,
-      async (err, response) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).json({ error: "Internal Server Error" });
-        }
+//     bcrypt.compare(
+//       oldPassword.toString(),
+//       oldHashedPassword,
+//       async (err, response) => {
+//         if (err) {
+//           console.error(err);
+//           return res.status(500).json({ error: "Internal Server Error" });
+//         }
 
-        if (response) {
-          const newHashedPassword = await bcrypt.hash(
-            newPassword.toString(),
-            salt
-          );
+//         if (response) {
+//           const newHashedPassword = await bcrypt.hash(
+//             newPassword.toString(),
+//             salt
+//           );
 
-          let updatePasswordQuery;
-          if (userType === "Client") {
-            updatePasswordQuery =
-              "UPDATE `Client` SET `Password` = ? WHERE `ID` = ?";
-          } else if (userType === "Delivery") {
-            updatePasswordQuery =
-              "UPDATE `Delivery` SET `Password` = ? WHERE `ID` = ?";
-          } else {
-            return res.status(400).json({ error: "Invalid user type" });
-          }
+//           let updatePasswordQuery;
+//           if (userType === "Client") {
+//             updatePasswordQuery =
+//               "UPDATE `Client` SET `Password` = ? WHERE `ID` = ?";
+//           } else if (userType === "Delivery") {
+//             updatePasswordQuery =
+//               "UPDATE `Delivery` SET `Password` = ? WHERE `ID` = ?";
+//           } else {
+//             return res.status(400).json({ error: "Invalid user type" });
+//           }
 
-          await db
-            .promise()
-            .query(updatePasswordQuery, [newHashedPassword, userId]);
-          return res
-            .status(200)
-            .json({ message: "Password updated successfully" });
-        } else {
-          return res.status(401).json({ error: "Incorrect old password" });
-        }
-      }
-    );
-  } catch (error) {
-    console.error("Error updating password:", error);
-    return res.status(500).json({ error: "Internal server error" });
-  }
-});
+//           await db
+//             .promise()
+//             .query(updatePasswordQuery, [newHashedPassword, userId]);
+//           return res
+//             .status(200)
+//             .json({ message: "Password updated successfully" });
+//         } else {
+//           return res.status(401).json({ error: "Incorrect old password" });
+//         }
+//       }
+//     );
+//   } catch (error) {
+//     console.error("Error updating password:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 
 app.get("/admin/client", async (req, res) => {
   try {
@@ -820,7 +807,7 @@ app.put("/delivery", verifyUser, async (req, res) => {
 });
 
 app.get("/home/history", verifyUser, (req, res) => {
-  const clientId = req.user.id;
+  const clientId = req.user.ID;
 
   const q =
     "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `ClientID` = ? AND Order.OrderStatusID = 5";
@@ -835,7 +822,7 @@ app.get("/home/history", verifyUser, (req, res) => {
 });
 
 app.get("/delivery/historyd", verifyUser, (req, res) => {
-  const deliveryId = req.user.id;
+  const deliveryId = req.user.ID;
 
   const q =
     "SELECT `Order`.*, OrderStatus.status FROM `Order` LEFT JOIN OrderStatus ON Order.OrderStatusID=OrderStatus.ID WHERE `DeliveryID` = ? AND Order.OrderStatusID = 5";
@@ -851,7 +838,7 @@ app.get("/delivery/historyd", verifyUser, (req, res) => {
 
 app.post("/home/topup", verifyUser, (req, res) => {
   const { amount } = req.body;
-  const clientId = req.user.id;
+  const clientId = req.user.ID;
   //sprawdzenie czy amount jest liczbą dodatnia
   if (isNaN(amount) || amount <= 0) {
     return res.status(400).json({ error: "Invalid top-up amount" });
@@ -872,7 +859,7 @@ app.post("/home/topup", verifyUser, (req, res) => {
 });
 
 app.get("/home/walletBalance", verifyUser, (req, res) => {
-  const clientId = req.user.id;
+  const clientId = req.user.ID;
 
   const selectQuery = "SELECT Balance FROM Wallet WHERE ClientID = ?";
 
@@ -892,7 +879,7 @@ app.get("/home/walletBalance", verifyUser, (req, res) => {
 });
 
 app.get("/delivery/wallet", verifyUser, (req, res) => {
-  const deliveryId = req.user.id;
+  const deliveryId = req.user.ID;
 
   const selectQuery = "SELECT Balance FROM DeliveryWallet WHERE DeliveryID = ?";
 
@@ -912,7 +899,7 @@ app.get("/delivery/wallet", verifyUser, (req, res) => {
 });
 
 app.post("/delivery/withdraw", verifyUser, (req, res) => {
-  const deliveryId = req.user.id;
+  const deliveryId = req.user.ID;
 
   const updateQuery =
     "UPDATE DeliveryWallet SET Balance = 0 WHERE DeliveryID = ?";
@@ -929,7 +916,7 @@ app.post("/delivery/withdraw", verifyUser, (req, res) => {
 });
 
 app.post("/home/updatewalletclient", verifyUser, async (req, res) => {
-  const clientId = req.user.id;
+  const clientId = req.user.ID;
 
   const packageName = req.body.packageOption;
 
@@ -977,7 +964,7 @@ app.post("/home/updatewalletclient", verifyUser, async (req, res) => {
 });
 
 app.put("/delivery/updatewalletdelivery", verifyUser, async (req, res) => {
-  const deliveryID = req.user.id;
+  const deliveryID = req.user.ID;
   const { orderId } = req.body;
   const { orderstatusid } = req.body;
 
@@ -1043,6 +1030,73 @@ app.post("/home/rateOrder", verifyUser, async (req, res) => {
     return res.status(200).json({ message: "Order rated successfully" });
   } catch (error) {
     console.error("Error rating order:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.post("/:end/verify-password", verifyUser, async (req, res) => {
+  try {
+    const userId = req.user.ID;
+    const { OldPassword } = req.body;
+    console.log(userId);
+
+    const getUserQuery = "SELECT Password FROM Client WHERE ID = ?";
+    const [userData] = await db.promise().query(getUserQuery, userId);
+    console.log("Baza: " + userData[0].Password);
+    console.log("OLD: " + OldPassword);
+
+    const isOldPasswordCorrect = await bcrypt.compare(
+      OldPassword,
+      userData[0].Password
+    );
+
+    return res.status(200).json({ valid: isOldPasswordCorrect });
+  } catch (error) {
+    console.error("Error verifying old password:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.put("/:end/update", verifyUser, async (req, res) => {
+  const userId = req.user.ID;
+  const { end } = req.params;
+  const updatedEntityData = req.body;
+  let entityType = "";
+
+  if (end === "home") {
+    entityType = "Client";
+  } else {
+    entityType = "Delivery";
+  }
+  console.log(updatedEntityData);
+  try {
+    // Check if the entity exists
+    const checkEntityQuery = `SELECT * FROM ${entityType} WHERE ID = ?`;
+    const [existingEntity] = await db.promise().query(checkEntityQuery, userId);
+
+    if (!existingEntity || existingEntity.length === 0) {
+      return res.status(404).json({ error: `${entityType} not found` });
+    }
+
+    // Update the entity data
+    const updateEntityQuery = `UPDATE ${entityType} SET ? WHERE ID = ?`;
+    let updateData = { ...updatedEntityData };
+
+    // Hash the new password before updating, only if provided
+    if (updateData.Password) {
+      const saltRounds = 10;
+      updateData.Password = await bcrypt.hash(updateData.Password, saltRounds);
+    }
+
+    await db
+      .promise()
+      .query(updateEntityQuery, [updateData, userId]);
+
+    return res
+      .status(200)
+      .json({ message: `${entityType} data updated successfully` });
+  } catch (error) {
+    console.error(`Error updating ${entityType} data:`, error);
     return res.status(500).json({ error: "Internal server error" });
   }
 });

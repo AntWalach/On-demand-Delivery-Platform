@@ -76,17 +76,17 @@ function ClientWallet() {
       <div className="row my-5 mx-auto"></div>
 
       <div className="row mt-5 mx-auto">
-        <div class="input-group" style={{ width: "30%", margin: "0 auto" }}>
-          <span class="input-group-text">Top up your wallet</span>
-          <div class="form-floating">
+        <div className="input-group" style={{ width: "30%", margin: "0 auto" }}>
+          <span className="input-group-text">Top up your wallet</span>
+          <div className="form-floating">
             <input
               type="float"
-              class="form-control"
+              className="form-control"
               id="floatingInputGroup1"
               placeholder="Username"
               onChange={(e) => setTopUpAmount(e.target.value)}
             />
-            <label for="floatingInputGroup1">Enter value</label>
+            <label htmlFor="floatingInputGroup1">Enter value</label>
           </div>
         </div>
 

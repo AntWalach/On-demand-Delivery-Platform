@@ -8,12 +8,12 @@ import customLogin from "../assets/css/Login.module.css";
 
 function Signup() {
   const [values, setValues] = useState({
-    username: "",
-    fName: "",
-    lName: "",
-    phoneNumber: "",
-    email: "",
-    password: "",
+    Login: "",
+    FirstName: "",
+    LastName: "",
+    PhoneNumber: "",
+    Email: "",
+    Password: "",
     userType: "",
   });
 
@@ -32,12 +32,12 @@ function Signup() {
     event.preventDefault();
     setErrors(Validation(values));
     if (
-      errors.username === "" &&
-      errors.fName === "" &&
-      errors.lName === "" &&
-      errors.phoneNumber === "" &&
-      errors.email === "" &&
-      errors.password === ""
+      errors.Login === "" &&
+      errors.FirstName === "" &&
+      errors.LastName === "" &&
+      errors.PhoneNumber === "" &&
+      errors.Email === "" &&
+      errors.Password === ""
     ) {
       axios
         .post("http://localhost:8081/signup", values)
@@ -60,107 +60,107 @@ function Signup() {
           <h2>Sign Up</h2>
           <form action="" onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="username">
+              <label htmlFor="Login">
                 <strong>Username</strong>
               </label>
               <input
                 type="text"
                 placeholder="Enter Username"
-                name="username"
+                name="Login"
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.username && (
-                <span className="text-danger">{errors.username}</span>
+              {errors.Login && (
+                <span className="text-danger">{errors.Login}</span>
               )}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="fName">
+              <label htmlFor="FirstName">
                 <strong>First Name</strong>
               </label>
               <input
                 type="text"
                 placeholder="Enter First Name"
-                name="fName"
+                name="FirstName"
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.fName && (
-                <span className="text-danger">{errors.fName}</span>
+              {errors.FirstName && (
+                <span className="text-danger">{errors.FirstName}</span>
               )}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="lName">
+              <label htmlFor="LastName">
                 <strong>Last Name</strong>
               </label>
               <input
                 type="text"
                 placeholder="Enter Last Name"
-                name="lName"
+                name="LastName"
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.lName && (
-                <span className="text-danger">{errors.lName}</span>
+              {errors.LastName && (
+                <span className="text-danger">{errors.LastName}</span>
               )}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="phoneNumber">
+              <label htmlFor="PhoneNumber">
                 <strong>Phone Number</strong>
               </label>
               <PhoneInput
                 //https://gitlab.com/catamphetamine/react-phone-number-input
                 type="text"
                 placeholder="Enter Phone Number"
-                name="phoneNumber"
+                name="PhoneNumber"
                 //withCountryCallingCode="true"
                 country="PL"
                 international={true}
-                onChange={(phoneNumber) => {
+                onChange={(PhoneNumber) => {
                   handleInput({
-                    target: { name: "phoneNumber", value: phoneNumber },
+                    target: { name: "PhoneNumber", value: PhoneNumber },
                   });
                 }}
                 //onChange={handleInput}
                 className="form-control"
               />
-              {errors.phoneNumber && (
-                <span className="text-danger">{errors.phoneNumber}</span>
+              {errors.PhoneNumber && (
+                <span className="text-danger">{errors.PhoneNumber}</span>
               )}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="email">
+              <label htmlFor="Email">
                 <strong>Email</strong>
               </label>
               <input
-                type="email"
+                type="Email"
                 placeholder="Enter Email"
-                name="email"
+                name="Email"
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.email && (
-                <span className="text-danger">{errors.email}</span>
+              {errors.Email && (
+                <span className="text-danger">{errors.Email}</span>
               )}
             </div>
 
             <div className="mb-3">
-              <label htmlFor="password">
+              <label htmlFor="Password">
                 <strong>Password</strong>
               </label>
               <input
-                type="password"
+                type="Password"
                 placeholder="Enter Password"
-                name="password"
+                name="Password"
                 onChange={handleInput}
                 className="form-control"
               />
-              {errors.password && (
-                <span className="text-danger">{errors.password}</span>
+              {errors.Password && (
+                <span className="text-danger">{errors.Password}</span>
               )}
             </div>
 
