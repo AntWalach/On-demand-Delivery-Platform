@@ -53,8 +53,8 @@ function ClientWallet() {
       .catch((error) => {
         console.error("Error during top-up", error);
       });
-    
-      window.location.reload();
+
+    window.location.reload();
   };
 
   return (
@@ -82,7 +82,8 @@ function ClientWallet() {
           <span className="input-group-text">Top up your wallet</span>
           <div className="form-floating">
             <input
-              type="float"
+              type="text"
+              pattern="\d*"
               className="form-control"
               id="floatingInputGroup1"
               placeholder="Username"

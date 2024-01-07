@@ -97,7 +97,6 @@ function Home() {
         );
 
         if (userWalletBalance >= selectedPackagePrice) {
-          
           handleGenerateZPL();
           await axios.post("http://localhost:8081/home", values);
           await axios.post(
@@ -157,28 +156,37 @@ function Home() {
       ) {
         try {
           const generatedZPL = `^XA
-      ^FX Top section with logo, name, and address.
-      ^CF0,30
-      ^FO50,50^GB700,3,3^FS
+
+      ^FX Top section with logo, name and address.
+      ^CF0,60
+      ^FO50,50^GB100,100,100^FS
       ^FO75,75^FR^GB100,100,100^FS
       ^FO93,93^GB40,40,40^FS
       ^FO220,50^FDIntershipping, Inc.^FS
-      ^CF0,20
+      ^CF0,30
       ^FO220,115^FD${convertToZPLString(values.InputZipCode1)}^FS
       ^FO220,155^FD${convertToZPLString(values.InputCity1)}^FS
-      ^FO220,195^FD${convertToZPLString(values.InputStreet1)}^FS
-      ^FO220,195^FD${convertToZPLString(values.InputBuildingNumber1)}^FS
-      ^FO220,195^FD${convertToZPLString(values.InputApartmentNumber1)}^FS
+      ^FO220,195^FD${convertToZPLString(
+        values.InputStreet1
+      )} ${convertToZPLString(
+            values.InputBuildingNumber1
+          )} / ${convertToZPLString(values.InputApartmentNumber1)}9^FS
       ^FO50,250^GB700,3,3^FS
       
-      ^FX Second section with recipient address.
+      ^FX Second section with recipient address and permit information.
       ^CFA,30
-      ^FO50,300^FD${convertToZPLString(values.InputZipCode2)}^FS
-      ^FO50,340^FD${convertToZPLString(values.InputCity2)}^FS
-      ^FO50,380^FD${convertToZPLString(values.InputStreet2)}^FS
-      ^FO50,420^FD${convertToZPLString(values.InputBuildingNumber2)}^FS
-      ^FO50,460^FD${convertToZPLString(values.InputApartmentNumber2)}^FS
       
+      ^FO50,340^FD${convertToZPLString(values.InputZipCode2)}^FS
+      ^FO50,380^FD${convertToZPLString(values.InputCity2)}^FS
+      ^FO50,420^FD${convertToZPLString(
+        values.InputStreet2
+      )} ${convertToZPLString(
+            values.InputBuildingNumber2
+          )} / ${convertToZPLString(values.InputApartmentNumber2)}^FS
+      ^CFA,15
+      ^FO600,300^GB150,150,3^FS
+      ^FO638,340^FDPermit^FS
+      ^FO638,390^FD123456^FS
       ^FO50,500^GB700,3,3^FS
       
       ^FX Third section with bar code.
@@ -188,12 +196,13 @@ function Home() {
       ^FX Fourth section (the two boxes on the bottom).
       ^FO50,900^GB700,250,3^FS
       ^FO400,900^GB3,250,3^FS
-      ^CF0,20
+      ^CF0,40
       ^FO100,960^FDCtr. X34B-1^FS
       ^FO100,1010^FDREF1 F00B47^FS
       ^FO100,1060^FDREF2 BL4H8^FS
-      ^CF0,40
+      ^CF0,190
       ^FO470,955^FDCA^FS
+      
       ^XZ`;
 
           const response = await fetch(
