@@ -51,10 +51,10 @@ function HistoryDelivery() {
         </div>
       </div>
       <div className={`${customMyOrders.containerMyPackages} mx-auto w-75`}>
-        <div className="row mt-4 justify-content-center mx-auto">
+        <div className="row mt-4 mx-auto">
           {orders.length > 0 ? (
             orders.map((order) => (
-              <div key={order.id} className="col-sm-6 col-lg-3">
+              <div key={order.id} className="col-auto">
                 <Order order={order} type="history" />
               </div>
             ))

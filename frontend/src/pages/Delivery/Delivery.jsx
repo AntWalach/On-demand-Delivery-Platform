@@ -123,7 +123,7 @@ function Delivery() {
             </div>
             {filteredOrders.length > 0 ? (
               filteredOrders.map((order) => (
-                <div key={order.id} className="mx-auto col-lg-3 col-md-6 mb-4">
+                <div key={order.id} className="col-auto">
                   <Order order={order} userType="Delivery" />
                 </div>
               ))
