@@ -14,6 +14,7 @@ import AddressFormSection from "../../components/HomeComponents/AddressFormSecti
 import Validation from "../../utils/orderValidation";
 import customHome from "../../assets/css/Home.module.css";
 import HomeIcon from "../../components/HomeComponents/HomeIcon";
+import Footer from "../../components/Layouts/Footer";
 import "../../assets/css/Home.module.css";
 import ZPL from "../../assets/css/ZPL.module.css";
 
@@ -467,6 +468,7 @@ function Home() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }

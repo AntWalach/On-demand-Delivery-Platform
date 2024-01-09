@@ -7,6 +7,7 @@ import customLogin from "../assets/css/Login.module.css";
 import PhoneInput, { PhoneNumber } from "react-phone-number-input/input";
 import customAS from "../assets/css/AccountSettings.module.css";
 import { Sliders } from "react-bootstrap-icons";
+import Footer from "../components/Layouts/Footer";
 
 function AccountSettings({ userType }) {
   axios.defaults.withCredentials = true;
@@ -234,6 +235,7 @@ function AccountSettings({ userType }) {
           </form>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import Order from "../../components/MyOrdersComponents/Order";
 import customMyOrders from "../../assets/css/MyOrders.module.css";
 import ordersHistory from "../../assets/css/OrdersHistory.module.css";
 import HistoryIcon from "../../assets/images/historyIcon.png";
+import Footer from "../../components/Layouts/Footer";
 
 function HistoryClient() {
   axios.defaults.withCredentials = true;
@@ -69,6 +70,7 @@ function HistoryClient() {
           )}
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }
