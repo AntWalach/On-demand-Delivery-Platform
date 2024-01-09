@@ -107,6 +107,7 @@ function ClientWallet() {
           </button>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 }

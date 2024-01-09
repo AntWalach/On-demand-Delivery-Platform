@@ -6,11 +6,14 @@
     transform: translate(-50%, -50%) rotate(22deg) !important;
     font-size: 18px !important;
     animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) 0.9s both;
-    z-index: 1;
 }
 
 .customCardsOrders {
     max-width: 25rem;
+}
+
+.customBreak{
+    height: 10vh;
 }
 
 .containerMyPackages{

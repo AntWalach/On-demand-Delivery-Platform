@@ -1,7 +1,15 @@
+body{
+  position: relative;
+  min-height: 100vh;
+}
+
 .footerBase{
     background-color: #537188 ;
     animation: scale-in-ver-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation-delay: 0.8s;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
 }
 
 .teamName{

@@ -71,6 +71,9 @@ function MyOrders() {
           )}
         </div>
       </div>
+      <div className="row">
+        <div className={`${customMyOrders.customBreak}`}></div>
+      </div>
       <Footer />
     </div>
     

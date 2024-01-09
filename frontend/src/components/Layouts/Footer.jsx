@@ -5,7 +5,7 @@ import { Facebook } from "react-bootstrap-icons";
 
 const Footer = () => {
     return (
-      <footer className={`${customFooter.footerBase}`}>
+      <footer className={`${customFooter.footerBase} `}>
             <div className="row px-5 justify-content-center align-items-center">
                 <div className={`${customFooter.teamName} col-auto mb-2`}>
                     QUICKPACKAGE™️
@@ -33,7 +33,7 @@ const Footer = () => {
                     <Facebook/>
                 </div>
             </div>
-      </footer>
+        </footer>
     );
   };
   
