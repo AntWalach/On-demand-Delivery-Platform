@@ -469,6 +469,9 @@ function Home() {
           </div>
         )}
       </div>
+      <div className="row">
+        <div className={`${customHome.customBreak}`}></div>
+      </div>
       <Footer />
     </div>
   );

@@ -12,6 +12,10 @@ body {
     overflow-x: hidden;
 }
 
+.customBreak{
+  height: 5vh;
+}
+
 .homeConteiner{
     background-color: #537188 !important;
     
