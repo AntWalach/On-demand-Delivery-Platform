@@ -5,6 +5,7 @@ import axios from "axios";
 import Order from "../../components/MyOrdersComponents/Order";
 import customMyOrders from "../../assets/css/MyOrders.module.css";
 import PackLogo from "../../assets/images/packageIcon.png";
+import Footer from "../../components/Layouts/Footer";
 
 function MyOrders() {
   axios.defaults.withCredentials = true;
@@ -70,7 +71,9 @@ function MyOrders() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
+    
   );
 }
 

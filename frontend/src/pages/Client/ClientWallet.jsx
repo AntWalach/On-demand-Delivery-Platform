@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/Layouts/Navbar";
 import customWallet from "../../assets/css/Wallet.module.css";
+import Footer from "../../components/Layouts/Footer";
 
 function ClientWallet() {
   axios.defaults.withCredentials = true;
@@ -58,7 +59,7 @@ function ClientWallet() {
   };
 
   return (
-    <div>
+    <div className={`${customWallet.page}`}>
       <Navbar />
       <div className="row mx-auto">
         <div className="col-md-12 text-center mt-5">
