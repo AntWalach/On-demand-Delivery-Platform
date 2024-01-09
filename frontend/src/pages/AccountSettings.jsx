@@ -235,7 +235,6 @@ function AccountSettings({ userType }) {
           </form>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }
