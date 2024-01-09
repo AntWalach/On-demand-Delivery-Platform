@@ -105,6 +105,7 @@ function Home() {
           );
         } else {
           console.log("Insufficient funds");
+          alert("Insufficient funds")
         }
       } catch (err) {
         console.log(err);

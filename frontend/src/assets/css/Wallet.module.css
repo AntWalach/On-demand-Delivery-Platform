@@ -48,3 +48,14 @@
     margin: 0 auto;
 
 }
+
+.narrow-list-item {
+    max-width: 400px;
+    margin: auto;
+  }
+
+
+  .show-scrollbar {
+    overflow-y: scroll;
+    max-height: 200px;
+  }
