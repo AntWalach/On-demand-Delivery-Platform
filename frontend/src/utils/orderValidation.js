@@ -1,7 +1,6 @@
 const Validation = (values) => {
   let errors = {};
   const ZIPCODE_PATTERN = /^\d{5}$/;
-  const UPPERCASE_LETTER_PATTERN = /^[A-ZĄĆĘŁŃÓŚŹŻ]/;
   const BUILDING_NUMBER_PATTERN = /^\d+[A-Z]?$/;
   const PATTERN = /^[A-ZĄĆĘŁŃÓŚŹŻa-ząćęłńóśźż ]+$/;
 

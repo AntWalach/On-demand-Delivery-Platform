@@ -446,6 +446,30 @@ app.get("/admin/orders", async (req, res) => {
   }
 });
 
+// app.delete("/admin/client/:clientId", async (req, res) => {
+//   const { clientId } = req.params;
+
+//   try {
+//     // Check if the client exists
+//     const checkClientQuery = "SELECT * FROM Client WHERE ID = ?";
+//     const [existingClient] = await db
+//       .promise()
+//       .query(checkClientQuery, [clientId]);
+
+//     if (!existingClient || existingClient.length === 0) {
+//       return res.status(404).json({ error: "Client not found" });
+//     }
+
+//     // Delete the client
+//     const deleteClientQuery = "DELETE FROM Client WHERE ID = ?";
+//     await db.promise().query(deleteClientQuery, [clientId]);
+
+//     return res.status(200).json({ message: "Client deleted successfully" });
+//   } catch (error) {
+//     console.error("Error deleting client:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
 app.delete("/admin/client/:clientId", async (req, res) => {
   const { clientId } = req.params;
 
@@ -460,7 +484,20 @@ app.delete("/admin/client/:clientId", async (req, res) => {
       return res.status(404).json({ error: "Client not found" });
     }
 
-    // Delete the client
+    
+    const deleteRateQuery = "DELETE FROM Rate WHERE OrderId = ( SELECT ID FROM `Order` WHERE ClientID = ?)";
+    await db.promise().query(deleteRateQuery, [clientId]);
+
+
+    // Delete associated orders
+    const deleteOrdersQuery = "DELETE FROM `Order` WHERE ClientID = ?";
+    await db.promise().query(deleteOrdersQuery, [clientId]);
+
+    // Delete associated wallet
+    const deleteWalletQuery = "DELETE FROM Wallet WHERE ClientID = ?";
+    await db.promise().query(deleteWalletQuery, [clientId]);
+
+    // Finally, delete the client
     const deleteClientQuery = "DELETE FROM Client WHERE ID = ?";
     await db.promise().query(deleteClientQuery, [clientId]);
 
@@ -470,6 +507,7 @@ app.delete("/admin/client/:clientId", async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 });
+
 app.get("/admin/:entityType/edit/:entityId", async (req, res) => {
   const { entityType, entityId } = req.params;
   console.log(`Requested ${entityType} ID:`, entityId);
@@ -524,6 +562,29 @@ app.put("/admin/:entityType/edit/:entityId", async (req, res) => {
   }
 });
 
+// app.delete("/admin/delivery/:deliveryId", async (req, res) => {
+//   const { deliveryId } = req.params;
+
+//   try {
+//     const checkDeliveryQuery = "SELECT * FROM Delivery WHERE ID = ?";
+//     const [existingDelivery] = await db
+//       .promise()
+//       .query(checkDeliveryQuery, [deliveryId]);
+
+//     if (!existingDelivery || existingDelivery.length === 0) {
+//       return res.status(404).json({ error: "Delivery not found" });
+//     }
+
+//     const deleteDeliveryQuery = "DELETE FROM Delivery WHERE ID = ?";
+//     await db.promise().query(deleteDeliveryQuery, [deliveryId]);
+
+//     return res.status(200).json({ message: "Delivery deleted successfully" });
+//   } catch (error) {
+//     console.error("Error deleting delivery:", error);
+//     return res.status(500).json({ error: "Internal server error" });
+//   }
+// });
+
 app.delete("/admin/delivery/:deliveryId", async (req, res) => {
   const { deliveryId } = req.params;
 
@@ -537,6 +598,22 @@ app.delete("/admin/delivery/:deliveryId", async (req, res) => {
       return res.status(404).json({ error: "Delivery not found" });
     }
 
+    const deleteRateQuery = "DELETE FROM Rate WHERE OrderId IN (SELECT ID FROM `Order` WHERE DeliveryID = ?)";
+
+    await db.promise().query(deleteRateQuery, [deliveryId]);
+
+    // Delete associated orders
+    const deleteOrdersQuery = "DELETE FROM `Order` WHERE DeliveryID = ?";
+    await db.promise().query(deleteOrdersQuery, [deliveryId]);
+
+    const deleteWageHistoryQuery = "DELETE FROM WageHistory WHERE DeliveryID = ?"
+    await db.promise().query(deleteWageHistoryQuery, [deliveryId]);
+
+    // Delete associated wallet
+    const deleteWalletQuery = "DELETE FROM DeliveryWallet WHERE DeliveryID = ?";
+    await db.promise().query(deleteWalletQuery, [deliveryId]);
+
+    // Finally, delete the delivery person
     const deleteDeliveryQuery = "DELETE FROM Delivery WHERE ID = ?";
     await db.promise().query(deleteDeliveryQuery, [deliveryId]);
 
